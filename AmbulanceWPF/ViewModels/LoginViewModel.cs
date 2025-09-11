@@ -1,6 +1,8 @@
 ﻿using AmbulanceWPF.Models;
 using AmbulanceWPF.Repository;
+using AmbulanceWPF.Views;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AmbulanceWPF.ViewModels
@@ -8,6 +10,7 @@ namespace AmbulanceWPF.ViewModels
     public class LoginViewModel
     {
         List<Employee> employees;
+
         public ICommand LoginCommand { get; set; }
         public string? Username
         {
@@ -20,14 +23,18 @@ namespace AmbulanceWPF.ViewModels
             get;
             set;
         }
-
+      
+        public int? Active
+        {
+            get;
+            set;
+        }
 
 
         public LoginViewModel()
         {
-
             LoginCommand = new RelayCommand(Login, CanLogin);
-            employees = EmployeeRepository.GetEmployees();
+            employees = employees == null ? EmployeeRepository.GetEmployees() : employees;
         }
 
         private void Login()
@@ -35,7 +42,29 @@ namespace AmbulanceWPF.ViewModels
             foreach (var employee in employees)
                 if (employee.Username == Username && employee.Password == Password)
                 {
-                    Console.WriteLine("Uspjesan login!!");
+                    if (employee.IsActive == 1)
+                    {
+                        Console.WriteLine("Uspjesan login!!");
+                        //TODO otvara prozor u zavisnosti od uloge?
+
+
+
+                        Window nextWindow = employee.Role == "admin"
+                         ? new DoctorHomePageView(employee)
+                             : new TechnicianHomePageView(employee);
+
+                        nextWindow.Show();
+                        foreach (Window win in Application.Current.Windows)
+                        {
+                            if (win is Window && win.Title == "CozyHaven")
+                            {
+                                win.Close();
+                                break;
+                            }
+                        }
+                    }
+                    else
+                        Console.WriteLine("Korisnik nema pravo logina!");
                     break;
                 }
                 else
@@ -46,7 +75,7 @@ namespace AmbulanceWPF.ViewModels
         }
         private Boolean CanLogin()
         {
-            return true;
+             return true;
         }
 
 

@@ -1,5 +1,4 @@
 ﻿using AmbulanceWPF.Models;
-using AmbulanceWPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,25 +16,18 @@ using System.Windows.Shapes;
 namespace AmbulanceWPF.Views
 {
     /// <summary>
-    /// Interaction logic for DoctorHomePageView.xaml
+    /// Interaction logic for TechnicianHomePageView.xaml
     /// </summary>
-    public partial class DoctorHomePageView : Window
+    public partial class TechnicianHomePageView : Window
     {
-        public DoctorHomePageView()
+        public TechnicianHomePageView()
         {
             InitializeComponent();
-            DoctorHomePageViewModel homePageViewModel = new DoctorHomePageViewModel();
-            this.DataContext = homePageViewModel;
-
         }
-        public DoctorHomePageView(Employee e)
+
+        public TechnicianHomePageView(Employee e)
         {
             InitializeComponent();
-            DoctorHomePageViewModel homePageViewModel = new DoctorHomePageViewModel();
-            this.DataContext = homePageViewModel;
-
         }
-
-
     }
 }

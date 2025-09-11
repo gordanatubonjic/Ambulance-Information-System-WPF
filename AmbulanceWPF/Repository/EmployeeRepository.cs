@@ -18,7 +18,7 @@ namespace AmbulanceWPF.Repository
             MySqlConnection conn = new MySqlConnection(connectionString);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT JMB, Ime, Prezime FROM `zaposleni`   ORDER BY Ime";
+            cmd.CommandText = "SELECT JMB, Ime, Prezime, Username, Password, Role, IsActive FROM `zaposleni` ORDER BY Username";
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -26,7 +26,11 @@ namespace AmbulanceWPF.Repository
                 {
                     JMBG = reader.GetString(0),
                     Name = reader.GetString(1),
-                    Surname = reader.GetString(2)
+                    Surname = reader.GetString(2),
+                    Username =reader.GetString(3),
+                    Password=reader.GetString(4),
+                    Role=reader.GetString(5),
+                    IsActive=reader.GetInt32(6)
 
                 });
 
@@ -35,5 +39,13 @@ namespace AmbulanceWPF.Repository
             conn.Close();
             return result;
         }
+        public static Employee GetEmployee(String username) {
+            Employee? result = GetEmployees().Find(e=> e.Username == username);
+            if (result == null)
+                throw new Exception("User with such username doesnot exist!");
+
+            return result;
+        }
+    
     }
 }

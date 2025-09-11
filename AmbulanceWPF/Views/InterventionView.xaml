@@ -1,0 +1,210 @@
+﻿<Window x:Class="AmbulanceWPF.Views.InterventionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AmbulanceWPF.Views"
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+        mc:Ignorable="d"
+        Title="InterventionView" Height="700" Width="900">
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+
+        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
+            <Setter Property="Margin" Value="0,10,0,5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <!-- Header -->
+            <Border Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
+                    CornerRadius="5"
+                    Margin="0,0,0,20"
+                    Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ClipboardPlus" 
+                                            Foreground="White"
+                                            Width="30"
+                                            Height="30"
+                                            Margin="0,0,10,0"/>
+                    <TextBlock Text="MEDICAL INTERVENTION FORM"
+                              Foreground="White"
+                              FontSize="18"
+                              FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Patient Information -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="PATIENT INFORMATION"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBox materialDesign:HintAssist.Hint="Name"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Margin="0,0,0,10"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBox materialDesign:HintAssist.Hint="Surname"
+                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                    Margin="0,0,0,10"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBox materialDesign:HintAssist.Hint="Short Description of Assessment"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            AcceptsReturn="True"
+                            Height="60"
+                            VerticalScrollBarVisibility="Auto"
+                            Margin="0,0,0,10"/>
+
+                    <TextBox materialDesign:HintAssist.Hint="Allergies"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            AcceptsReturn="True"
+                            Height="60"
+                            VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Medical Team -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="MEDICAL TEAM"/>
+
+                    <TextBox materialDesign:HintAssist.Hint="Responsible Doctor on Duty"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Margin="0,0,0,10"/>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Associates (Doctors and Nurses)" 
+                                  Grid.Row="0"
+                                  Margin="0,10,0,5"/>
+
+                        <DataGrid x:Name="AssociatesGrid"
+                                 Grid.Row="1"
+                                 AutoGenerateColumns="False"
+                                 Height="150"
+                                 Margin="0,0,0,10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
+                                <DataGridTemplateColumn Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Remove"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="NewAssociateName"
+                                Grid.Column="0"
+                                materialDesign:HintAssist.Hint="Associate Name"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                        <ComboBox x:Name="RoleComboBox"
+                                 Grid.Column="2"
+                                 materialDesign:HintAssist.Hint="Role"
+                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                            <ComboBoxItem>Doctor</ComboBoxItem>
+                            <ComboBoxItem>Nurse</ComboBoxItem>
+                            <ComboBoxItem>Paramedic</ComboBoxItem>
+                            <ComboBoxItem>Technician</ComboBoxItem>
+                        </ComboBox>
+                    </Grid>
+
+                    <Button x:Name="AddAssociateButton"
+                            Content="Add Associate"
+                            HorizontalAlignment="Right"
+  />
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Medication Section -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="MEDICATION ADMINISTERED"/>
+
+                    <DataGrid x:Name="MedicationGrid"
+                             AutoGenerateColumns="False"
+                             Height="150"
+                             Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Medication" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Dosage" Binding="{Binding Dosage}" Width="*"/>
+                            <DataGridTemplateColumn Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Remove"
+                                                Style="{StaticResource MaterialDesignFlatButton}"
+                                                />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button x:Name="AddMedicationButton"
+                            Content="Add Medication"
+                            HorizontalAlignment="Right"
+                           />
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Procedures -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                <StackPanel>
+                    <TextBlock Text="PROCEDURES PERFORMED"/>
+
+                    <TextBox materialDesign:HintAssist.Hint="Short Description of Procedures"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            AcceptsReturn="True"
+                            Height="100"
+                            VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Save Button -->
+            <Button x:Name="SaveInterventionButton"
+                    Content="SAVE INTERVENTION"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    HorizontalAlignment="Center"
+                    Width="200"
+                    Height="50"
+                    FontSize="16"
+                    FontWeight="Bold"
+                    Margin="0,20,0,30"/>
+        </StackPanel>
+    </ScrollViewer>
+</Window>

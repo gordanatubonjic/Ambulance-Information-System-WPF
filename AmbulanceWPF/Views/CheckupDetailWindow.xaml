@@ -168,6 +168,7 @@
                           Margin="0,0,8,0"/>
                     <Button Content="CLOSE" 
                           Style="{StaticResource MaterialDesignRaisedButton}"
+
                           Click="CloseButton_Click"/>
                 </StackPanel>
             </Grid>

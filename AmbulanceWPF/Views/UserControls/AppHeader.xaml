@@ -47,7 +47,8 @@
                     ToolTip="Home"
                     Width="40" Height="40"
                     VerticalAlignment="Center">
-                <materialDesign:PackIcon Kind="Home" Width="24" Height="24"/>
+                <materialDesign:PackIcon Kind="Home" Width="26" Height="26" 
+                 Foreground="{DynamicResource MaterialDesignBody}"/>
             </Button>
 
             <!-- Center - Title/Logo (Optional) -->
