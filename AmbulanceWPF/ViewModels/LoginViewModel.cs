@@ -49,7 +49,7 @@ namespace AmbulanceWPF.ViewModels
 
 
 
-                        Window nextWindow = employee.Role == "admin"
+                        Window nextWindow = employee.Role == "ljekar"
                          ? new DoctorHomePageView(employee)
                              : new TechnicianHomePageView(employee);
 

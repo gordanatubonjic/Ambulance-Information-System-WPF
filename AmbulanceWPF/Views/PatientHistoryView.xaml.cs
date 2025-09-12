@@ -26,5 +26,12 @@ namespace AmbulanceWPF.Views
             PatientHistoryViewModel patientHistoryViewModel = new PatientHistoryViewModel();
             this.DataContext = patientHistoryViewModel;
         }
+        public PatientHistoryView(PatientHistoryViewModel PHVM)
+        {
+            InitializeComponent();
+            PatientHistoryViewModel patientHistoryViewModel = PHVM;
+            this.DataContext = patientHistoryViewModel;
+        }
+
     }
 }

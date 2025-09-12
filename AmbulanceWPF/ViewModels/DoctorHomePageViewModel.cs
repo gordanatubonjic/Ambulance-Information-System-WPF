@@ -6,20 +6,33 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using AmbulanceWPF.Helper;
+using AmbulanceWPF.Repository;
+using AmbulanceWPF.Models;
+using AmbulanceWPF.Views;
+using System.Windows;
 
 namespace AmbulanceWPF.ViewModels
 {
     public class DoctorHomePageViewModel : INotifyPropertyChanged
     {
         private string _searchText = string.Empty;
+
+        private Doctor currentUser { get; set; }
+
         private ObservableCollection<Patient> _allPatients;
         private ObservableCollection<Patient> _filteredPatients;
+        private ObservableCollection<Intervention> _interventions;
 
-        public DoctorHomePageViewModel()
+
+
+        public DoctorHomePageViewModel(Doctor currentUser)
         {
             LoadPatients(); // Load your patients from database/service
+            LoadInterventions();
             FilteredPatients = new ObservableCollection<Patient>(_allPatients);
             ViewPatientCommand = new RelayCommand<Patient>(ViewPatient);
+            NavigateToInterventionsCommand = new RelayCommand<Intervention>(ViewInterventions);
+            this.currentUser = currentUser;
         }
 
         public string SearchText
@@ -48,48 +61,15 @@ namespace AmbulanceWPF.ViewModels
 
         public ICommand ViewPatientCommand { get; }
 
+        public ICommand NavigateToInterventionsCommand { get; }
+
         private void LoadPatients()
         {
             // Replace with actual data loading logic
-            _allPatients = new ObservableCollection<Patient>
-            {
-                new Patient
-                {
-                    PatientId = "P001",
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Age = 45,
-                    Gender = "Male",
-                    PhoneNumber = "+387 65 123 456",
-                    Address = "Banja Luka, Srpska",
-                    LastVisit = DateTime.Now.AddDays(-5),
-                    Priority = "High"
-                },
-                new Patient
-                {
-                    PatientId = "P002",
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    Age = 32,
-                    Gender = "Female",
-                    PhoneNumber = "+387 66 789 012",
-                    Address = "Sarajevo, BiH",
-                    LastVisit = DateTime.Now.AddDays(-12),
-                    Priority = "Medium"
-                },
-                new Patient
-                {
-                    PatientId = "P003",
-                    FirstName = "Marko",
-                    LastName = "Petrović",
-                    Age = 28,
-                    Gender = "Male",
-                    PhoneNumber = "+387 65 345 678",
-                    Address = "Doboj, Srpska",
-                    LastVisit = DateTime.Now.AddDays(-3),
-                    Priority = "Low"
-                }
-            };
+            _allPatients = new ObservableCollection<Patient>(PatientRepository.GetPatients());
+        }
+        private void LoadInterventions() {
+            _interventions = new ObservableCollection<Intervention>(InterventionRepository.GetInterventions(currentUser.JMBG));
         }
 
         private void FilterPatients()
@@ -101,10 +81,9 @@ namespace AmbulanceWPF.ViewModels
             }
 
             var filtered = _allPatients.Where(p =>
-                p.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                p.PatientId.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                p.PhoneNumber.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                p.Address.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                p.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                p.Surname.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                p.JMB.Contains(SearchText, StringComparison.OrdinalIgnoreCase) )
                 .ToList();
 
             FilteredPatients = new ObservableCollection<Patient>(filtered);
@@ -112,8 +91,17 @@ namespace AmbulanceWPF.ViewModels
 
         private void ViewPatient(Patient patient)
         {
-            // Handle patient selection - navigate to detail view, etc.
-            // Example: NavigationService.NavigateToPatientDetail(patient.PatientId);
+            // Open Patient History View when a patient is selected
+            var patientHistoryView = new PatientHistoryView(new PatientHistoryViewModel(patient));
+            patientHistoryView.Owner = Application.Current.MainWindow;
+            patientHistoryView.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            patientHistoryView.Show();
+        }
+
+        private void ViewInterventions() {
+           //TODO change current view so that interventions are shown in Grid.Row=1 and Grid.Col=1
+           //it should present information about interventions in rows where each row has data from Intervention 
+           //object
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -121,20 +109,7 @@ namespace AmbulanceWPF.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 
-    public class Patient
-    {
-        public string PatientId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string FullName => $"{FirstName} {LastName}";
-        public int Age { get; set; }
-        public string Gender { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Address { get; set; }
-        public DateTime LastVisit { get; set; }
-        public string Priority { get; set; }
-    }
-
+    
     // Simple RelayCommand implementation
     public class RelayCommand<T> : ICommand
     {

@@ -26,7 +26,7 @@
         </Grid>
         <Grid Grid.Row="2">
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="16,8,16,16">
-                <ItemsControl ItemsSource="{Binding CheckUps}">
+                <ItemsControl ItemsSource="{Binding History.Diagnosis}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card Margin="0,0,0,12" 

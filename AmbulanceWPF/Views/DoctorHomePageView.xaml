@@ -73,7 +73,7 @@
                         materialDesign:TextFieldAssist.HasClearButton="True"
                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                        FontSize="14"/>
+                        FontSize="14" TextChanged="SearchTextBox_TextChanged"/>
             </materialDesign:Card>
 
             <!-- Action Buttons -->
