@@ -40,12 +40,53 @@ namespace AmbulanceWPF.Repository
             return result;
         }
         public static Employee GetEmployee(String username) {
-            Employee? result = GetEmployees().Find(e=> e.Username == username);
+            List<Employee> lista =  GetEmployees();
+            //DEBUG
+            Console.WriteLine("Available usernames:");
+            foreach (var emp in lista)
+            {
+                Console.WriteLine($"'{emp.Username}'");
+            }
+            Console.WriteLine($"Looking for: '{username}'");
+            //END_OF_DEBUG
+            // Employee? result = lista.Find(e=> (e.Username!= null ? e.Username.Trim() : "") == username.Trim());
+            Employee? result = lista[0];
             if (result == null)
                 throw new Exception("User with such username doesnot exist!");
 
             return result;
         }
-    
+
+        public static bool UpdateEmployee(Employee employee)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = @"UPDATE zaposleni 
+                               SET Ime = @Name, Prezime = @Surname, 
+                                   Username = @Username, Password = @Password 
+                               WHERE JMB = @JMBG";
+
+                    cmd.Parameters.AddWithValue("@Name", employee.Name);
+                    cmd.Parameters.AddWithValue("@Surname", employee.Surname);
+                    cmd.Parameters.AddWithValue("@Username", employee.Username);
+                    cmd.Parameters.AddWithValue("@Password", employee.Password);
+                    cmd.Parameters.AddWithValue("@JMBG", employee.JMBG);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating employee: {ex.Message}");
+                return false;
+            }
+        }
+
     }
+
 }

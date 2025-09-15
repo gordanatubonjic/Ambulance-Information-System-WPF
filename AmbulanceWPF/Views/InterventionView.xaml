@@ -54,26 +54,34 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0">
-                            <TextBox materialDesign:HintAssist.Hint="Name"
+                            <TextBox 
+                                Text="{Binding PatientName, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Name"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Margin="0,0,0,10"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="2">
-                            <TextBox materialDesign:HintAssist.Hint="Surname"
+                            <TextBox 
+                                Text="{Binding PatientSurname, Mode=TwoWay}"
+                                materialDesign:HintAssist.Hint="Surname"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Margin="0,0,0,10"/>
                         </StackPanel>
                     </Grid>
 
-                    <TextBox materialDesign:HintAssist.Hint="Short Description of Assessment"
+                    <TextBox 
+                        Text="{Binding Description, Mode=TwoWay}"
+                        materialDesign:HintAssist.Hint="Short Description of Assessment"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             AcceptsReturn="True"
                             Height="60"
                             VerticalScrollBarVisibility="Auto"
                             Margin="0,0,0,10"/>
 
-                    <TextBox materialDesign:HintAssist.Hint="Allergies"
+                    <TextBox 
+                        Text="{Binding Allergies, Mode=TwoWay}"
+                        materialDesign:HintAssist.Hint="Allergies"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             AcceptsReturn="True"
                             Height="60"
@@ -198,6 +206,7 @@
             <!-- Save Button -->
             <Button x:Name="SaveInterventionButton"
                     Content="SAVE INTERVENTION"
+                    Command="{Binding SaveCommand}"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     HorizontalAlignment="Center"
                     Width="200"
@@ -205,6 +214,10 @@
                     FontSize="16"
                     FontWeight="Bold"
                     Margin="0,20,0,30"/>
+            <Button Content="Cancel"
+        Command="{Binding CancelCommand}"
+        Style="{StaticResource MaterialDesignFlatButton}"
+        Margin="0,0,10,0"/>
         </StackPanel>
     </ScrollViewer>
 </Window>

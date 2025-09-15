@@ -8,7 +8,7 @@ namespace AmbulanceWPF.Models
 {
     public class Employee
     {
-        public string? JMBG { get; set; }
+        public string JMBG { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string? Username { get; set; }

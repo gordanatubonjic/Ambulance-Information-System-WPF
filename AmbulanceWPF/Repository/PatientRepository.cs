@@ -19,7 +19,7 @@ namespace AmbulanceWPF.Repository
             MySqlConnection conn = new MySqlConnection(connectionString);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT JMB, Ime, Prezime, MjestoPrebivalista FROM `pacijent` ORDER BY Ime";
+            cmd.CommandText = "SELECT JMBPacijenta, Ime, Prezime, MjestoPrebivalista FROM `pacijent` ORDER BY Ime";
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -28,7 +28,7 @@ namespace AmbulanceWPF.Repository
                     JMB = reader.GetString(0),
                     Name = reader.GetString(1),
                     Surname = reader.GetString(2),
-                   City = reader.GetString(3),
+                   City = reader.GetInt32(3),
                    History=HistoryRepository.GetPatientHistory(reader.GetString(0))
                 });
 

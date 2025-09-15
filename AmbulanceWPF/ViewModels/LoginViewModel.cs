@@ -9,7 +9,7 @@ namespace AmbulanceWPF.ViewModels
 {
     public class LoginViewModel
     {
-        List<Employee> employees;
+       static List<Employee> employees;
 
         public ICommand LoginCommand { get; set; }
         public string? Username
@@ -33,8 +33,12 @@ namespace AmbulanceWPF.ViewModels
 
         public LoginViewModel()
         {
+            //DEMO
+            Username = "markic";
+            Password = "markic";
+            //END_DEMO
             LoginCommand = new RelayCommand(Login, CanLogin);
-            employees = employees == null ? EmployeeRepository.GetEmployees() : employees;
+            employees = EmployeeRepository.GetEmployees();
         }
 
         private void Login()
@@ -47,8 +51,6 @@ namespace AmbulanceWPF.ViewModels
                         Console.WriteLine("Uspjesan login!!");
                         //TODO otvara prozor u zavisnosti od uloge?
 
-
-
                         Window nextWindow = employee.Role == "ljekar"
                          ? new DoctorHomePageView(employee)
                              : new TechnicianHomePageView(employee);
@@ -56,7 +58,7 @@ namespace AmbulanceWPF.ViewModels
                         nextWindow.Show();
                         foreach (Window win in Application.Current.Windows)
                         {
-                            if (win is Window && win.Title == "CozyHaven")
+                            if (win is Window && win.Title == "LoginFormView")
                             {
                                 win.Close();
                                 break;

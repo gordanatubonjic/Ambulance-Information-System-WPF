@@ -18,8 +18,14 @@ namespace AmbulanceWPF.Repository
             List<Refferal> refferals = new List<Refferal>();
             MySqlConnection conn = new MySqlConnection(connectionString);
             conn.Open();
+
             MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT JMBPacijenta, SifraBolesti, Datum, MisljenjneLjekara, JMBLjekara FROM `dijagnoza` WHERE JMBGPacijenta=JMB ORDER BY Datum";
+            // Use parameterized query
+            cmd.CommandText = "SELECT JMBPacijenta, SifraBolesti, Datum, MisljenjeLjekara, JMBLjekara FROM `dijagnoza` WHERE JMBPacijenta = @JMB ORDER BY Datum";
+
+            // Add parameter with proper type
+            cmd.Parameters.AddWithValue("@JMB", JMB);
+
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -32,7 +38,8 @@ namespace AmbulanceWPF.Repository
                 });
 
             }
-            cmd.CommandText = "SELECT * FROM `uputnice` WHERE JMBPacijenta=JMB ORDER BY Datum";
+            reader.Close();
+            cmd.CommandText = "SELECT * FROM `uputnica` WHERE JMBPacijenta=@JMB ORDER BY Datum";
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -44,7 +51,9 @@ namespace AmbulanceWPF.Repository
 
                 });
             }
-            cmd.CommandText = "SELECT * FROM `karton` WHERE JMBPacijenta=JMB";
+            reader.Close();
+
+            cmd.CommandText = "SELECT * FROM `karton` WHERE JMBPacijenta=@JMB";
             reader = cmd.ExecuteReader();
             PatientHistory history = new PatientHistory();
             history.Diagnosis = diagnosis;

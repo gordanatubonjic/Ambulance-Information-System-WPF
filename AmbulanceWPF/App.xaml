@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:AmbulanceWPF"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
-             StartupUri="Views/LoginFormView.xaml">
+             StartupUri="Views/DoctorHomePageView.xaml">
     <Application.Resources>
         
         <ResourceDictionary>

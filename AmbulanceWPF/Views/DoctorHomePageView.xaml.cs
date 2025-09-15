@@ -21,13 +21,13 @@ namespace AmbulanceWPF.Views
     /// </summary>
     public partial class DoctorHomePageView : Window
     {
-       /* public DoctorHomePageView()
+        public DoctorHomePageView()
         {
             InitializeComponent();
             DoctorHomePageViewModel homePageViewModel = new DoctorHomePageViewModel();
             this.DataContext = homePageViewModel;
 
-        }*/
+        }
         public DoctorHomePageView(Employee e)
         {
             InitializeComponent();

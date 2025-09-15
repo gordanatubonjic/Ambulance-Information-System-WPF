@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="AmbulanceWPF.Views.UserControls.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AmbulanceWPF.Views.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="ValidationErrorStyle" TargetType="Control">
+            <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush" Value="Red"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <TextBlock Grid.Row="0" 
+                       Text="Profile Settings"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"
+                       HorizontalAlignment="Center"/>
+
+            <!-- Name -->
+            <TextBlock Grid.Row="1" 
+                       Text="First Name"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <TextBox Grid.Row="2" 
+                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     materialDesign:HintAssist.Hint="Enter first name"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Margin="0,0,0,15"/>
+
+            <!-- Surname -->
+            <TextBlock Grid.Row="3" 
+                       Text="Last Name"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <TextBox Grid.Row="4" 
+                     Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     materialDesign:HintAssist.Hint="Enter last name"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Margin="0,0,0,15"/>
+
+            <!-- Username -->
+            <TextBlock Grid.Row="5" 
+                       Text="Username"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <TextBox Grid.Row="6" 
+                     Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     materialDesign:HintAssist.Hint="Enter username (min 6 characters)"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Margin="0,0,0,15"/>
+
+            <!-- Password -->
+            <TextBlock Grid.Row="7" 
+                       Text="Password"
+                       FontSize="14"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <PasswordBox Grid.Row=" 8" x:Name="PasswordBox"
+                         materialDesign:HintAssist.Hint="Enter new password (min 6 characters)"
+                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                         Margin="0,0,0,20"
+                         PasswordChanged="PasswordBox_PasswordChanged"/>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="9" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right"
+                        Margin="0,20,0,0">
+                <Button Content="Cancel"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Margin="0,0,10,0"
+                        Command="{Binding CancelCommand}"/>
+
+                <Button Content="Save Changes"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="{DynamicResource MaterialDesignPrimaryBrush}"
+                        Command="{Binding SaveCommand}"
+                        IsEnabled="{Binding IsValid}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

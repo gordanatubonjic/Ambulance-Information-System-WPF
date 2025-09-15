@@ -18,7 +18,9 @@ namespace AmbulanceWPF.Repository
             MySqlConnection conn = new MySqlConnection(connectionString);
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT * FROM mydb.intervencija AS I INNER JOIN mydb.intervencija_has_ljekar AS IL ON I.IdIntervencije=IL.IdIntervencije WHERE IL.JMBLjekara=JMBDoctor";
+            cmd.CommandText = "SELECT * FROM mydb.intervencija AS I INNER JOIN mydb.intervencija_has_ljekar AS IL ON I.IdIntervencije=IL.IdIntervencije WHERE IL.JMBLjekara=@JMBDoctor";
+            cmd.Parameters.AddWithValue("@JMBDoctor", JMBDoctor);
+
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -35,6 +37,32 @@ namespace AmbulanceWPF.Repository
             reader.Close();
             conn.Close();
             return result;
+        }
+        public static bool AddIntervention(Intervention intervention)
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    MySqlCommand cmd = conn.CreateCommand();
+                    cmd.CommandText = @"INSERT INTO intervencija (JMBPacijenta, Datum, OpisIntervencije) 
+                               VALUES (@Patient, @Date, @Description, @Doctor)";
+
+                    cmd.Parameters.AddWithValue("@Patient", intervention.Patient);
+                    cmd.Parameters.AddWithValue("@Date", intervention.Date);
+                    cmd.Parameters.AddWithValue("@Description", intervention.Description);
+                   // cmd.Parameters.AddWithValue("@Doctor", intervention.Doctor);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding intervention: {ex.Message}");
+                return false;
+            }
         }
 
     }
