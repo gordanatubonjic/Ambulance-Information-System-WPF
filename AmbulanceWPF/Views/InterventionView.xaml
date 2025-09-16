@@ -184,6 +184,7 @@
                     </DataGrid>
 
                     <Button x:Name="AddMedicationButton"
+                            Command ="{Binding OpenAddMedicationCommand}"
                             Content="Add Medication"
                             HorizontalAlignment="Right"
                            />

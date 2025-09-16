@@ -9,15 +9,15 @@ namespace AmbulanceWPF.Models
     public class PatientHistory
     {
         public Patient Patient { get; set; }
-
+        public string JMBPatient { get; set; }
         public string? ParentsName { get; set; }
-
         public string? MaritalStatus { get; set; }
         public Boolean? Sex { get; set; }
 
         public Boolean? Insurance { get; set; }
 
-        public Employee FamilyDoctor { get; set; } //TODO Promijeniti na Doctor model kad napravim lol
+        public Doctor FamilyDoctor { get; set; } //TODO Promijeniti na Doctor model kad napravim lol
+        public string JMBFamilyDoctor { get; set; } //TODO Promijeniti na Doctor model kad napravim lol
 
         public List<Diagnosis> Diagnosis { get; set;  }
         public List<Refferal> Refferals { get; set;  }

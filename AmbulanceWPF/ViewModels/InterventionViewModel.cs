@@ -152,7 +152,26 @@ using AmbulanceWPF.Models;
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
+
+        private void OpenAddMedication()
+        {
+            var addMedicationView = new AddMedicationView();
+            addMedicationView.Owner = Application.Current.Windows.OfType<InterventionView>().FirstOrDefault();
+            addMedicationView.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            bool? result = addMedicationView.ShowDialog();
+
+            if (result == true)
+            {
+                // Add the medication to the list
+                Medications.Add(new Medication
+                {
+                    Name = addMedicationView.SelectedMedication,
+                    Dosage = addMedicationView.Dosage
+                });
+            }
         }
+    }
 
         public class MedicalTeamMember
         {

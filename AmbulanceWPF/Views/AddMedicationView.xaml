@@ -56,6 +56,7 @@
                     Margin="0,0,10,0"/>
 
             <Button x:Name="AddButton"
+                    Command="{Binding AddedMedication}"
                     Content="ADD"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"

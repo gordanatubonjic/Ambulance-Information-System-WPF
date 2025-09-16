@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:userControls="clr-namespace:AmbulanceWPF.Views.UserControls" xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DoctorHomePageViewModel}"
+        xmlns:userControls="clr-namespace:AmbulanceWPF.Views.UserControls" 
+        xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DoctorHomePageViewModel}"
         mc:Ignorable="d"
         Title="Doctor Home Page" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
@@ -20,7 +21,16 @@
         </Grid.ColumnDefinitions>
 
         <!-- Custom Header -->
-        <userControls:AppHeader Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"/>
+        <userControls:AppHeader 
+                                Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"
+                               HomeCommand="{Binding HeaderHomeCommand}"
+                               LogoutCommand="{Binding HeaderLogoutCommand}"
+                               ThemeCommand="{Binding HeaderThemeCommand}"
+                               ViewProfileCommand="{Binding HeaderViewProfileCommand}"
+                               DoctorName="{Binding DoctorName}"
+                               DoctorInitials="{Binding DoctorInitials}"
+                               DoctorEmail="{Binding DoctorEmail}"
+                               DoctorRole="{Binding DoctorRole}"/>
 
         <!-- Left Navigation Panel -->
         <materialDesign:Card Grid.Row="1" Grid.Column="0" 

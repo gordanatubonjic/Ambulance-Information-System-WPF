@@ -87,6 +87,7 @@
                                      FontSize="14"
                                      FontWeight="Medium"
                                      Foreground="{DynamicResource MaterialDesignBody}"
+                                      
                                      HorizontalAlignment="Center"
                                      VerticalAlignment="Center"/>
                         </Border>
@@ -101,7 +102,6 @@
 
                         <!-- Dropdown Arrow -->
                         <materialDesign:PackIcon Kind="ChevronDown"
-                                                 
                                                Width="16" Height="16"
                                                Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                VerticalAlignment="Center"
@@ -174,14 +174,14 @@
                             </Button>
 
                             <Button Style="{StaticResource ProfileMenuItem}"
-                                   Command="{Binding SettingsCommand}"
+                                   Command="{Binding ThemeCommand}"
                                    Click="ClosePopup_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Settings" 
+                                    <materialDesign:PackIcon Kind="ThemeOutline"  
                                                            Width="20" Height="20"
                                                            Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                            VerticalAlignment="Center"/>
-                                    <TextBlock Text="Settings" 
+                                    <TextBlock Text="Change Theme" 
                                              Margin="12,0,0,0"
                                              VerticalAlignment="Center"/>
                                 </StackPanel>

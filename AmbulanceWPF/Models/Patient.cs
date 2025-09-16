@@ -13,7 +13,9 @@ namespace AmbulanceWPF.Models
         public string JMB { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int City { get; set; }
+        public City City { get; set; }
+        public int CityOf { get; set; }
+
         public PatientHistory History { get; set; }
         public Patient() { }
 

@@ -51,6 +51,12 @@ namespace AmbulanceWPF.ViewModels
             NavigateToPatientsCommand = new RelayCommand(ViewPatients);
             NavigateToProfileCommand = new RelayCommand(ViewProfile);
             NewInterventionCommand = new RelayCommand(NewIntervention);
+            HeaderHomeCommand = new RelayCommand(GoHome);
+            HeaderLogoutCommand = new RelayCommand(Logout);
+            HeaderThemeCommand = new RelayCommand(ChangeTheme);
+            HeaderViewProfileCommand = new RelayCommand(ViewProfile);
+            OpenAddMedicationCommand = new RelayCommand(OpenAddMedication);
+
             CurrentContentView = new PatientOverView();
 
 
@@ -68,6 +74,12 @@ namespace AmbulanceWPF.ViewModels
             NavigateToInterventionsCommand = new RelayCommand(ViewInterventions);
             NavigateToPatientsCommand = new RelayCommand(ViewPatients);
             NewInterventionCommand = new RelayCommand(NewIntervention);
+            HeaderHomeCommand = new RelayCommand(GoHome);
+            HeaderLogoutCommand = new RelayCommand(Logout);
+            HeaderThemeCommand = new RelayCommand(ChangeTheme);
+            HeaderViewProfileCommand = new RelayCommand(ViewProfile);
+            OpenAddMedicationCommand = new RelayCommand(OpenAddMedication);
+
             CurrentContentView = new PatientOverView();
 
         }
@@ -103,6 +115,13 @@ namespace AmbulanceWPF.ViewModels
         public ICommand NavigateToPatientsCommand { get; }
         public ICommand NavigateToProfileCommand { get;  }
         public ICommand NewInterventionCommand { get; }
+        // Commands for the header
+        public ICommand HeaderHomeCommand { get; }
+        public ICommand HeaderLogoutCommand { get; }
+        public ICommand HeaderThemeCommand { get; }
+        public ICommand HeaderViewProfileCommand { get; }
+        public ICommand OpenAddMedicationCommand { get; }
+
 
         private void LoadPatients()
         {
@@ -167,6 +186,76 @@ namespace AmbulanceWPF.ViewModels
                 // Refresh interventions after the dialog closes
                 LoadInterventions();
             
+        }
+
+        private void OpenAddMedication()
+        {
+            var addMedicationView = new AddMedicationView();
+            addMedicationView.Owner = Application.Current.Windows.OfType<InterventionView>().FirstOrDefault();
+            addMedicationView.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+            // Show as modal dialog and get result
+            bool? result = addMedicationView.ShowDialog();
+
+            if (result == true)
+            {
+                // Handle the medication data if needed
+                // You can get the data from the AddMedicationView's properties
+            }
+        }
+
+
+        private void GoHome()
+        {
+            // Navigate to home page
+            CurrentContentView = new PatientOverView();
+            Console.WriteLine("Home button clicked");
+        }
+
+        private void Logout()
+        {
+            // Close current window and open login
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is DoctorHomePageView)
+                {
+                    window.Close();
+                    break;
+                }
+            }
+            var loginWindow = new LoginFormView();
+            loginWindow.Show();
+        }
+
+        private void ChangeTheme()
+        {
+            // Toggle theme
+            var currentTheme = Application.Current.Resources.MergedDictionaries
+                .FirstOrDefault(d => d.Source != null && d.Source.OriginalString.Contains("Themes/"));
+
+            if (currentTheme != null && currentTheme.Source.OriginalString.Contains("Light"))
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/Dark.xaml", UriKind.Relative));
+            }
+            else
+            {
+                AppTheme.ChangeTheme(new Uri("Themes/Light.xaml", UriKind.Relative));
+            }
+        }
+
+
+        // Properties for header data binding
+        public string DoctorName => CurrentUser?.Name + " " + CurrentUser?.Surname;
+        public string DoctorInitials => GetInitials(CurrentUser);
+        public string DoctorEmail => CurrentUser?.Username + "@ambulance.com";
+        public string DoctorRole => CurrentUser?.Role;
+
+        private string GetInitials(Employee employee)
+        {
+            if (employee == null || string.IsNullOrEmpty(employee.Name) || string.IsNullOrEmpty(employee.Surname))
+                return "??";
+
+            return $"{employee.Name[0]}{employee.Surname[0]}".ToUpper();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

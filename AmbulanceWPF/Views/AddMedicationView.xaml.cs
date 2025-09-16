@@ -19,9 +19,60 @@ namespace AmbulanceWPF.Views
     /// </summary>
     public partial class AddMedicationView : Window
     {
+        
+        public string SelectedMedication { get; private set; }
+        public string Dosage { get; private set; }
+
         public AddMedicationView()
         {
             InitializeComponent();
+
+            // Set up button click handlers
+            AddButton.Click += AddButton_Click;
+            CancelButton.Click += CancelButton_Click;
+
+            // Set window properties for modal behavior
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
+            this.ResizeMode = ResizeMode.NoResize;
+            this.ShowInTaskbar = false;
         }
-    }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get selected medication and dosage
+            SelectedMedication = MedicationComboBox.SelectedItem?.ToString();
+            Dosage = DosageTextBox.Text;
+
+            if (string.IsNullOrEmpty(SelectedMedication) || string.IsNullOrEmpty(Dosage))
+            {
+                MessageBox.Show("Please select a medication and enter dosage.", "Validation Error",
+                              MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            this.DialogResult = true;
+            this.Close();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+
+        // Optional: Handle Enter key to add medication
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                AddButton_Click(null, null);
+            }
+            else if (e.Key == Key.Escape)
+            {
+                CancelButton_Click(null, null);
+            }
+            base.OnKeyDown(e);
+        }
+    
+}
 }
