@@ -23,8 +23,7 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="20">
-            <!-- Header -->
-            <Border Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
+                         <Border Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
                     CornerRadius="5"
                     Margin="0,0,0,20"
                     Padding="10">
@@ -41,10 +40,9 @@
                 </StackPanel>
             </Border>
 
-            <!-- Patient Information -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="PATIENT INFORMATION"/>
+                    <TextBlock Text="{DynamicResource PatientInfoText}"/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -56,7 +54,7 @@
                         <StackPanel Grid.Column="0">
                             <TextBox 
                                 Text="{Binding PatientName, Mode=TwoWay}"
-                                materialDesign:HintAssist.Hint="Name"
+                                materialDesign:HintAssist.Hint="{DynamicResource FirstNameText}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Margin="0,0,0,10"/>
                         </StackPanel>
@@ -64,7 +62,7 @@
                         <StackPanel Grid.Column="2">
                             <TextBox 
                                 Text="{Binding PatientSurname, Mode=TwoWay}"
-                                materialDesign:HintAssist.Hint="Surname"
+                                materialDesign:HintAssist.Hint="{DynamicResource LastNameText}"
                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                     Margin="0,0,0,10"/>
                         </StackPanel>
@@ -72,7 +70,7 @@
 
                     <TextBox 
                         Text="{Binding Description, Mode=TwoWay}"
-                        materialDesign:HintAssist.Hint="Short Description of Assessment"
+                        materialDesign:HintAssist.Hint="{DynamicResource AssessmentFillerText}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             AcceptsReturn="True"
                             Height="60"
@@ -81,7 +79,7 @@
 
                     <TextBox 
                         Text="{Binding Allergies, Mode=TwoWay}"
-                        materialDesign:HintAssist.Hint="Allergies"
+                        materialDesign:HintAssist.Hint="{DynamicResource AllergiesText}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             AcceptsReturn="True"
                             Height="60"
@@ -89,12 +87,11 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Medical Team -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="MEDICAL TEAM"/>
+                    <TextBlock Text="{DynamicResource MedicalTeamText}"/>
 
-                    <TextBox materialDesign:HintAssist.Hint="Responsible Doctor on Duty"
+                    <TextBox materialDesign:HintAssist.Hint="{DynamicResource CurrentDoctorText}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             Margin="0,0,0,10"/>
 
@@ -104,7 +101,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Associates (Doctors and Nurses)" 
+                        <TextBlock Text="{DynamicResource AssociatesText}" 
                                   Grid.Row="0"
                                   Margin="0,10,0,5"/>
 
@@ -114,12 +111,12 @@
                                  Height="150"
                                  Margin="0,0,0,10">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
+                                <DataGridTextColumn Header="{DynamicResource NameText}" Binding="{Binding Name}" Width="*"/>
+                                <DataGridTextColumn Header="{DynamicResource RoleText}" Binding="{Binding Role}" Width="*"/>
                                 <DataGridTemplateColumn Width="Auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Button Content="Remove"
+                                            <Button Content="{DynamicResource RemoveText}"
                                                     Style="{StaticResource MaterialDesignFlatButton}"
                                                     />
                                         </DataTemplate>
@@ -138,14 +135,14 @@
 
                         <TextBox x:Name="NewAssociateName"
                                 Grid.Column="0"
-                                materialDesign:HintAssist.Hint="Associate Name"
+                                materialDesign:HintAssist.Hint="{DynamicResource AssociateNameText}"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
                         <ComboBox x:Name="RoleComboBox"
                                  Grid.Column="2"
-                                 materialDesign:HintAssist.Hint="Role"
+                                 materialDesign:HintAssist.Hint="{DynamicResource RoleText}"
                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem>Doctor</ComboBoxItem>
+                            <ComboBoxItem>Employee</ComboBoxItem>
                             <ComboBoxItem>Nurse</ComboBoxItem>
                             <ComboBoxItem>Paramedic</ComboBoxItem>
                             <ComboBoxItem>Technician</ComboBoxItem>
@@ -153,24 +150,23 @@
                     </Grid>
 
                     <Button x:Name="AddAssociateButton"
-                            Content="Add Associate"
+                            Content="{DynamicResource AddAssociateText}"
                             HorizontalAlignment="Right"
   />
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Medication Section -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="MEDICATION ADMINISTERED"/>
+                    <TextBlock Text="{DynamicResource AdministeredMedicationText}"/>
 
                     <DataGrid x:Name="MedicationGrid"
                              AutoGenerateColumns="False"
                              Height="150"
                              Margin="0,0,0,10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Medication" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="Dosage" Binding="{Binding Dosage}" Width="*"/>
+                            <DataGridTextColumn Header="{DynamicResource MedicationsText}" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="{DynamicResource DosageText}" Binding="{Binding Dosage}" Width="*"/>
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -185,18 +181,17 @@
 
                     <Button x:Name="AddMedicationButton"
                             Command ="{Binding OpenAddMedicationCommand}"
-                            Content="Add Medication"
+                            Content="{DynamicResource AddMedicationHeaderText}"
                             HorizontalAlignment="Right"
                            />
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Procedures -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="15">
+                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
                 <StackPanel>
-                    <TextBlock Text="PROCEDURES PERFORMED"/>
+                    <TextBlock Text="{DynamicResource ProceduresHeaderText}"/>
 
-                    <TextBox materialDesign:HintAssist.Hint="Short Description of Procedures"
+                    <TextBox materialDesign:HintAssist.Hint="{DynamicResource ProceduresDescriptionText}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             AcceptsReturn="True"
                             Height="100"
@@ -204,10 +199,10 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Save Button -->
-            <Button x:Name="SaveInterventionButton"
-                    Content="SAVE INTERVENTION"
-                    Command="{Binding SaveCommand}"
+                         <Button x:Name="SaveInterventionButton"
+                    Content="{DynamicResource SaveText}"
+                    Command="{Binding 
+                Command}"
                     Style="{StaticResource MaterialDesignRaisedDarkButton}"
                     HorizontalAlignment="Center"
                     Width="200"
@@ -215,7 +210,7 @@
                     FontSize="16"
                     FontWeight="Bold"
                     Margin="0,20,0,30"/>
-            <Button Content="Cancel"
+            <Button Content="{DynamicResource CancelText}"
         Command="{Binding CancelCommand}"
         Style="{StaticResource MaterialDesignFlatButton}"
         Margin="0,0,10,0"/>

@@ -15,10 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for PatientHistoryView.xaml
-    /// </summary>
-    public partial class PatientHistoryView : Window
+    /     /     /     public partial class PatientHistoryView : Window
     {
         public PatientHistoryView()
         {

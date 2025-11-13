@@ -20,35 +20,33 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Custom Header -->
-            <userControls:AppHeader Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"/>
+                         <userControls:AppHeader Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"/>
 
-            <!-- Left Navigation Panel -->
-            <materialDesign:Card Grid.Row="1" Grid.Column="0" 
+                         <materialDesign:Card Grid.Row="1" Grid.Column="0" 
                            Margin="16" 
                            VerticalAlignment="Stretch"
                            Background="{DynamicResource MaterialDesignCardBackground}">
                 <StackPanel Margin="16">
-                    <TextBlock Text="Medical Technician" 
+                    <TextBlock Text="{DynamicResource TechnicianText}" 
                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                           Margin="0,0,0,20"/>
 
                     <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Content="My Profile"
+                        Content="{DynamicResource MyProfileText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
                         Command="{Binding NavigateToInterventionsCommand}"/>
 
                     <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Content="Delivery"
+                        Content="{DynamicResource DeliveryText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
                         Command="{Binding NavigateToPatientsCommand}"/>
 
                     <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Content="Archives"
+                        Content="{DynamicResource ArchivesText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
@@ -56,19 +54,17 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Right Content Panel -->
-            <Grid Grid.Row="1" Grid.Column="1" Margin="16">
+                         <Grid Grid.Row="1" Grid.Column="1" Margin="16">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Search Bar -->
-                <materialDesign:Card Grid.Row="0" Margin="0,0,0,16">
+                                 <materialDesign:Card Grid.Row="0" Margin="0,0,0,16">
                     <TextBox x:Name="SearchTextBox"
                         Margin="16"
-                        materialDesign:HintAssist.Hint="Search patients..."
+                        materialDesign:HintAssist.Hint="{DynamicResource SearchText}"
                         materialDesign:TextFieldAssist.HasLeadingIcon="True"
                         materialDesign:TextFieldAssist.LeadingIcon="Magnify"
                         materialDesign:TextFieldAssist.HasClearButton="True"
@@ -77,15 +73,14 @@
                         FontSize="14"/>
                 </materialDesign:Card>
 
-                <!-- Action Buttons -->
-                <StackPanel Grid.Row="1" 
+                                 <StackPanel Grid.Row="1" 
                        Orientation="Horizontal" 
                        HorizontalAlignment="Center"
                        Margin="0,0,0,16">
                     <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
                         Width="56" Height="56"
                         Margin="8"
-                        ToolTip="Archive"
+                        ToolTip="{DynamicResource ArchivesText}"
                         Command="{Binding NewExamCommand}">
                     <materialDesign:PackIcon Kind="ArchiveSearchOutline" Width="24" Height="24"/>
                     </Button>
@@ -93,7 +88,7 @@
                     <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
                         Width="56" Height="56"
                         Margin="8"
-                        ToolTip="Add Intervention"
+                        ToolTip="{DynamicResource NewInterventionText}"
                         Command="{Binding AddInterventionCommand}">
                     <materialDesign:PackIcon Kind="MedicationOutline"  Width="24" Height="24"/>
                     </Button>
@@ -101,14 +96,13 @@
                     <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
                         Width="56" Height="56"
                         Margin="8"
-                        ToolTip="Monthly Report"
+                        ToolTip="{DynamicResource MonthlyReportText}"
                         Command="{Binding MonthlyReportCommand}">
                         <materialDesign:PackIcon Kind="ChartBar" Width="24" Height="24"/>
                     </Button>
                 </StackPanel>
 
-                <!-- Patient Results -->
-                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding FilteredPatients}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -128,16 +122,14 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Patient Avatar/Icon -->
-                                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                                                                 <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
                                                            Kind="Account" 
                                                            Width="40" Height="40"
                                                            Foreground="{DynamicResource MaterialDesignBody}"
                                                            VerticalAlignment="Top"
                                                            Margin="0,0,16,0"/>
 
-                                        <!-- Patient Name and ID -->
-                                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                                                                                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                                             <TextBlock Text="{Binding FullName}" 
                                                  FontWeight="Medium" 
                                                  FontSize="16"
@@ -148,8 +140,7 @@
                                                  Margin="8,0,0,0"/>
                                         </StackPanel>
 
-                                        <!-- Age and Gender -->
-                                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+                                                                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
                                             <materialDesign:PackIcon Kind="Calendar" Width="16" Height="16" 
                                                                Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                                VerticalAlignment="Center"/>
@@ -167,8 +158,7 @@
                                                  Margin="4,0,0,0"/>
                                         </StackPanel>
 
-                                        <!-- Contact Info -->
-                                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
+                                                                                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
                                             <materialDesign:PackIcon Kind="Phone" Width="16" Height="16" 
                                                                Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                                VerticalAlignment="Center"/>
@@ -187,8 +177,7 @@
                                                  TextTrimming="CharacterEllipsis"/>
                                         </StackPanel>
 
-                                        <!-- Medical Info -->
-                                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                                                                                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="MedicalBag" Width="16" Height="16" 
                                                                Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                                VerticalAlignment="Center"/>
@@ -222,8 +211,7 @@
                                             </materialDesign:Chip>
                                         </StackPanel>
 
-                                        <!-- Action Button -->
-                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
+                                                                                 <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
                                           Style="{StaticResource MaterialDesignIconButton}"
                                           Command="{Binding DataContext.ViewPatientCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                           CommandParameter="{Binding}"

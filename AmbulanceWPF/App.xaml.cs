@@ -1,14 +1,21 @@
-﻿using System.Configuration;
+﻿using AmbulanceWPF.Database;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
 namespace AmbulanceWPF
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    /     /     /     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+                         using var context = new Data.AmbulanceDbContext();
+            context.Database.EnsureCreated();
+
+                        
+        }
     }
 
-}
+    }

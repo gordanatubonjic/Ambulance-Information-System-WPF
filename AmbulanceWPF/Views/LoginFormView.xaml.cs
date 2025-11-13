@@ -1,4 +1,5 @@
-﻿using AmbulanceWPF.Helper;
+﻿using AmbulanceWPF.Database;
+using AmbulanceWPF.Helper;
 using AmbulanceWPF.ViewModels;
 using System;
 using System.Collections.Generic;

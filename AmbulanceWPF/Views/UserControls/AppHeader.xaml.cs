@@ -19,8 +19,7 @@ namespace AmbulanceWPF.Views.UserControls
             this.DataContext = vm;
         }
 
-        // Home Command
-        public ICommand HomeCommand
+                 public ICommand HomeCommand
         {
             get { return (ICommand)GetValue(HomeCommandProperty); }
             set { SetValue(HomeCommandProperty, value); }
@@ -29,8 +28,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty HomeCommandProperty =
             DependencyProperty.Register("HomeCommand", typeof(ICommand), typeof(AppHeader));
 
-        // Logout Command
-        public ICommand LogoutCommand
+                 public ICommand LogoutCommand
         {
             get { return (ICommand)GetValue(LogoutCommandProperty); }
             set { SetValue(LogoutCommandProperty, value); }
@@ -39,8 +37,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty LogoutCommandProperty =
             DependencyProperty.Register("LogoutCommand", typeof(ICommand), typeof(AppHeader));
 
-        // Theme Command
-        public ICommand ThemeCommand
+                 public ICommand ThemeCommand
         {
             get { return (ICommand)GetValue(ThemeCommandProperty); }
             set { SetValue(ThemeCommandProperty, value); }
@@ -49,8 +46,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty ThemeCommandProperty =
             DependencyProperty.Register("ThemeCommand", typeof(ICommand), typeof(AppHeader));
 
-        // View Profile Command
-        public ICommand ViewProfileCommand
+                 public ICommand ViewProfileCommand
         {
             get { return (ICommand)GetValue(ViewProfileCommandProperty); }
             set { SetValue(ViewProfileCommandProperty, value); }
@@ -59,8 +55,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty ViewProfileCommandProperty =
             DependencyProperty.Register("ViewProfileCommand", typeof(ICommand), typeof(AppHeader));
 
-        // Doctor Name
-        public string DoctorName
+                 public string DoctorName
         {
             get { return (string)GetValue(DoctorNameProperty); }
             set { SetValue(DoctorNameProperty, value); }
@@ -69,8 +64,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty DoctorNameProperty =
             DependencyProperty.Register("DoctorName", typeof(string), typeof(AppHeader));
 
-        // Doctor Initials
-        public string DoctorInitials
+                 public string DoctorInitials
         {
             get { return (string)GetValue(DoctorInitialsProperty); }
             set { SetValue(DoctorInitialsProperty, value); }
@@ -79,8 +73,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty DoctorInitialsProperty =
             DependencyProperty.Register("DoctorInitials", typeof(string), typeof(AppHeader));
 
-        // Doctor Email
-        public string DoctorEmail
+                 public string DoctorEmail
         {
             get { return (string)GetValue(DoctorEmailProperty); }
             set { SetValue(DoctorEmailProperty, value); }
@@ -89,8 +82,7 @@ namespace AmbulanceWPF.Views.UserControls
         public static readonly DependencyProperty DoctorEmailProperty =
             DependencyProperty.Register("DoctorEmail", typeof(string), typeof(AppHeader));
 
-        // Doctor Role
-        public string DoctorRole
+                 public string DoctorRole
         {
             get { return (string)GetValue(DoctorRoleProperty); }
             set { SetValue(DoctorRoleProperty, value); }

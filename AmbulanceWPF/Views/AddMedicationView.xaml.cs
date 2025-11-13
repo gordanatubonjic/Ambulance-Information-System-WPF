@@ -14,10 +14,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for AddMedicationView.xaml
-    /// </summary>
-    public partial class AddMedicationView : Window
+    /     /     /     public partial class AddMedicationView : Window
     {
         
         public string SelectedMedication { get; private set; }
@@ -27,20 +24,17 @@ namespace AmbulanceWPF.Views
         {
             InitializeComponent();
 
-            // Set up button click handlers
-            AddButton.Click += AddButton_Click;
+                         AddButton.Click += AddButton_Click;
             CancelButton.Click += CancelButton_Click;
 
-            // Set window properties for modal behavior
-            this.WindowStyle = WindowStyle.SingleBorderWindow;
+                         this.WindowStyle = WindowStyle.SingleBorderWindow;
             this.ResizeMode = ResizeMode.NoResize;
             this.ShowInTaskbar = false;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get selected medication and dosage
-            SelectedMedication = MedicationComboBox.SelectedItem?.ToString();
+                         SelectedMedication = MedicationComboBox.SelectedItem?.ToString();
             Dosage = DosageTextBox.Text;
 
             if (string.IsNullOrEmpty(SelectedMedication) || string.IsNullOrEmpty(Dosage))
@@ -60,8 +54,7 @@ namespace AmbulanceWPF.Views
             this.Close();
         }
 
-        // Optional: Handle Enter key to add medication
-        protected override void OnKeyDown(KeyEventArgs e)
+                 protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {

@@ -16,10 +16,7 @@ using AmbulanceWPF.ViewModels;
 
 namespace AmbulanceWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for InterventionView.xaml
-    /// </summary>
-    public partial class InterventionView : Window
+    /     /     /     public partial class InterventionView : Window
     {
         private Employee _currentUser;
 
@@ -33,14 +30,12 @@ namespace AmbulanceWPF.Views
             InitializeComponent();
             this.DataContext = new InterventionViewModel(employee);
 
-            // Set window properties for modal behavior
-            this.WindowStyle = WindowStyle.SingleBorderWindow;
+                         this.WindowStyle = WindowStyle.SingleBorderWindow;
             this.ResizeMode = ResizeMode.NoResize;
             this.ShowInTaskbar = false;
             this.Topmost = true;
 
-            // Prevent minimizing
-            this.StateChanged += InterventionView_StateChanged;
+                         this.StateChanged += InterventionView_StateChanged;
         }
 
         private void InterventionView_StateChanged(object sender, System.EventArgs e)

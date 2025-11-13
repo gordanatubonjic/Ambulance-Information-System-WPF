@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AmbulanceWPF.Views"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Add Medication" 
+        Title="Add MedicationCatalog" 
         Height="300" 
         Width="400"
         WindowStartupLocation="CenterOwner"
@@ -14,50 +14,42 @@
         Background="{DynamicResource MaterialDesignPaper}">
 
     <StackPanel Margin="20">
-        <!-- Header -->
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
             <materialDesign:PackIcon Kind="Pill" 
                                     Foreground="{DynamicResource MaterialDesignPrimaryDarkBrush}"
                                     Width="24"
                                     Height="24"
                                     Margin="0,0,10,0"/>
-            <TextBlock Text="ADD MEDICATION"
+            <TextBlock Text="{DynamicResource AddMedicationHeaderText}"
                       FontSize="16"
                       FontWeight="Bold"
                       VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- Medication Selection -->
-        <ComboBox x:Name="MedicationComboBox"
-                 materialDesign:HintAssist.Hint="Select Medication"
+                 <ComboBox x:Name="MedicationComboBox"
+                 materialDesign:HintAssist.Hint="{DynamicResource SelectMedicationText}"
                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                 Margin="0,0,0,20">
-            <ComboBoxItem>Paracetamol</ComboBoxItem>
-            <ComboBoxItem>Ibuprofen</ComboBoxItem>
-            <ComboBoxItem>Aspirin</ComboBoxItem>
-            <ComboBoxItem>Amoxicillin</ComboBoxItem>
-            <ComboBoxItem>Insulin</ComboBoxItem>
-            <ComboBoxItem>Morphine</ComboBoxItem>
-            <ComboBoxItem>Adrenaline</ComboBoxItem>
-            <ComboBoxItem>Salbutamol</ComboBoxItem>
+                 Margin="0,0,0,20"
+                 ItemsSource="{Binding Medications}"
+                 DisplayMemberPath="Name"
+                 SelectedValuePath="Id"
+                 SelectedValue="{Binding SelectedMedication.Id}"
+                 SelectedItem="{Binding SelectedMedication, Mode=TwoWay}">
         </ComboBox>
-
-        <!-- Dosage -->
-        <TextBox x:Name="DosageTextBox"
-                materialDesign:HintAssist.Hint="Dosage (e.g., 500mg, 10ml)"
+                 <TextBox x:Name="DosageTextBox"
+                materialDesign:HintAssist.Hint="{DynamicResource DosageText}"
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                 Margin="0,0,0,30"/>
 
-        <!-- Buttons -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="CancelButton"
-                    Content="CANCEL"
+                    Content="{DynamicResource CancelText}"
                     Style="{StaticResource MaterialDesignFlatButton}"
                     Margin="0,0,10,0"/>
 
             <Button x:Name="AddButton"
                     Command="{Binding AddedMedication}"
-                    Content="ADD"
+                    Content="{DynamicResource AddText}"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
                     Foreground="White"/>

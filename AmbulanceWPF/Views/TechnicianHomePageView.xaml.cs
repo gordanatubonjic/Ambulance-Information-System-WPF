@@ -15,10 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for TechnicianHomePageView.xaml
-    /// </summary>
-    public partial class TechnicianHomePageView : Window
+    /     /     /     public partial class TechnicianHomePageView : Window
     {
         public TechnicianHomePageView()
         {

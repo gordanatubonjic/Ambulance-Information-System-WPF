@@ -16,17 +16,12 @@ using AmbulanceWPF.ViewModels;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /// <summary>
-    /// Interaction logic for PatientOverView.xaml
-    /// </summary>
-    public partial class PatientOverView : UserControl
+    /     /     /     public partial class PatientOverView : UserControl
     {
         public PatientOverView()
         {
             InitializeComponent();
-            // Remove any DataContext setting from here
-            // Let the parent control set the DataContext
-        }
+                                  }
         
     }
 }

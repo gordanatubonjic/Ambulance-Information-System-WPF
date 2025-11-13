@@ -1,23 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AmbulanceWPF.Models
 {
+    [Table("Employee")]
     public class Employee
     {
-        public string JMBG { get; set; }
+        [Key]
+        [MaxLength(13)]
+        public string JMB { get; set; }
+        [Required]
+        [MaxLength(45)]
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public string? Username { get; set; }
-        public string? Password { get; set; }
-        public string? Role { get; set; }
-        public int? IsActive { get; set; }
+        [Required]
+        [MaxLength(45)]
+        public string LastName { get; set; }
+        [Required]
+        [MaxLength(45)]
+        public string Username { get; set; }
+        [Required]
+        [MaxLength(45)]
+        public string Password { get; set; }
+        [Required]
+        [MaxLength(45)]
+        public string Role { get; set; }
+        public int IsActive { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        public string Theme { get; set; }
+                 [MaxLength(20)]
+        public string? PhoneNumber { get; set; }
 
+                 [ForeignKey("PhoneNumber")]
+        public virtual Phone? Phone { get; set; }
+                 public virtual ICollection<MedicalRecord> MedicalRecords { get; set; }
+        public virtual ICollection<Examination> Examinations { get; set; }
+        public virtual ICollection<Diagnosis> Diagnosis { get; set; }
+        public virtual ICollection<InterventionDoctor> InterventionDoctors { get; set; }
+        public virtual ICollection<Referral> Referrals { get; set; }
 
+        //NAvigation properties?? 
+        //public Employee Employee { get; set; }
+        //public MedicalTechnician MedicalTechnician { get; set; }
+        //
         public Employee() { }
 
         public Employee(String username, String pass) {
@@ -28,17 +59,17 @@ namespace AmbulanceWPF.Models
         public override bool Equals(object obj)
         {
 
-            return obj is Employee e && JMBG == e.JMBG;
+            return obj is Employee e && JMB == e.JMB;
 
         }
         public override int GetHashCode()
         {
-            return -1221475543 + JMBG.GetHashCode();
+            return -1221475543 + JMB.GetHashCode();
         }
 
         public override string ToString()
         {
-            return Name + ", " + Surname;
+            return Name + ", " + LastName;
         }
     }
 }

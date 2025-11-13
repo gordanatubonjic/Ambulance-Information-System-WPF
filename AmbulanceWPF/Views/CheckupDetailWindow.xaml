@@ -19,8 +19,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <materialDesign:Card Grid.Row="0" Margin="16,16,16,8">
+                 <materialDesign:Card Grid.Row="0" Margin="16,16,16,8">
             <Grid Margin="24,16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -36,7 +35,7 @@
                                        Margin="0,0,16,0"/>
 
                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <TextBlock Text="Checkup Report" 
+                    <TextBlock Text="{DynamicResource CheckupHeaderText}" 
                              Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
                     <TextBlock Text="{Binding CheckupDate, StringFormat='MMM dd, yyyy'}" 
                              Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
@@ -52,14 +51,12 @@
             </Grid>
         </materialDesign:Card>
 
-        <!-- Content -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="16,0">
+                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="16,0">
             <StackPanel>
 
-                <!-- Doctor Information -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Healthcare Provider" 
+                        <TextBlock Text="{DynamicResource HealthcareProviderText}" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding DoctorName}" 
@@ -67,10 +64,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Summary -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Summary" 
+                        <TextBlock Text="{DynamicResource SummaryText}" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding Summary}" 
@@ -79,10 +75,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Detailed Description -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Detailed Description" 
+                        <TextBlock Text="{DynamicResource DetailedDescriptionText}" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding DetailedDescription}" 
@@ -91,10 +86,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Diagnosis -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Diagnosis" 
+                        <TextBlock Text="{DynamicResource DiagnosisText}" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding Diagnosis}" 
@@ -103,10 +97,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Medications -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Medications" 
+                        <TextBlock Text="{DynamicResource MedicationsText}" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding Medications}" 
@@ -115,8 +108,7 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Test Results -->
-                <materialDesign:Card >
+                                 <materialDesign:Card >
                     <StackPanel Margin="24,16">
                         <TextBlock Text="Test Results" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -133,10 +125,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Additional Notes -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Additional Notes" 
+                        <TextBlock Text="{DynamicResource AdditionalNotesText}" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,20"/>
                         <TextBlock Text="{Binding Notes}" 
@@ -145,10 +136,9 @@
                     </StackPanel>
                 </materialDesign:Card>
 
-                <!-- Next Appointment -->
-                <materialDesign:Card>
+                                 <materialDesign:Card>
                     <StackPanel Margin="24,16">
-                        <TextBlock Text="Next Appointment" 
+                        <TextBlock Text="NextAppointmentText" 
                                  Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                  Margin="0,0,0,8"/>
                         <TextBlock Text="{Binding NextAppointment}" 
@@ -159,14 +149,13 @@
             </StackPanel>
         </ScrollViewer>
 
-        <!-- Footer -->
-        <materialDesign:Card Grid.Row="2" Margin="16,8,16,16">
+                 <materialDesign:Card Grid.Row="2" Margin="16,8,16,16">
             <Grid Margin="24,12">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="PRINT" 
+                    <Button Content="PRINT?" 
                           Style="{StaticResource MaterialDesignFlatButton}"
                           Margin="0,0,8,0"/>
-                    <Button Content="CLOSE" 
+                    <Button Content="{DynamicResource CloseText}" 
                           Style="{StaticResource MaterialDesignRaisedButton}"
 
                           Click="CloseButton_Click"/>

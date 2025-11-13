@@ -7,7 +7,7 @@
         xmlns:userControls="clr-namespace:AmbulanceWPF.Views.UserControls" 
         xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DoctorHomePageViewModel}"
         mc:Ignorable="d"
-        Title="Doctor Home Page" Height="600" Width="1000"
+        Title="Employee Home Page" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
@@ -20,8 +20,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Custom Header -->
-        <userControls:AppHeader 
+                 <userControls:AppHeader 
                                 Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"
                                HomeCommand="{Binding HeaderHomeCommand}"
                                LogoutCommand="{Binding HeaderLogoutCommand}"
@@ -32,32 +31,31 @@
                                DoctorEmail="{Binding DoctorEmail}"
                                DoctorRole="{Binding DoctorRole}"/>
 
-        <!-- Left Navigation Panel -->
-        <materialDesign:Card Grid.Row="1" Grid.Column="0" 
+                 <materialDesign:Card Grid.Row="1" Grid.Column="0" 
                            Margin="16" 
                            VerticalAlignment="Stretch"
                            Background="{DynamicResource MaterialDesignCardBackground}">
             <StackPanel Margin="16">
-                <TextBlock Text="Navigation" 
+                <TextBlock Text="{DynamicResource NavigationText}" 
                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                           Margin="0,0,0,20"/>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Content="My Interventions"
+                        Content="{DynamicResource MyInterventionsText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
                         Command="{Binding NavigateToInterventionsCommand}"/>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Content="My Patients"
+                        Content="{DynamicResource PatientsText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
                         Command="{Binding NavigateToPatientsCommand}"/>
 
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        Content="My Profile"
+                        Content="{DynamicResource MyProfileText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
@@ -65,8 +63,7 @@
             </StackPanel>
         </materialDesign:Card>
 
-        <!-- Right Content Panel -->
-        <ContentControl Grid.Row="1" Grid.Column="1" 
+                 <ContentControl Grid.Row="1" Grid.Column="1" 
                        Content="{Binding CurrentContentView}"
                        Margin="16"/>
     </Grid>

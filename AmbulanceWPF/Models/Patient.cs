@@ -1,22 +1,40 @@
 ﻿using AmbulanceWPF.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AmbulanceWPF.Models
 {
-    public class Patient
-    {
+        [Table("Patient")]
+        public class Patient
+        {
+            [Key]
+            [Required]
+            [MaxLength(13)]
+            [Column("JMB")]
+            public string JMB { get; set; }
 
-        public string JMB { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public City City { get; set; }
-        public int CityOf { get; set; }
+            [Required]
+            [MaxLength(45)]
+            public string Name { get; set; }
 
-        public PatientHistory History { get; set; }
+            [Required]
+            [MaxLength(45)]
+            public string LastName { get; set; }
+
+            [Required]
+            [ForeignKey("ResidenceLocation")]
+            public int ResidenceLocationId { get; set; }
+            public ICollection<Examination> Examinations { get; set; } = new List<Examination>();
+
+                 public virtual Location ResidenceLocation { get; set; }
+        
+
+
         public Patient() { }
 
         public override bool Equals(object obj)
@@ -32,7 +50,7 @@ namespace AmbulanceWPF.Models
 
         public override string ToString()
         {
-            return Name + ", " + Surname;
+            return Name + ", " + LastName;
         }
     }
 }

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using AmbulanceWPF.Helper;
-using AmbulanceWPF.Repository;
 using AmbulanceWPF.Models;
 using AmbulanceWPF.Views;
 using System.Windows;
@@ -23,6 +22,8 @@ namespace AmbulanceWPF.ViewModels
         private ObservableCollection<Patient> _allPatients;
         private ObservableCollection<Patient> _filteredPatients;
         private ObservableCollection<Intervention> _interventions;
+        private ObservableCollection<MedicationCatalog> _medications;          public ObservableCollection<MedicationCatalog> Medications => _medications;
+
 
         private ProfileViewModel profileViewModel;
 
@@ -39,10 +40,11 @@ namespace AmbulanceWPF.ViewModels
         }
 
         public DoctorHomePageViewModel() {
-            Employee e = EmployeeRepository.GetEmployee("markic");
+            //Employee e = EmployeeRepository.GetEmployee("markic");
+
+            Employee e = new Employee("markic", "markic");//= DummyDataGenerator.GenerateEmployees()[2];
             this.CurrentUser = e;
-            LoadPatients(); // Load your patients from database/service
-            LoadInterventions();
+            LoadPatients();              LoadInterventions();
             if(_allPatients != null)
             FilteredPatients = new ObservableCollection<Patient>(_allPatients);
 
@@ -65,8 +67,8 @@ namespace AmbulanceWPF.ViewModels
         public DoctorHomePageViewModel(Employee currentUser)
         {
             this.CurrentUser = currentUser;
-            LoadPatients(); // Load your patients from database/service
-            LoadInterventions();
+            LoadPatients();              LoadInterventions();
+            
             if(_allPatients !=null)
             FilteredPatients = new ObservableCollection<Patient>(_allPatients);
 
@@ -115,8 +117,7 @@ namespace AmbulanceWPF.ViewModels
         public ICommand NavigateToPatientsCommand { get; }
         public ICommand NavigateToProfileCommand { get;  }
         public ICommand NewInterventionCommand { get; }
-        // Commands for the header
-        public ICommand HeaderHomeCommand { get; }
+                 public ICommand HeaderHomeCommand { get; }
         public ICommand HeaderLogoutCommand { get; }
         public ICommand HeaderThemeCommand { get; }
         public ICommand HeaderViewProfileCommand { get; }
@@ -125,14 +126,11 @@ namespace AmbulanceWPF.ViewModels
 
         private void LoadPatients()
         {
-            // Replace with actual data loading logic
-            _allPatients = new ObservableCollection<Patient>(PatientRepository.GetPatients());
-        }
+                         //_allPatients = new ObservableCollection<Patient>(PatientRepository.GetPatients());
+                    }
         private void LoadInterventions()
         {
-            _interventions = new ObservableCollection<Intervention>(
-                InterventionRepository.GetInterventions(CurrentUser.JMBG));
-        }
+                          }
 
         private void ViewInterventions()
         {
@@ -155,7 +153,7 @@ namespace AmbulanceWPF.ViewModels
 
             var filtered = _allPatients.Where(p =>
                 p.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                p.Surname.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                p.LastName.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
                 p.JMB.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
@@ -180,11 +178,9 @@ namespace AmbulanceWPF.ViewModels
                 interventionView.Owner = Application.Current.MainWindow;
                 interventionView.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-                // Show as modal dialog
-                interventionView.ShowDialog();
+                                 interventionView.ShowDialog();
 
-                // Refresh interventions after the dialog closes
-                LoadInterventions();
+                                 LoadInterventions();
             
         }
 
@@ -194,28 +190,23 @@ namespace AmbulanceWPF.ViewModels
             addMedicationView.Owner = Application.Current.Windows.OfType<InterventionView>().FirstOrDefault();
             addMedicationView.WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-            // Show as modal dialog and get result
-            bool? result = addMedicationView.ShowDialog();
+                         bool? result = addMedicationView.ShowDialog();
 
             if (result == true)
             {
-                // Handle the medication data if needed
-                // You can get the data from the AddMedicationView's properties
-            }
+                                              }
         }
 
 
         private void GoHome()
         {
-            // Navigate to home page
-            CurrentContentView = new PatientOverView();
+                         CurrentContentView = new PatientOverView();
             Console.WriteLine("Home button clicked");
         }
 
         private void Logout()
         {
-            // Close current window and open login
-            foreach (Window window in Application.Current.Windows)
+                         foreach (Window window in Application.Current.Windows)
             {
                 if (window is DoctorHomePageView)
                 {
@@ -229,8 +220,7 @@ namespace AmbulanceWPF.ViewModels
 
         private void ChangeTheme()
         {
-            // Toggle theme
-            var currentTheme = Application.Current.Resources.MergedDictionaries
+                         var currentTheme = Application.Current.Resources.MergedDictionaries
                 .FirstOrDefault(d => d.Source != null && d.Source.OriginalString.Contains("Themes/"));
 
             if (currentTheme != null && currentTheme.Source.OriginalString.Contains("Light"))
@@ -244,18 +234,17 @@ namespace AmbulanceWPF.ViewModels
         }
 
 
-        // Properties for header data binding
-        public string DoctorName => CurrentUser?.Name + " " + CurrentUser?.Surname;
+                 public string DoctorName => CurrentUser?.Name + " " + CurrentUser?.LastName;
         public string DoctorInitials => GetInitials(CurrentUser);
         public string DoctorEmail => CurrentUser?.Username + "@ambulance.com";
         public string DoctorRole => CurrentUser?.Role;
 
         private string GetInitials(Employee employee)
         {
-            if (employee == null || string.IsNullOrEmpty(employee.Name) || string.IsNullOrEmpty(employee.Surname))
+            if (employee == null || string.IsNullOrEmpty(employee.Name) || string.IsNullOrEmpty(employee.LastName))
                 return "??";
 
-            return $"{employee.Name[0]}{employee.Surname[0]}".ToUpper();
+            return $"{employee.Name[0]}{employee.LastName[0]}".ToUpper();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AmbulanceWPF.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:userControl="clr-namespace:AmbulanceWPF.Views.UserControls"
         xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
         mc:Ignorable="d"
@@ -30,8 +31,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Header Section -->
-        <Border Grid.Row="0" 
+                 <Border Grid.Row="0" 
                 Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
                 Height="120"
                 CornerRadius="0 0 20 20">
@@ -42,12 +42,12 @@
                                         Foreground="#ff0000"
                                         Margin="0,0,0,8"
                                         HorizontalAlignment="Center"/>
-                <TextBlock Text="MEDICAL AMBULANCE"
+                <TextBlock Text="{DynamicResource AppNameText}"
                           Foreground="#020202"
                           FontSize="16"
                           FontWeight="Bold"
                           HorizontalAlignment="Center"/>
-                <TextBlock Text="Emergency Response System"
+                <TextBlock Text="{DynamicResource AppNameSubText}"
                           Foreground="#020202"
                           FontSize="12"
                           HorizontalAlignment="Center"
@@ -55,48 +55,44 @@
             </StackPanel>
         </Border>
 
-        <!-- Login Form Section -->
-        <Border Grid.Row="1" 
+                 <Border Grid.Row="1" 
                 Margin="30"
                 Padding="20"
                 Background="{DynamicResource MaterialDesignCardBackground}"
                 CornerRadius="8">
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Text="Login to Your Account"
+                <TextBlock Text="{DynamicResource LoginHeaderText}"
                           FontSize="18"
                           FontWeight="Bold"
                           HorizontalAlignment="Center"
                           Margin="0,0,0,30"
                           Foreground="{DynamicResource MaterialDesignBody}"/>
 
-                <!-- Username/Email Field -->
-                <materialDesign:Card Margin="0,0,0,20" 
+                                 <materialDesign:Card Margin="0,0,0,20" 
                                     Padding="0"
                                     Background="Transparent">
                     <TextBox x:Name="UsernameTextBox"
                              Text="{Binding Username}"
-                            materialDesign:HintAssist.Hint="Username or Email"
+                             materialDesign:HintAssist.Hint="{DynamicResource Username}"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             FontSize="14"
                             Margin="0"/>
                 </materialDesign:Card>
 
-                <!-- Password Field -->
-                <materialDesign:Card Margin="0,0,0,10" 
+                                 <materialDesign:Card Margin="0,0,0,10" 
                                     Padding="0"
                                     Background="Transparent">
-                    <TextBox x:Name="PasswordBox"
-                    Text="{Binding Password}"
-            materialDesign:HintAssist.Hint="Password"
-            materialDesign:TextFieldAssist.HasClearButton="True"
-            FontSize="14"
-            Margin="0"/>
-                    
+                    <userControl:BindablePasswordBox 
+                        Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="{DynamicResource Password}"
+                                     Height="28"                            
+                                     Margin="0,5,0,0">
+                    </userControl:BindablePasswordBox>
+
                 </materialDesign:Card>
 
-                <!-- Remember Me & Forgot Password -->
-                <Grid Margin="0,10,0,30">
+                                 <Grid Margin="0,10,0,30">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -120,9 +116,8 @@
                     </TextBlock>
                 </Grid>
 
-                <!-- Login Button -->
-                <Button x:Name="LoginButton"
-                        Content="LOGIN"
+                                 <Button x:Name="LoginButton"
+                        Content="{DynamicResource LoginBtnText}"
                         Command="{Binding LoginCommand}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"
                         HorizontalAlignment="Stretch"
@@ -134,32 +129,21 @@
 "
                         Foreground="White"/>
 
-                <!-- Emergency Access -->
-                <Button x:Name="EmergencyAccessButton"
-                        Content="EMERGENCY ACCESS"
-                        Command="{Binding EmergencyAccessCommand}"
-                        Style="{StaticResource MaterialDesignFlatButton}"
-                        Foreground="{DynamicResource MaterialDesignErrorBrush}"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,15,0,0"
-                        BorderThickness="1"
-                        BorderBrush="{DynamicResource MaterialDesignErrorBrush}"/>
+                                 
             </StackPanel>
         </Border>
 
-        <!-- Footer Section -->
-        <Border Grid.Row="2" 
+                 <Border Grid.Row="2" 
                 Background="{DynamicResource MaterialDesignBackground}"
                 Height="60">
-            <TextBlock Text="© 2024 Medical Ambulance Services. All rights reserved."
+            <TextBlock Text="{DynamicResource AppTMText}"
                       Foreground="{DynamicResource MaterialDesignBodyLight}"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       FontSize="10"/>
         </Border>
 
-        <!-- Loading/Progress Indicator (Initially Hidden) -->
-        <materialDesign:Card Grid.Row="1" 
+                 <materialDesign:Card Grid.Row="1" 
                             x:Name="LoadingCard"
                             Visibility="Collapsed"
                             Width="80"

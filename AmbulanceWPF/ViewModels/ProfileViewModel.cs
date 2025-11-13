@@ -36,13 +36,13 @@ namespace AmbulanceWPF.ViewModels
                 }
             }
 
-            public string Surname
+            public string LastName
             {
                 get => _surname;
                 set
                 {
                     _surname = value;
-                    OnPropertyChanged(nameof(Surname));
+                    OnPropertyChanged(nameof(LastName));
                     Validate();
                 }
             }
@@ -81,8 +81,7 @@ namespace AmbulanceWPF.ViewModels
 
             public ProfileViewModel(Employee e)
             {
-            // Load current user data (you'll need to pass the current user)
-                _currentEmployee = e;
+                             _currentEmployee = e;
                 LoadCurrentUser(e);
 
                 SaveCommand = new RelayCommand(SaveChanges, CanSaveChanges);
@@ -91,13 +90,11 @@ namespace AmbulanceWPF.ViewModels
 
             private void LoadCurrentUser(Employee _currentEmployee)
             {
-                // TODO: Replace with actual current user loading logic
-                // For now, using a sample or getting from repository
-               
+                                                 
                 if (_currentEmployee != null)
                 {
                     Name = _currentEmployee.Name;
-                    Surname = _currentEmployee.Surname;
+                    LastName = _currentEmployee.LastName;
                     Username = _currentEmployee.Username;
                     Password = _currentEmployee.Password;
                 }
@@ -109,15 +106,12 @@ namespace AmbulanceWPF.ViewModels
 
                 try
                 {
-                    // Update the employee object
-                    _currentEmployee.Name = Name;
-                    _currentEmployee.Surname = Surname;
+                                         _currentEmployee.Name = Name;
+                    _currentEmployee.LastName = LastName;
                     _currentEmployee.Username = Username;
                     _currentEmployee.Password = Password;
 
-                    // TODO: Add repository method to update employee
-                    // EmployeeRepository.UpdateEmployee(_currentEmployee);
-
+                                          
                     MessageBox.Show("Profile updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
@@ -133,14 +127,12 @@ namespace AmbulanceWPF.ViewModels
 
             private void CancelChanges()
             {
-                // Reset to original values
-              //  LoadCurrentUser();
-            }
+                                            }
 
             private void Validate()
             {
                 IsValid = !string.IsNullOrEmpty(Name) &&
-                         !string.IsNullOrEmpty(Surname) &&
+                         !string.IsNullOrEmpty(LastName) &&
                          !string.IsNullOrEmpty(Username) &&
                          !string.IsNullOrEmpty(Password) &&
                          Username.Length >= 6 &&
@@ -173,8 +165,8 @@ namespace AmbulanceWPF.ViewModels
                                 return "First name is required";
                             break;
 
-                        case nameof(Surname):
-                            if (string.IsNullOrEmpty(Surname))
+                        case nameof(LastName):
+                            if (string.IsNullOrEmpty(LastName))
                                 return "Last name is required";
                             break;
                     }

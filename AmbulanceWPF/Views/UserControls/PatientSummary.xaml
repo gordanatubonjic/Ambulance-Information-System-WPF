@@ -34,8 +34,7 @@
                 </Grid.ColumnDefinitions>
 
                 
-                <!-- Patient Name and ID -->
-                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Text="Ime i Prezime"
                      FontWeight="Medium" 
                      FontSize="16"
@@ -46,8 +45,7 @@
                      Margin="8,0,0,0"/>
                 </StackPanel>
 
-                <!-- Age and Gender -->
-                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
                     <materialDesign:PackIcon Kind="Calendar" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>
@@ -65,8 +63,7 @@
                      Margin="4,0,0,0"/>
                 </StackPanel>
 
-                <!-- Contact Info -->
-                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
+                                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
                     <materialDesign:PackIcon Kind="Phone" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>
@@ -85,8 +82,7 @@
                      TextTrimming="CharacterEllipsis"/>
                 </StackPanel>
 
-                <!-- Medical Info -->
-            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="MedicalBag" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>

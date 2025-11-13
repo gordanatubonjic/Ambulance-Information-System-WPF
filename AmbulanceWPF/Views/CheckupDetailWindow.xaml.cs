@@ -14,10 +14,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for CheckupDetailWindow.xaml
-    /// </summary>
-    public partial class CheckupDetailWindow : Window
+    /     /     /     public partial class CheckupDetailWindow : Window
     {
         public CheckupDetailWindow()
         {

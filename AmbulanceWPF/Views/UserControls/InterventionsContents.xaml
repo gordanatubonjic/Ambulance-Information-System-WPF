@@ -16,21 +16,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Title -->
-        <TextBlock Grid.Row="0" 
-                   Text="My Interventions" 
+                 <TextBlock Grid.Row="0" 
+                   Text="{DynamicResource MyInterventionsText}" 
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    Margin="0,0,0,16"/>
 
-        <!-- Interventions Data Grid -->
-        <DataGrid Grid.Row="1" 
+                 <DataGrid Grid.Row="1" 
                   ItemsSource="{Binding Interventions}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="*"/>
-                <DataGridTextColumn Header="Patient" Binding="{Binding Patient}" Width="2*"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="3*"/>
+                <DataGridTextColumn Header="{DynamicResource DateText}" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="*"/>
+                <DataGridTextColumn Header="{DynamicResource PatientText}" Binding="{Binding Patient}" Width="2*"/>
+                <DataGridTextColumn Header="{DynamicResource DescriptionText}" Binding="{Binding Description}" Width="3*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

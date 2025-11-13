@@ -16,17 +16,12 @@ using AmbulanceWPF.ViewModels;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /// <summary>
-    /// Interaction logic for InterventionsContents.xaml
-    /// </summary>
-    public partial class InterventionsContents : UserControl
+    /     /     /     public partial class InterventionsContents : UserControl
     {
         public InterventionsContents()
         {
             InitializeComponent();
-            // Remove any DataContext setting from here
-            // Let the parent control set the DataContext
-        }
+                                  }
        
     }
 }

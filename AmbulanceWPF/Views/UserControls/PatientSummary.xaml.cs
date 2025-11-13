@@ -15,10 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /// <summary>
-    /// Interaction logic for PatientSummary.xaml
-    /// </summary>
-    public partial class PatientSummary : UserControl
+    /     /     /     public partial class PatientSummary : UserControl
     {
         public PatientSummary()
         {

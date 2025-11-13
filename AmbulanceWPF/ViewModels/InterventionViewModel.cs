@@ -1,7 +1,6 @@
 ﻿
 using AmbulanceWPF.Helper;
 using AmbulanceWPF.Models;
-    using AmbulanceWPF.Repository;
     using AmbulanceWPF.Views;
     using System;
     using System.Collections.ObjectModel;
@@ -21,8 +20,8 @@ using AmbulanceWPF.Models;
             private string _allergies;
             private string _procedures;
 
-            public ObservableCollection<MedicalTeamMember> MedicalTeam { get; set; }
-            public ObservableCollection<Medication> Medications { get; set; }
+            public ObservableCollection<Employee> MedicalTeam { get; set; }
+            public ObservableCollection<Therapy> Medications { get; set; }
 
             public ICommand SaveCommand { get; }
             public ICommand CancelCommand { get; }
@@ -65,20 +64,19 @@ using AmbulanceWPF.Models;
             {
                 _currentUser = currentUser;
 
-                MedicalTeam = new ObservableCollection<MedicalTeamMember>();
-                Medications = new ObservableCollection<Medication>();
+                MedicalTeam = new ObservableCollection<Employee>();
+                Medications = new ObservableCollection<Therapy>();
 
                 SaveCommand = new RelayCommand(SaveIntervention);
                 CancelCommand = new RelayCommand(Cancel);
                 AddTeamMemberCommand = new RelayCommand(AddTeamMember);
-                RemoveTeamMemberCommand = new RelayCommand<MedicalTeamMember>(RemoveTeamMember);
+                RemoveTeamMemberCommand = new RelayCommand<Employee>(RemoveTeamMember);
                 AddMedicationCommand = new RelayCommand(AddMedication);
-                RemoveMedicationCommand = new RelayCommand<Medication>(RemoveMedication);
+                RemoveMedicationCommand = new RelayCommand<Therapy>(RemoveMedication);
 
-                // Auto-add the current user as the responsible doctor
-                MedicalTeam.Add(new MedicalTeamMember
+                                 MedicalTeam.Add(new Employee
                 {
-                    Name = $"{currentUser.Name} {currentUser.Surname}",
+                    Name = $"{currentUser.Name} {currentUser.LastName}",
                     Role = currentUser.Role
                 });
             }
@@ -96,20 +94,14 @@ using AmbulanceWPF.Models;
                 {
                     var intervention = new Intervention
                     {
-                        Patient = $"{PatientName} {PatientSurname}",
-                        Date = DateOnly.FromDateTime(DateTime.Now),
-                        Description = Description,
-                        Doctor = _currentUser.Username
+                       //logika za dodavanje intervencije
                     };
 
-                    // Save to repository
-                    InterventionRepository.AddIntervention(intervention);
-
+                                         
                     MessageBox.Show("Intervention saved successfully!", "Success",
                                   MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    // Close the window with DialogResult = true
-                    Application.Current.Windows.OfType<InterventionView>().FirstOrDefault()?.CloseWithResult(true);
+                                         Application.Current.Windows.OfType<InterventionView>().FirstOrDefault()?.CloseWithResult(true);
                 }
                 catch (Exception ex)
                 {
@@ -125,11 +117,10 @@ using AmbulanceWPF.Models;
 
             private void AddTeamMember()
             {
-                // Implementation for adding team members
-                MedicalTeam.Add(new MedicalTeamMember { Name = "New Member", Role = "Doctor" });
+                                 MedicalTeam.Add(new Employee { Name = "New Member", Role = "Employee" });
             }
 
-            private void RemoveTeamMember(MedicalTeamMember member)
+            private void RemoveTeamMember(Employee member)
             {
                 if (member != null)
                     MedicalTeam.Remove(member);
@@ -137,11 +128,10 @@ using AmbulanceWPF.Models;
 
             private void AddMedication()
             {
-                // Implementation for adding medications
-                Medications.Add(new Medication { Name = "New Medication", Dosage = "0mg" });
+                                
             }
 
-            private void RemoveMedication(Medication medication)
+            private void RemoveMedication(Therapy medication)
             {
                 if (medication != null)
                     Medications.Remove(medication);
@@ -163,26 +153,10 @@ using AmbulanceWPF.Models;
 
             if (result == true)
             {
-                // Add the medication to the list
-                Medications.Add(new Medication
-                {
-                    Name = addMedicationView.SelectedMedication,
-                    Dosage = addMedicationView.Dosage
-                });
+                                
+
             }
         }
     }
-
-        public class MedicalTeamMember
-        {
-            public string Name { get; set; }
-            public string Role { get; set; }
-        }
-
-        public class Medication
-        {
-            public string Name { get; set; }
-            public string Dosage { get; set; }
-        }
     }
 

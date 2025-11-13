@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="Username">Korisničko ime</sys:String>
+    <sys:String x:Key="Password">Lozinka</sys:String>
+    <sys:String x:Key="LoginButtonText">Prijavi se</sys:String>
+    <sys:String x:Key="AppTMText">© 2025 Servis Ambulante Opšte Medicine. Sva prava zadržana.</sys:String>
+    <sys:String x:Key="AppNameText">AMBULANTA PORODIČNE MEDICINE</sys:String>
+    <sys:String x:Key="AppNameSubText">Sistem za redovne preglede i intervencije</sys:String>
+    <sys:String x:Key="LoginHeaderText">Prijavi se na svoj nalog</sys:String>
+    <sys:String x:Key="LoginBtnText">PRIJAVI SE</sys:String>
+    <sys:String x:Key="AppHeaderText">Informacioni sistem ambulante</sys:String>
+    <sys:String x:Key="MyInterventionsText">Moje Intervencije</sys:String>
+    <sys:String x:Key="DateText">Datum</sys:String>
+    <sys:String x:Key="PatientText">Pacijent</sys:String>
+    <sys:String x:Key="DescriptionText">Opis</sys:String>
+    <sys:String x:Key="SearchText">Pretraži pacijenta...</sys:String>
+    <sys:String x:Key="NewExamText">Novi pregled</sys:String>
+    <sys:String x:Key="NewInterventionText">Nova Intervencija</sys:String>
+    <sys:String x:Key="MonthlyReportText">Mjesečni izvještaj</sys:String>
+    <sys:String x:Key="ProfileSettingsText">Podešavanja Profila</sys:String>
+    <sys:String x:Key="FirstNameText">Ime</sys:String>
+    <sys:String x:Key="FirstNameFillerText">Unesite ime</sys:String>
+    <sys:String x:Key="LastNameFillerText">Enter last name</sys:String>
+    <sys:String x:Key="LastNameText">Prezime</sys:String>
+    <sys:String x:Key="UsernameFillerText">Unesite korisničko ime (min 6 karaktera)</sys:String>
+    <sys:String x:Key="PasswordFillerText">Unesite novu lozinku (min 6 karaktera)</sys:String>
+    <sys:String x:Key="CancelText">Otkaži</sys:String>
+    <sys:String x:Key="AddMedicationHeaderText">DODAJ TERAPIJU</sys:String>
+    <sys:String x:Key="SelectMedicationText">Izaberi lijek</sys:String>
+    <sys:String x:Key="DosageText">Doza (npr., 500mg, 10ml)</sys:String>
+    <sys:String x:Key="AddText">DODAJ</sys:String>
+    <sys:String x:Key="CheckupHeaderText">Izvještaj sa pregleda</sys:String>
+    <sys:String x:Key="HealthcareProviderText">Zdravstveni radnik</sys:String>
+    <sys:String x:Key="SummaryText">Sažeti izvještaj</sys:String>
+    <sys:String x:Key="DetailedDescriptionText">Detaljni opis</sys:String>
+    <sys:String x:Key="DiagnosisText">Dijagnoza</sys:String>
+    <sys:String x:Key="MedicationsText">Terapija</sys:String>
+    <sys:String x:Key="AdditionalNotesText">Dodatne bilješke</sys:String>
+    <sys:String x:Key="CloseText">ZATVORI</sys:String>
+    <sys:String x:Key="NextAppointmentText">Naredni termin</sys:String>
+    <sys:String x:Key="NavigationText">Navigacioni meni</sys:String>
+    <sys:String x:Key="PatientsText">Moji pacijenti</sys:String>
+    <sys:String x:Key="MyProfileText">Moji profile</sys:String>
+    <sys:String x:Key="PatientInfoText">INFORMACIJE O PACIJENTU</sys:String>
+    <sys:String x:Key="AssessmentFillerText">Kratak opis procjene stanja pacijenta</sys:String>
+    <sys:String x:Key="AllergiesText">Alergije</sys:String>
+    <sys:String x:Key="MedicalTeamText">Tim stručnjaka</sys:String>
+    <sys:String x:Key="CurrentDoctorText">Dežurni ljekar</sys:String>
+    <sys:String x:Key="AssociatesText">Saradnici (Ljekari i medicinski tehničari)</sys:String>
+    <sys:String x:Key="NameText">Ime</sys:String>
+    <sys:String x:Key="RoleText">Uloga</sys:String>
+    <sys:String x:Key="RemoveText">Ukloni</sys:String>
+    <sys:String x:Key="AssociateNameText">Ime saradnika</sys:String>
+    <sys:String x:Key="AddAssociateText">Dodaj saradnika</sys:String>
+    <sys:String x:Key="AdministeredMedicationText">DATI LIJEKOVI</sys:String>
+    <sys:String x:Key="ProceduresHeaderText">IZVRŠENE PROCEDURE</sys:String>
+    <sys:String x:Key="ProceduresDescriptionText">Kratak opis izvedenih procedura</sys:String>
+    <sys:String x:Key="SaveText">SAČUVAJ</sys:String>
+    <sys:String x:Key="ReferalFormText">UPUTNICA</sys:String>
+    <sys:String x:Key="AgeText">Godine starosti</sys:String>
+    <sys:String x:Key="GenderText">Pol</sys:String>
+    <sys:String x:Key="DateOfBirthText">Datum rođenja</sys:String>
+    <sys:String x:Key="ReferalDetailsHeaderText">Upućuje se na pregled specijalisti</sys:String>
+    <sys:String x:Key="SpecialtyDoctorText">Doktor specijalista</sys:String>
+    <sys:String x:Key="ReferalReasonText">Razlog traženja stručnog mišljenja specijaliste</sys:String>
+    <sys:String x:Key="ReferingDoctorText">Ljekar koji potražuje stučni pregled</sys:String>
+    <sys:String x:Key="SubmitText">Potvrdi</sys:String>
+    <sys:String x:Key="TechnicianText">Medicinski tehničar</sys:String>
+    <sys:String x:Key="DeliveryText">Porudžbine</sys:String>
+    <sys:String x:Key="ArchivesText">Arhiva</sys:String>
+
+
+
+
+
+
+</ResourceDictionary>

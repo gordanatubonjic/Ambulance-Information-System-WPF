@@ -15,10 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /// <summary>
-    /// Interaction logic for ReferralView.xaml
-    /// </summary>
-    
+    /     /     /     
     public partial class ReferralView : Window
     {
         public ReferralView()

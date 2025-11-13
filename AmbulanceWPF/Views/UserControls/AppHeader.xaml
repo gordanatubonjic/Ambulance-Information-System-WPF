@@ -4,15 +4,13 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <UserControl.Resources>
-        <!-- Profile Dropdown Popup Style -->
-        <Style x:Key="ProfileDropdownPopup" TargetType="Popup">
+                 <Style x:Key="ProfileDropdownPopup" TargetType="Popup">
             <Setter Property="AllowsTransparency" Value="True"/>
             <Setter Property="StaysOpen" Value="False"/>
             <Setter Property="PopupAnimation" Value="Fade"/>
         </Style>
 
-        <!-- Profile Menu Item Style -->
-        <Style x:Key="ProfileMenuItem" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                 <Style x:Key="ProfileMenuItem" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Padding" Value="16,12"/>
@@ -21,8 +19,7 @@
         </Style>
     </UserControl.Resources>
 
-    <!-- Main Header Container with Border for Shadow Effect -->
-    <Border Background="{DynamicResource MaterialDesignPaper}"
+         <Border Background="{DynamicResource MaterialDesignPaper}"
             BorderBrush="{DynamicResource MaterialDesignDivider}"
             BorderThickness="0,0,0,1">
         <Border.Effect>
@@ -40,8 +37,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Left Side - Home Button -->
-            <Button Grid.Column="0" 
+                         <Button Grid.Column="0" 
                     Style="{StaticResource MaterialDesignIconButton}"
                     Command="{Binding HomeCommand}"
                     ToolTip="Home"
@@ -51,8 +47,7 @@
                  Foreground="{DynamicResource MaterialDesignBody}"/>
             </Button>
 
-            <!-- Center - Title/Logo (Optional) -->
-            <StackPanel Grid.Column="1" 
+                         <StackPanel Grid.Column="1" 
                        Orientation="Horizontal" 
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center">
@@ -60,7 +55,7 @@
                                        Width="32" Height="32"
                                        Foreground="{DynamicResource MaterialDesignBody}"
                                        VerticalAlignment="Center"/>
-                <TextBlock Text="Ambulance System" 
+                <TextBlock Text="{DynamicResource AppHeaderText}" 
                           FontSize="20" 
                           FontWeight="Medium"
                           Foreground="{DynamicResource MaterialDesignBody}"
@@ -68,18 +63,15 @@
                           Margin="12,0,0,0"/>
             </StackPanel>
 
-            <!-- Right Side - Profile Section -->
-            <Grid Grid.Column="2" VerticalAlignment="Center">
-                <!-- Profile Button -->
-                <Button x:Name="ProfileButton"
+                         <Grid Grid.Column="2" VerticalAlignment="Center">
+                                 <Button x:Name="ProfileButton"
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Padding="8"
                         Height="48"
                         Click="ProfileButton_Click"
                         ToolTip="Profile Menu">
                     <StackPanel Orientation="Horizontal">
-                        <!-- Profile Avatar -->
-                        <Border Background="{DynamicResource MaterialDesignDivider}"
+                                                 <Border Background="{DynamicResource MaterialDesignDivider}"
                                CornerRadius="20"
                                Width="32" Height="32"
                                Margin="0,0,8,0">
@@ -92,16 +84,14 @@
                                      VerticalAlignment="Center"/>
                         </Border>
 
-                        <!-- Doctor Name -->
-                        <TextBlock Text="{Binding DoctorName}" 
+                                                 <TextBlock Text="{Binding DoctorName}" 
                                  FontSize="14"
                                  FontWeight="Medium"
                                  Foreground="{DynamicResource MaterialDesignBody}"
                                  VerticalAlignment="Center"
                                  Margin="0,0,8,0"/>
 
-                        <!-- Dropdown Arrow -->
-                        <materialDesign:PackIcon Kind="ChevronDown"
+                                                 <materialDesign:PackIcon Kind="ChevronDown"
                                                Width="16" Height="16"
                                                Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                VerticalAlignment="Center"
@@ -113,8 +103,7 @@
                     </StackPanel>
                 </Button>
 
-                <!-- Profile Dropdown Popup -->
-                <Popup x:Name="ProfilePopup" 
+                                 <Popup x:Name="ProfilePopup" 
                        Style="{StaticResource ProfileDropdownPopup}"
                        Placement="Bottom"
                        PlacementTarget="{Binding ElementName=ProfileButton}"
@@ -135,8 +124,7 @@
                         </Border.Effect>
 
                         <StackPanel>
-                            <!-- Profile Info Header -->
-                            <Border Background="{DynamicResource MaterialDesignToolBarBackground}"
+                                                         <Border Background="{DynamicResource MaterialDesignToolBarBackground}"
                                    Padding="16,12"
                                    CornerRadius="4,4,0,0">
                                 <StackPanel>
@@ -155,11 +143,9 @@
                                 </StackPanel>
                             </Border>
 
-                            <!-- Divider -->
-                            <Rectangle Height="1" Fill="{DynamicResource MaterialDesignDivider}"/>
+                                                         <Rectangle Height="1" Fill="{DynamicResource MaterialDesignDivider}"/>
 
-                            <!-- Menu Items -->
-                            <Button Style="{StaticResource ProfileMenuItem}"
+                                                         <Button Style="{StaticResource ProfileMenuItem}"
                                    Command="{Binding ViewProfileCommand}"
                                    Click="ClosePopup_Click">
                                 <StackPanel Orientation="Horizontal">
@@ -187,8 +173,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <!-- Divider before logout -->
-                            <Rectangle Height="1" Fill="{DynamicResource MaterialDesignDivider}"/>
+                                                         <Rectangle Height="1" Fill="{DynamicResource MaterialDesignDivider}"/>
 
                             <Button Style="{StaticResource ProfileMenuItem}"
                                    Command="{Binding LogoutCommand}"

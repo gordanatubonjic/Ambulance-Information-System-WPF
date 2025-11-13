@@ -13,25 +13,23 @@
     <Grid Margin="20">
         <materialDesign:Card Padding="20" Margin="0">
             <StackPanel Orientation="Vertical" Margin="0">
-                <TextBlock Text="Medical Referral Form" FontSize="20" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
+                <TextBlock Text="{DynamicResource ReferalFormText}" FontSize="20" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
 
-                <!-- Patient Information -->
-                <TextBlock Text="Patient Information" FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
+                                 <TextBlock Text="{DynamicResource PatientInfoText}" FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
 
-                <TextBox materialDesign:HintAssist.Hint="Patient Name" Margin="0 0 0 10"/>
-                <TextBox materialDesign:HintAssist.Hint="Patient Surname" Margin="0 0 0 10"/>
-                <TextBox materialDesign:HintAssist.Hint="Patient Age" Margin="0 0 0 10" PreviewTextInput="NumberValidationTextBox"/>
-                <ComboBox materialDesign:HintAssist.Hint="Patient Gender" Margin="0 0 0 10">
+                <TextBox materialDesign:HintAssist.Hint="{DynamicResource FirstNameText}" Margin="0 0 0 10"/>
+                <TextBox materialDesign:HintAssist.Hint="{DynamicResource LastNameText}" Margin="0 0 0 10"/>
+                <TextBox materialDesign:HintAssist.Hint="{DynamicResource AgeText}" Margin="0 0 0 10" PreviewTextInput="NumberValidationTextBox"/>
+                <ComboBox materialDesign:HintAssist.Hint="{DynamicResource GenderText}" Margin="0 0 0 10">
                     <ComboBoxItem Content="Male"/>
                     <ComboBoxItem Content="Female"/>
                     <ComboBoxItem Content="Other"/>
                 </ComboBox>
-                <DatePicker materialDesign:HintAssist.Hint="Patient Date of Birth" Margin="0 0 0 20"/>
+                <DatePicker materialDesign:HintAssist.Hint="{DynamicResource DateOfBirthText}" Margin="0 0 0 20"/>
 
-                <!-- Referral Details -->
-                <TextBlock Text="Referral Details" FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
+                                 <TextBlock Text="{DynamicResource ReferalDetailsHeaderText}" FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
 
-                <ComboBox materialDesign:HintAssist.Hint="Specialty Doctor" Margin="0 0 0 10">
+                <ComboBox materialDesign:HintAssist.Hint="{DynamicResource SpecialtyDoctorText}" Margin="0 0 0 10">
                     <ComboBoxItem Content="Cardiology"/>
                     <ComboBoxItem Content="Neurology"/>
                     <ComboBoxItem Content="Orthopedics"/>
@@ -39,13 +37,12 @@
                     <ComboBoxItem Content="Oncology"/>
                     <ComboBoxItem Content="Other"/>
                 </ComboBox>
-                <TextBox materialDesign:HintAssist.Hint="Reason for Referral" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="100" Margin="0 0 0 10"/>
-                <TextBox materialDesign:HintAssist.Hint="Referring Doctor's Name" Margin="0 0 0 20"/>
+                <TextBox materialDesign:HintAssist.Hint="{DynamicResource ReferalReasonText}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="100" Margin="0 0 0 10"/>
+                <TextBox materialDesign:HintAssist.Hint="{DynamicResource ReferingDoctorText}" Margin="0 0 0 20"/>
 
-                <!-- Actions -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Submit" Style="{StaticResource MaterialDesignRaisedButton}" Margin="0 0 10 0"/>
-                    <Button Content="Cancel" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="{DynamicResource SubmitText}" Style="{StaticResource MaterialDesignRaisedButton}" Margin="0 0 10 0"/>
+                    <Button Content="{DynamicResource CancelText}" Style="{StaticResource MaterialDesignOutlinedButton}"/>
                 </StackPanel>
             </StackPanel>
         </materialDesign:Card>
