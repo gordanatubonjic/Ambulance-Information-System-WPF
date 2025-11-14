@@ -16,7 +16,7 @@ using AmbulanceWPF.ViewModels;
 
 namespace AmbulanceWPF.Views
 {
-    /     /     /     public partial class InterventionView : Window
+          public partial class InterventionView : Window
     {
         private Employee _currentUser;
 

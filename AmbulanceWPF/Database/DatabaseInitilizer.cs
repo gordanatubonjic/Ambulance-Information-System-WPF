@@ -13,7 +13,7 @@ namespace AmbulanceWPF.Database
         {
             using var context = new AmbulanceDbContext();
 
-                         context.Database.EnsureCreated();
+           context.Database.EnsureCreated();
 
                           
 

@@ -31,7 +31,7 @@ namespace AmbulanceWPF.Models
             public int ResidenceLocationId { get; set; }
             public ICollection<Examination> Examinations { get; set; } = new List<Examination>();
 
-                 public virtual Location ResidenceLocation { get; set; }
+            public virtual Location ResidenceLocation { get; set; }
         
 
 

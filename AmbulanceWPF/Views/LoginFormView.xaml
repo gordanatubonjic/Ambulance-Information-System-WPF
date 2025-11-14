@@ -116,7 +116,7 @@
                     </TextBlock>
                 </Grid>
 
-                                 <Button x:Name="LoginButton"
+                        <Button x:Name="LoginButton"
                         Content="{DynamicResource LoginBtnText}"
                         Command="{Binding LoginCommand}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"

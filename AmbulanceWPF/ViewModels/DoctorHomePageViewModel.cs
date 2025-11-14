@@ -12,6 +12,8 @@ using AmbulanceWPF.Views;
 using System.Windows;
 using AmbulanceWPF.Views.UserControls;
 using System.Diagnostics;
+using AmbulanceWPF.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmbulanceWPF.ViewModels
 {
@@ -21,8 +23,11 @@ namespace AmbulanceWPF.ViewModels
         private Employee CurrentUser { get; set; }
         private ObservableCollection<Patient> _allPatients;
         private ObservableCollection<Patient> _filteredPatients;
+        private ObservableCollection<MedicalRecord> _allRecords;
         private ObservableCollection<Intervention> _interventions;
-        private ObservableCollection<MedicationCatalog> _medications;          public ObservableCollection<MedicationCatalog> Medications => _medications;
+        private ObservableCollection<MedicationCatalog> _medications;
+        public ObservableCollection<MedicationCatalog> Medications => _medications;
+        public ObservableCollection<MedicalRecord> AllRecords => _allRecords;
 
 
         private ProfileViewModel profileViewModel;
@@ -41,10 +46,11 @@ namespace AmbulanceWPF.ViewModels
 
         public DoctorHomePageViewModel() {
             //Employee e = EmployeeRepository.GetEmployee("markic");
-
+            //TODO Fix this employee assignment
             Employee e = new Employee("markic", "markic");//= DummyDataGenerator.GenerateEmployees()[2];
             this.CurrentUser = e;
-            LoadPatients();              LoadInterventions();
+            LoadPatients(); 
+            LoadInterventions();
             if(_allPatients != null)
             FilteredPatients = new ObservableCollection<Patient>(_allPatients);
 
@@ -67,11 +73,12 @@ namespace AmbulanceWPF.ViewModels
         public DoctorHomePageViewModel(Employee currentUser)
         {
             this.CurrentUser = currentUser;
-            LoadPatients();              LoadInterventions();
+            LoadPatients();
+            LoadInterventions();
             
             if(_allPatients !=null)
             FilteredPatients = new ObservableCollection<Patient>(_allPatients);
-
+            //AllRecords = new ObservableCollection<MedicalRecord>(_allRecords);
             ViewPatientCommand = new RelayCommand<Patient>(ViewPatient);
             NavigateToInterventionsCommand = new RelayCommand(ViewInterventions);
             NavigateToPatientsCommand = new RelayCommand(ViewPatients);
@@ -126,8 +133,19 @@ namespace AmbulanceWPF.ViewModels
 
         private void LoadPatients()
         {
-                         //_allPatients = new ObservableCollection<Patient>(PatientRepository.GetPatients());
-                    }
+            using (var context = new AmbulanceDbContext())
+            {
+                var medicalRecords = context.MedicalRecords
+                    .Include(mr => mr.Patient)
+                        .ThenInclude(p => p.ResidenceLocation)
+                    .Where(mr => mr.DoctorJMB == CurrentUser.JMB)
+                    .ToList();
+
+                _allPatients = new ObservableCollection<Patient>(
+                    medicalRecords.Select(mr => mr.Patient)
+                );
+            }
+        }
         private void LoadInterventions()
         {
                           }
@@ -234,7 +252,7 @@ namespace AmbulanceWPF.ViewModels
         }
 
 
-                 public string DoctorName => CurrentUser?.Name + " " + CurrentUser?.LastName;
+        public string DoctorName => CurrentUser?.Name + " " + CurrentUser?.LastName;
         public string DoctorInitials => GetInitials(CurrentUser);
         public string DoctorEmail => CurrentUser?.Username + "@ambulance.com";
         public string DoctorRole => CurrentUser?.Role;

@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /     /     /     public partial class BindablePasswordBox : UserControl
+    public partial class BindablePasswordBox : UserControl
     {
         public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register("Password", typeof(SecureString), typeof(BindablePasswordBox));

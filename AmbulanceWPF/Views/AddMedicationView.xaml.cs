@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /     /     /     public partial class AddMedicationView : Window
+          public partial class AddMedicationView : Window
     {
         
         public string SelectedMedication { get; private set; }

@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF
 {
-    /     /     /     public partial class MainWindow : Window
+          public partial class MainWindow : Window
     {
         public MainWindow()
         {

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /     /     /     public partial class PatientHistoryView : Window
+          public partial class PatientHistoryView : Window
     {
         public PatientHistoryView()
         {

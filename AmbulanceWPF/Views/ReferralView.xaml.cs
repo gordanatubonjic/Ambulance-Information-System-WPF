@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /     /     /     
+          
     public partial class ReferralView : Window
     {
         public ReferralView()

@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /     /     /     public partial class CheckupDetailWindow : Window
+          public partial class CheckupDetailWindow : Window
     {
         public CheckupDetailWindow()
         {

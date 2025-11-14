@@ -2,12 +2,13 @@
 using AmbulanceWPF.Models;
 using System.Collections.Generic;
 using System.IO;
+using AmbulanceWPF.Helper;
 
 namespace AmbulanceWPF.Data
 {
     public class AmbulanceDbContext : DbContext
     {
-                 public DbSet<Phone> Telephones { get; set; }
+        public DbSet<Phone> Telephones { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Patient> Patients { get; set; }
@@ -63,7 +64,11 @@ namespace AmbulanceWPF.Data
                       .HasMaxLength(45);
                 entity.Property(e => e.Password)
                       .IsRequired()
-                      .HasMaxLength(45);                  entity.Property(e => e.Role)
+                      .HasMaxLength(45);
+                entity.Property(e => e.PasswordHash)
+                      .IsRequired()
+                      .HasMaxLength(45);
+                entity.Property(e => e.Role)
                       .IsRequired()
                       .HasMaxLength(45);
                 entity.Property(e => e.Theme)
@@ -479,6 +484,7 @@ namespace AmbulanceWPF.Data
          LastName = "Kovacevic",
          Username = "amar.k",
          Password = "amarovasifra",
+         PasswordHash = "amarovasifra",
          Role = "Doctor",
          IsActive = 1,
          Theme = "Light",
@@ -490,6 +496,7 @@ namespace AmbulanceWPF.Data
          LastName = "Juric",
          Username = "mila.j",
          Password = "milinasifra",
+         PasswordHash = "amarovasifra",
          Role = "MedicalTechnician",
          IsActive = 1,
          Theme = "Dark"

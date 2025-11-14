@@ -27,6 +27,10 @@ namespace AmbulanceWPF.Models
         [MaxLength(45)]
         public string Password { get; set; }
         [Required]
+        [MaxLength(64)]
+        public string PasswordHash { get; set; } = string.Empty;
+
+        [Required]
         [MaxLength(45)]
         public string Role { get; set; }
         public int IsActive { get; set; }
@@ -39,16 +43,12 @@ namespace AmbulanceWPF.Models
 
                  [ForeignKey("PhoneNumber")]
         public virtual Phone? Phone { get; set; }
-                 public virtual ICollection<MedicalRecord> MedicalRecords { get; set; }
+        public virtual ICollection<MedicalRecord> MedicalRecords { get; set; }
         public virtual ICollection<Examination> Examinations { get; set; }
         public virtual ICollection<Diagnosis> Diagnosis { get; set; }
         public virtual ICollection<InterventionDoctor> InterventionDoctors { get; set; }
         public virtual ICollection<Referral> Referrals { get; set; }
 
-        //NAvigation properties?? 
-        //public Employee Employee { get; set; }
-        //public MedicalTechnician MedicalTechnician { get; set; }
-        //
         public Employee() { }
 
         public Employee(String username, String pass) {

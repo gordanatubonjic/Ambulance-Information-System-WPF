@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /     /     /     public partial class PatientSummary : UserControl
+    public partial class PatientSummary : UserControl
     {
         public PatientSummary()
         {

@@ -16,7 +16,7 @@ using AmbulanceWPF.ViewModels;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /     /     /     public partial class InterventionsContents : UserControl
+          public partial class InterventionsContents : UserControl
     {
         public InterventionsContents()
         {

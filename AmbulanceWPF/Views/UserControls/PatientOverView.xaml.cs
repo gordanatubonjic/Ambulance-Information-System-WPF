@@ -16,7 +16,7 @@ using AmbulanceWPF.ViewModels;
 
 namespace AmbulanceWPF.Views.UserControls
 {
-    /     /     /     public partial class PatientOverView : UserControl
+          public partial class PatientOverView : UserControl
     {
         public PatientOverView()
         {

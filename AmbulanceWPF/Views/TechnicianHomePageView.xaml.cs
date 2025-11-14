@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-    /     /     /     public partial class TechnicianHomePageView : Window
+          public partial class TechnicianHomePageView : Window
     {
         public TechnicianHomePageView()
         {

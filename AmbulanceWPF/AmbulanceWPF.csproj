@@ -30,4 +30,8 @@
     <PackageReference Include="System.Data.SQLite" Version="2.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

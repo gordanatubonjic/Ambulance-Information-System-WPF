@@ -8,8 +8,6 @@ using System.Windows.Input;
 
 namespace AmbulanceWPF
 {
-   
-
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;

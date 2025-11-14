@@ -3,11 +3,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace AmbulanceWPF.Migrations
 {
-    /     public partial class InitialCreate : Migration
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
     {
-        /         protected override void Up(MigrationBuilder migrationBuilder)
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "DiseaseCatalog",
@@ -21,24 +25,6 @@ namespace AmbulanceWPF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DiseaseCatalog", x => x.DiseaseCode);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employee",
-                columns: table => new
-                {
-                    JMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    Username = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    Password = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    Role = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    IsActive = table.Column<int>(type: "INTEGER", nullable: false),
-                    Theme = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employee", x => x.JMB);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,23 +79,6 @@ namespace AmbulanceWPF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicalTechnician",
-                columns: table => new
-                {
-                    JMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicalTechnician", x => x.JMB);
-                    table.ForeignKey(
-                        name: "FK_MedicalTechnician_Employee_JMB",
-                        column: x => x.JMB,
-                        principalTable: "Employee",
-                        principalColumn: "JMB",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Patient",
                 columns: table => new
                 {
@@ -152,19 +121,21 @@ namespace AmbulanceWPF.Migrations
                 columns: table => new
                 {
                     JMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    Username = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    Password = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    Role = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    IsActive = table.Column<int>(type: "INTEGER", nullable: false),
+                    Theme = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Doctor", x => x.JMB);
+                    table.PrimaryKey("PK_Employee", x => x.JMB);
                     table.ForeignKey(
-                        name: "FK_Doctor_Employee_JMB",
-                        column: x => x.JMB,
-                        principalTable: "Employee",
-                        principalColumn: "JMB",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Doctor_Phone_PhoneNumber",
+                        name: "FK_Employee_Phone_PhoneNumber",
                         column: x => x.PhoneNumber,
                         principalTable: "Phone",
                         principalColumn: "PhoneNumber",
@@ -233,7 +204,7 @@ namespace AmbulanceWPF.Migrations
                 {
                     table.PrimaryKey("PK_Examination", x => x.ExaminationId);
                     table.ForeignKey(
-                        name: "FK_Examination_Doctor_DoctorJMB",
+                        name: "FK_Examination_Employee_DoctorJMB",
                         column: x => x.DoctorJMB,
                         principalTable: "Employee",
                         principalColumn: "JMB",
@@ -266,7 +237,7 @@ namespace AmbulanceWPF.Migrations
                 {
                     table.PrimaryKey("PK_MedicalRecord", x => x.PatientJMB);
                     table.ForeignKey(
-                        name: "FK_MedicalRecord_Doctor_DoctorJMB",
+                        name: "FK_MedicalRecord_Employee_DoctorJMB",
                         column: x => x.DoctorJMB,
                         principalTable: "Employee",
                         principalColumn: "JMB",
@@ -290,7 +261,7 @@ namespace AmbulanceWPF.Migrations
                 {
                     table.PrimaryKey("PK_InterventionDoctor", x => new { x.InterventionId, x.DoctorJMB });
                     table.ForeignKey(
-                        name: "FK_InterventionDoctor_Doctor_DoctorJMB",
+                        name: "FK_InterventionDoctor_Employee_DoctorJMB",
                         column: x => x.DoctorJMB,
                         principalTable: "Employee",
                         principalColumn: "JMB",
@@ -338,7 +309,7 @@ namespace AmbulanceWPF.Migrations
                     DoctorOpinion = table.Column<string>(type: "TEXT", nullable: false),
                     ExaminationId = table.Column<int>(type: "INTEGER", nullable: false),
                     DoctorJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
-                    DoctorJMB1 = table.Column<string>(type: "TEXT", nullable: true)
+                    EmployeeJMB = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -350,14 +321,14 @@ namespace AmbulanceWPF.Migrations
                         principalColumn: "DiseaseCode",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Diagnosis_Doctor_DoctorJMB",
+                        name: "FK_Diagnosis_Employee_DoctorJMB",
                         column: x => x.DoctorJMB,
                         principalTable: "Employee",
                         principalColumn: "JMB",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Diagnosis_Doctor_DoctorJMB1",
-                        column: x => x.DoctorJMB1,
+                        name: "FK_Diagnosis_Employee_EmployeeJMB",
+                        column: x => x.EmployeeJMB,
                         principalTable: "Employee",
                         principalColumn: "JMB");
                     table.ForeignKey(
@@ -396,7 +367,7 @@ namespace AmbulanceWPF.Migrations
                         principalColumn: "DiseaseCode",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Referral_Doctor_DoctorJMB",
+                        name: "FK_Referral_Employee_DoctorJMB",
                         column: x => x.DoctorJMB,
                         principalTable: "Employee",
                         principalColumn: "JMB",
@@ -408,6 +379,135 @@ namespace AmbulanceWPF.Migrations
                         principalColumn: "ExaminationId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "DiseaseCatalog",
+                columns: new[] { "DiseaseCode", "Description", "DiseaseName", "UpdateDate" },
+                values: new object[,]
+                {
+                    { 1001, "Persistent high arterial blood pressure.", "Hypertension", new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1002, "Inflammation of the bronchial tubes, often viral.", "Acute bronchitis", new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employee",
+                columns: new[] { "JMB", "IsActive", "LastName", "Name", "Password", "PasswordHash", "PhoneNumber", "Role", "Theme", "Username" },
+                values: new object[] { "9035172846109", 1, "Juric", "Mila", "milinasifra", "amarovasifra", null, "MedicalTechnician", "Dark", "mila.j" });
+
+            migrationBuilder.InsertData(
+                table: "Location",
+                columns: new[] { "PostalCode", "Name" },
+                values: new object[,]
+                {
+                    { 71000, "Sarajevo" },
+                    { 78000, "Banja Luka" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MedicationCatalog",
+                columns: new[] { "MedicationCode", "IsActive", "Manufacturer", "Name" },
+                values: new object[,]
+                {
+                    { 2001, true, "ACME Pharma", "Lisinopril" },
+                    { 2002, true, "BreatheWell", "Salbutamol" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Phone",
+                column: "PhoneNumber",
+                values: new object[]
+                {
+                    "+38761111222",
+                    "+38762123456"
+                });
+
+            migrationBuilder.InsertData(
+                table: "Procurement",
+                columns: new[] { "ProcurementId", "ProcurementDate", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null },
+                    { 2, new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employee",
+                columns: new[] { "JMB", "IsActive", "LastName", "Name", "Password", "PasswordHash", "PhoneNumber", "Role", "Theme", "Username" },
+                values: new object[] { "6482157394021", 1, "Kovacevic", "Amar", "amarovasifra", "amarovasifra", "+38761111222", "Doctor", "Light", "amar.k" });
+
+            migrationBuilder.InsertData(
+                table: "MedicationInventory",
+                columns: new[] { "MedicationCode", "Quantity" },
+                values: new object[,]
+                {
+                    { 2001, 25m },
+                    { 2002, 40m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MedicationItem",
+                columns: new[] { "MedicationCode", "ProcurementId", "Quantity" },
+                values: new object[,]
+                {
+                    { 2001, 1, 50 },
+                    { 2002, 2, 100 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Patient",
+                columns: new[] { "JMB", "LastName", "Name", "ResidenceLocationId" },
+                values: new object[,]
+                {
+                    { "4185270936518", "Petrovic", "Sara", 78000 },
+                    { "5729618430725", "Horvat", "Ivan", 71000 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Examination",
+                columns: new[] { "ExaminationId", "DoctorJMB", "ExaminationDate", "ExaminationDescription", "PatientJMB", "PatientJMB1" },
+                values: new object[,]
+                {
+                    { 1, "6482157394021", new DateTime(2025, 4, 20, 10, 30, 0, 0, DateTimeKind.Unspecified), "Routine checkup", "5729618430725", null },
+                    { 2, "6482157394021", new DateTime(2025, 5, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), "Cough and wheezing", "4185270936518", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Intervention",
+                columns: new[] { "InterventionId", "Date", "InterventionDescription", "PatientJMB" },
+                values: new object[] { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nebulization therapy administered.", "4185270936518" });
+
+            migrationBuilder.InsertData(
+                table: "MedicalRecord",
+                columns: new[] { "PatientJMB", "DoctorJMB", "Gender", "Insurance", "MaritalStatus", "ParentName" },
+                values: new object[,]
+                {
+                    { "4185270936518", "6482157394021", 1, 0, "Married", "Ivana" },
+                    { "5729618430725", "6482157394021", 0, 0, "Single", "Marko" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Diagnosis",
+                columns: new[] { "Date", "DiseaseCode", "PatientJMB", "DoctorJMB", "DoctorOpinion", "EmployeeJMB", "ExaminationId" },
+                values: new object[,]
+                {
+                    { new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "4185270936518", "6482157394021", "Likely viral origin.", null, 2 },
+                    { new DateTime(2025, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1001, "5729618430725", "6482157394021", "Stage 1 hypertension; monitor BP.", null, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InterventionDoctor",
+                columns: new[] { "DoctorJMB", "InterventionId" },
+                values: new object[] { "6482157394021", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Referral",
+                columns: new[] { "ReferralId", "Date", "DiseaseCode", "DoctorJMB", "ExaminationId", "Specialists" },
+                values: new object[] { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "6482157394021", 2, "Pulmonologist" });
+
+            migrationBuilder.InsertData(
+                table: "Therapy",
+                columns: new[] { "InterventionId", "MedicationCode", "Dosage" },
+                values: new object[] { 1, 2002, 2.5m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diagnosis_Date",
@@ -425,9 +525,9 @@ namespace AmbulanceWPF.Migrations
                 column: "DoctorJMB");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Diagnosis_DoctorJMB1",
+                name: "IX_Diagnosis_EmployeeJMB",
                 table: "Diagnosis",
-                column: "DoctorJMB1");
+                column: "EmployeeJMB");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diagnosis_ExaminationId",
@@ -440,7 +540,7 @@ namespace AmbulanceWPF.Migrations
                 column: "PatientJMB");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Doctor_PhoneNumber",
+                name: "IX_Employee_PhoneNumber",
                 table: "Employee",
                 column: "PhoneNumber");
 
@@ -560,7 +660,8 @@ namespace AmbulanceWPF.Migrations
                 column: "MedicationCode");
         }
 
-        /         protected override void Down(MigrationBuilder migrationBuilder)
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Diagnosis");
@@ -570,9 +671,6 @@ namespace AmbulanceWPF.Migrations
 
             migrationBuilder.DropTable(
                 name: "MedicalRecord");
-
-            migrationBuilder.DropTable(
-                name: "MedicalTechnician");
 
             migrationBuilder.DropTable(
                 name: "MedicationInventory");
@@ -606,9 +704,6 @@ namespace AmbulanceWPF.Migrations
 
             migrationBuilder.DropTable(
                 name: "Patient");
-
-            migrationBuilder.DropTable(
-                name: "Employee");
 
             migrationBuilder.DropTable(
                 name: "Phone");
