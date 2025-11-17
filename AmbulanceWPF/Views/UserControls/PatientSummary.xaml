@@ -34,12 +34,12 @@
                 </Grid.ColumnDefinitions>
 
                 
-                                 <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Text="Ime i Prezime"
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="{Binding FullName}"
                      FontWeight="Medium" 
                      FontSize="16"
                      Foreground="{DynamicResource MaterialDesignBody}"/>
-                    <TextBlock Text="ID35464" 
+                    <TextBlock Text="{Binding JMB}" 
                      FontSize="14"
                      Foreground="{DynamicResource MaterialDesignBodyLight}"
                      Margin="8,0,0,0"/>
@@ -49,33 +49,38 @@
                     <materialDesign:PackIcon Kind="Calendar" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>
-                    <TextBlock Text="Datum Rodjenja" 
+                    <TextBlock Text="{Binding DateOfBirth}" 
                      FontSize="12"
                      Foreground="{DynamicResource MaterialDesignBodyLight}"
                      Margin="4,0,16,0"/>
 
-                    <materialDesign:PackIcon Kind="Human" Width="16" Height="16" 
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                   VerticalAlignment="Center"/>
-                    <TextBlock Text="Musko/Zensko" 
-                     FontSize="12"
-                     Foreground="{DynamicResource MaterialDesignBodyLight}"
-                     Margin="4,0,0,0"/>
-                </StackPanel>
 
-                                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
-                    <materialDesign:PackIcon Kind="Phone" Width="16" Height="16" 
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                   VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding PhoneNumber}" 
-                     FontSize="12"
-                     Foreground="{DynamicResource MaterialDesignBodyLight}"
-                     Margin="4,0,16,0"/>
+                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="0,0,4,0">
+                    <materialDesign:PackIcon.Style>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Setter Property="Kind" Value="GenderMaleFemale"/>
+                            <!-- Default -->
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Gender}" Value="False">
+                                    <Setter Property="Kind" Value="GenderMale"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Gender}" Value="True">
+                                    <Setter Property="Kind" Value="GenderFemale"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
+
+            </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
+                    
 
                     <materialDesign:PackIcon Kind="MapMarker" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>
-                    <TextBlock Text="Adresa Stanovnja" 
+                <TextBlock Text="{Binding ResidenceLocation.Name}" 
                      FontSize="12"
                      Foreground="{DynamicResource MaterialDesignBodyLight}"
                      Margin="4,0,0,0"
@@ -83,10 +88,10 @@
                 </StackPanel>
 
                              <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="MedicalBag" Width="16" Height="16" 
+                <materialDesign:PackIcon Kind="FoodAllergy" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>
-                <TextBlock Text="Posljednja posjeta doktoru" 
+                <TextBlock Text="{Binding Allergies}" 
                      FontSize="12"
                      Foreground="{DynamicResource MaterialDesignBodyLight}"
                      Margin="4,0,16,0"/>

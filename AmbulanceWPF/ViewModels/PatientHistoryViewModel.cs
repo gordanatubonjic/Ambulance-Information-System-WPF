@@ -15,15 +15,13 @@ namespace AmbulanceWPF.ViewModels
 {
     public class PatientHistoryViewModel
     {
-                 public MedicalRecord History { set; get; }
-        
+        public MedicalRecord History { set; get; }
         public Patient Patient { get; set; }
-
         public PatientHistoryViewModel() { }
 
-                 public PatientHistoryViewModel(Patient P)
+        public PatientHistoryViewModel(Patient P)
         {
-            
+            Patient = P;
            
         }
 
