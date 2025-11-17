@@ -16,8 +16,10 @@ namespace AmbulanceWPF.Models
         [MaxLength(13)]
         [ForeignKey("Employee")]
         public string DoctorJMB { get; set; }
-
-                 public virtual Intervention Intervention { get; set; }
+        
+        [Column(TypeName = "TEXT")]
+        public string Role {  get; set; }
+        public virtual Intervention Intervention { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

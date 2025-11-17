@@ -1,58 +1,35 @@
 ﻿<Window x:Class="AmbulanceWPF.Views.AddMedicationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AmbulanceWPF.Views"
-         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        Title="Add MedicationCatalog" 
-        Height="300" 
-        Width="400"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Add Medication" Height="250" Width="400"
         WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
-        Background="{DynamicResource MaterialDesignPaper}">
+        ShowInTaskbar="False">
 
-    <StackPanel Margin="20">
-                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-            <materialDesign:PackIcon Kind="Pill" 
-                                    Foreground="{DynamicResource MaterialDesignPrimaryDarkBrush}"
-                                    Width="24"
-                                    Height="24"
-                                    Margin="0,0,10,0"/>
-            <TextBlock Text="{DynamicResource AddMedicationHeaderText}"
-                      FontSize="16"
-                      FontWeight="Bold"
-                      VerticalAlignment="Center"/>
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="MedicationComboBox"
+                  Grid.Row="0"
+                  materialDesign:HintAssist.Hint="Select Medication"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                  Margin="0,0,0,16"/>
+
+        <TextBox x:Name="DosageTextBox"
+                 Grid.Row="1"
+                 materialDesign:HintAssist.Hint="Dosage (e.g., 100mg)"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0,0,0,16"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="AddButton" Content="Add" Width="100" Margin="0,0,8,0"/>
+            <Button x:Name="CancelButton" Content="Cancel" Style="{StaticResource MaterialDesignFlatButton}" Width="100"/>
         </StackPanel>
-
-                 <ComboBox x:Name="MedicationComboBox"
-                 materialDesign:HintAssist.Hint="{DynamicResource SelectMedicationText}"
-                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                 Margin="0,0,0,20"
-                 ItemsSource="{Binding Medications}"
-                 DisplayMemberPath="Name"
-                 SelectedValuePath="Id"
-                 SelectedValue="{Binding SelectedMedication.Id}"
-                 SelectedItem="{Binding SelectedMedication, Mode=TwoWay}">
-        </ComboBox>
-                 <TextBox x:Name="DosageTextBox"
-                materialDesign:HintAssist.Hint="{DynamicResource DosageText}"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                Margin="0,0,0,30"/>
-
-                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="CancelButton"
-                    Content="{DynamicResource CancelText}"
-                    Style="{StaticResource MaterialDesignFlatButton}"
-                    Margin="0,0,10,0"/>
-
-            <Button x:Name="AddButton"
-                    Command="{Binding AddedMedication}"
-                    Content="{DynamicResource AddText}"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
-                    Foreground="White"/>
-        </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>

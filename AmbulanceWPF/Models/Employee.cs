@@ -49,11 +49,16 @@ namespace AmbulanceWPF.Models
         public virtual ICollection<InterventionDoctor> InterventionDoctors { get; set; }
         public virtual ICollection<Referral> Referrals { get; set; }
 
-        public Employee() { }
+        public string FullName = string.Empty;
+        public Employee() {
+            FullName = Name + ", " + LastName;
+        }
 
         public Employee(String username, String pass) {
             Username = username;
             Password = pass;
+            FullName = Name + ", " + LastName;
+
         }
 
         public override bool Equals(object obj)

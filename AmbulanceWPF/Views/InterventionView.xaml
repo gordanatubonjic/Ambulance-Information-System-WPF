@@ -3,217 +3,194 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AmbulanceWPF.Views"
-                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:InterventionViewModel}"
         mc:Ignorable="d"
-        Title="InterventionView" Height="700" Width="900">
-    <Window.Resources>
-        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="Height" Value="40"/>
-        </Style>
-
-        <Style TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
-            <Setter Property="Margin" Value="0,10,0,5"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-        </Style>
-    </Window.Resources>
+        Title="New Intervention" Height="750" Width="900"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="20">
-                         <Border Background="{DynamicResource MaterialDesignPrimaryDarkBrush}"
-                    CornerRadius="5"
-                    Margin="0,0,0,20"
-                    Padding="10">
+        <StackPanel Margin="24">
+
+            <!-- Header -->
+            <Border Background="{DynamicResource PrimaryHueDarkBrush}"
+                    CornerRadius="8"
+                    Margin="0,0,0,24"
+                    Padding="16">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="ClipboardPlus" 
-                                            Foreground="White"
-                                            Width="30"
-                                            Height="30"
-                                            Margin="0,0,10,0"/>
+                    <materialDesign:PackIcon Kind="ClipboardPlus" Foreground="White" Width="32" Height="32" Margin="0,0,12,0"/>
                     <TextBlock Text="MEDICAL INTERVENTION FORM"
-                              Foreground="White"
-                              FontSize="18"
-                              FontWeight="Bold"/>
+                               Foreground="White" FontSize="20" FontWeight="Bold"/>
                 </StackPanel>
             </Border>
 
-                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
+            <!-- Patient Info -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource PatientInfoText}"/>
-
+                    <TextBlock Text="Patient Information" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="12"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
-                        <StackPanel Grid.Column="0">
-                            <TextBox 
-                                Text="{Binding PatientName, Mode=TwoWay}"
-                                materialDesign:HintAssist.Hint="{DynamicResource FirstNameText}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Margin="0,0,0,10"/>
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="2">
-                            <TextBox 
-                                Text="{Binding PatientSurname, Mode=TwoWay}"
-                                materialDesign:HintAssist.Hint="{DynamicResource LastNameText}"
-                                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                    Margin="0,0,0,10"/>
-                        </StackPanel>
+                        <TextBox Grid.Column="0"
+                                 Text="{Binding PatientFirstName, UpdateSourceTrigger=PropertyChanged}"
+                                 materialDesign:HintAssist.Hint="First Name"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                        <TextBox Grid.Column="2"
+                                 Text="{Binding PatientLastName, UpdateSourceTrigger=PropertyChanged}"
+                                 materialDesign:HintAssist.Hint="Last Name"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                     </Grid>
-
-                    <TextBox 
-                        Text="{Binding Description, Mode=TwoWay}"
-                        materialDesign:HintAssist.Hint="{DynamicResource AssessmentFillerText}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            AcceptsReturn="True"
-                            Height="60"
-                            VerticalScrollBarVisibility="Auto"
-                            Margin="0,0,0,10"/>
-
-                    <TextBox 
-                        Text="{Binding Allergies, Mode=TwoWay}"
-                        materialDesign:HintAssist.Hint="{DynamicResource AllergiesText}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            AcceptsReturn="True"
-                            Height="60"
-                            VerticalScrollBarVisibility="Auto"/>
+                    <TextBox Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="JMB (optional)"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Margin="0,12,0,0"/>
+                    <TextBox Text="{Binding PatientLocation, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Location"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Margin="0,5,0,0"/>
+                    <TextBox Text="{Binding Allergies, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Allergies"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Margin="0,12,0,0"
+                             AcceptsReturn="True"
+                             Height="50"
+                             VerticalScrollBarVisibility="Auto"/>
+                    <Button Content="Find or Create Patient"
+                            Command="{Binding FindOrCreatePatientCommand}"
+                            HorizontalAlignment="Left"
+                            Margin="0,12,0,0"/>
                 </StackPanel>
             </materialDesign:Card>
 
-                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
+            <!-- Assessment -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource MedicalTeamText}"/>
-
-                    <TextBox materialDesign:HintAssist.Hint="{DynamicResource CurrentDoctorText}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            Margin="0,0,0,10"/>
-
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="{DynamicResource AssociatesText}" 
-                                  Grid.Row="0"
-                                  Margin="0,10,0,5"/>
-
-                        <DataGrid x:Name="AssociatesGrid"
-                                 Grid.Row="1"
-                                 AutoGenerateColumns="False"
-                                 Height="150"
-                                 Margin="0,0,0,10">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="{DynamicResource NameText}" Binding="{Binding Name}" Width="*"/>
-                                <DataGridTextColumn Header="{DynamicResource RoleText}" Binding="{Binding Role}" Width="*"/>
-                                <DataGridTemplateColumn Width="Auto">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button Content="{DynamicResource RemoveText}"
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </Grid>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBox x:Name="NewAssociateName"
-                                Grid.Column="0"
-                                materialDesign:HintAssist.Hint="{DynamicResource AssociateNameText}"
-                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                        <ComboBox x:Name="RoleComboBox"
-                                 Grid.Column="2"
-                                 materialDesign:HintAssist.Hint="{DynamicResource RoleText}"
-                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                            <ComboBoxItem>Employee</ComboBoxItem>
-                            <ComboBoxItem>Nurse</ComboBoxItem>
-                            <ComboBoxItem>Paramedic</ComboBoxItem>
-                            <ComboBoxItem>Technician</ComboBoxItem>
-                        </ComboBox>
-                    </Grid>
-
-                    <Button x:Name="AddAssociateButton"
-                            Content="{DynamicResource AddAssociateText}"
-                            HorizontalAlignment="Right"
-  />
+                    <TextBlock Text="Assessment and Description" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <TextBox Text="{Binding InterventionDescription, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Describe findings, symptoms, vital signs..."
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             AcceptsReturn="True"
+                             Height="80"
+                             VerticalScrollBarVisibility="Auto"/>
                 </StackPanel>
             </materialDesign:Card>
 
-                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
+            <!-- Team -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource AdministeredMedicationText}"/>
+                    <TextBlock Text="Medical Team" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
 
-                    <DataGrid x:Name="MedicationGrid"
-                             AutoGenerateColumns="False"
-                             Height="150"
-                             Margin="0,0,0,10">
+                    <DataGrid ItemsSource="{Binding TeamMembers}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              Height="140"
+                              Margin="0,0,0,12">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource MedicationsText}" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="{DynamicResource DosageText}" Binding="{Binding Dosage}" Width="*"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Employee.FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Content="Remove"
-                                                Style="{StaticResource MaterialDesignFlatButton}"
-                                                />
+                                                Command="{Binding DataContext.RemoveTeamMemberCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MaterialDesignFlatButton}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button x:Name="AddMedicationButton"
-                            Command ="{Binding OpenAddMedicationCommand}"
-                            Content="{DynamicResource AddMedicationHeaderText}"
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Column="0"
+                                  ItemsSource="{Binding AvailableEmployees}"
+                                  SelectedItem="{Binding SelectedEmployee}"
+                                  DisplayMemberPath="Name"
+                                  materialDesign:HintAssist.Hint="Select Employee"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                        <ComboBox Grid.Column="2"
+                                  ItemsSource="{Binding Roles}"
+                                  SelectedItem="{Binding SelectedRole}"
+                                  materialDesign:HintAssist.Hint="Role"
+                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
+                    </Grid>
+
+                    <Button Content="Add Member"
+                            Command="{Binding AddTeamMemberCommand}"
                             HorizontalAlignment="Right"
-                           />
+                            Margin="0,12,0,0"/>
                 </StackPanel>
             </materialDesign:Card>
 
-                         <materialDesign:Card Margin="0,0,0,20" Padding="15">
+            <!-- Medications -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource ProceduresHeaderText}"/>
+                    <TextBlock Text="Administered Medications" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
 
-                    <TextBox materialDesign:HintAssist.Hint="{DynamicResource ProceduresDescriptionText}"
-                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                            AcceptsReturn="True"
-                            Height="100"
-                            VerticalScrollBarVisibility="Auto"/>
+                    <DataGrid ItemsSource="{Binding AdministeredMedications}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              Height="140"
+                              Margin="0,0,0,12">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Medication" Binding="{Binding Medication.Name}" Width="*"/>
+                            <DataGridTextColumn Header="Dosage" Binding="{Binding Dosage}" Width="*"/>
+                            <DataGridTemplateColumn Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Remove"
+                                                Command="{Binding DataContext.RemoveMedicationCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource MaterialDesignFlatButton}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Content="Add Medication"
+                            Command="{Binding AddMedicationCommand}"
+                            HorizontalAlignment="Right"/>
                 </StackPanel>
             </materialDesign:Card>
 
-                         <Button x:Name="SaveInterventionButton"
-                    Content="{DynamicResource SaveText}"
-                    Command="{Binding 
-                Command}"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    HorizontalAlignment="Center"
-                    Width="200"
-                    Height="50"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Margin="0,20,0,30"/>
-            <Button Content="{DynamicResource CancelText}"
-        Command="{Binding CancelCommand}"
-        Style="{StaticResource MaterialDesignFlatButton}"
-        Margin="0,0,10,0"/>
+            <!-- Procedures -->
+            <materialDesign:Card Margin="0,0,0,20" Padding="16">
+                <StackPanel>
+                    <TextBlock Text="Procedures Performed" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <TextBox Text="{Binding ProceduresDescription, UpdateSourceTrigger=PropertyChanged}"
+                             materialDesign:HintAssist.Hint="Describe procedures, outcomes..."
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             AcceptsReturn="True"
+                             Height="100"
+                             VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <Button Content="Save"
+                        Command="{Binding SaveCommand}"
+                        Width="160" Height="50" FontSize="16" FontWeight="Bold"/>
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Margin="12,0,0,0"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Width="120"/>
+            </StackPanel>
+
         </StackPanel>
     </ScrollViewer>
 </Window>

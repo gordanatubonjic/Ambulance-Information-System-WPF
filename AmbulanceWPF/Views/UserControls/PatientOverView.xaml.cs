@@ -21,7 +21,7 @@ namespace AmbulanceWPF.Views.UserControls
         public PatientOverView()
         {
             InitializeComponent();
-                                  }
+        }
         
     }
 }

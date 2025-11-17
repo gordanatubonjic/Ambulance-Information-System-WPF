@@ -19,7 +19,7 @@ namespace AmbulanceWPF.Models
         [Column(TypeName = "REAL")]
         public decimal? Dosage { get; set; }
 
-                 public virtual Intervention Intervention { get; set; }
+        public virtual Intervention Intervention { get; set; }
         public virtual MedicationCatalog Medication { get; set; }
     }
 }

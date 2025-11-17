@@ -1,60 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AmbulanceWPF.Data;
+using AmbulanceWPF.Models;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AmbulanceWPF.Views
 {
-          public partial class AddMedicationView : Window
+    public partial class AddMedicationView : Window
     {
-        
-        public string SelectedMedication { get; private set; }
+        public MedicationCatalog SelectedMedication { get; private set; }
         public string Dosage { get; private set; }
 
         public AddMedicationView()
         {
             InitializeComponent();
+            LoadMedications();
 
-                         AddButton.Click += AddButton_Click;
+            AddButton.Click += AddButton_Click;
             CancelButton.Click += CancelButton_Click;
+        }
 
-                         this.WindowStyle = WindowStyle.SingleBorderWindow;
-            this.ResizeMode = ResizeMode.NoResize;
-            this.ShowInTaskbar = false;
+        private void LoadMedications()
+        {
+            using var context = new AmbulanceDbContext();
+            MedicationComboBox.ItemsSource = context.MedicationCatalogs
+                .Where(m => m.IsActive)
+                .OrderBy(m => m.Name)
+                .ToList();
+            MedicationComboBox.DisplayMemberPath = "Name";
+            MedicationComboBox.SelectedValuePath = "MedicationCode";
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-                         SelectedMedication = MedicationComboBox.SelectedItem?.ToString();
-            Dosage = DosageTextBox.Text;
+            SelectedMedication = MedicationComboBox.SelectedItem as MedicationCatalog;
+            Dosage = DosageTextBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(SelectedMedication) || string.IsNullOrEmpty(Dosage))
+            if (SelectedMedication == null || string.IsNullOrEmpty(Dosage))
             {
-                MessageBox.Show("Please select a medication and enter dosage.", "Validation Error",
-                              MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please select a medication and enter dosage.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            this.DialogResult = true;
-            this.Close();
+            DialogResult = true;
+            Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            this.Close();
+            DialogResult = false;
+            Close();
         }
 
-                 protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
@@ -66,6 +65,5 @@ namespace AmbulanceWPF.Views
             }
             base.OnKeyDown(e);
         }
-    
-}
+    }
 }

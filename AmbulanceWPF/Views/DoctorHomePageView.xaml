@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:userControls="clr-namespace:AmbulanceWPF.Views.UserControls" 
-        xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DoctorHomePageViewModel}"
+        xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels"
         mc:Ignorable="d"
         Title="Employee Home Page" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
@@ -15,23 +15,22 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <userControls:AppHeader Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"
+                HomeCommand="{Binding HeaderHomeCommand}"
+                LogoutCommand="{Binding HeaderLogoutCommand}"
+                ThemeCommand="{Binding HeaderThemeCommand}"
+                ViewProfileCommand="{Binding HeaderViewProfileCommand}"
+                DoctorName="{Binding DoctorName}"
+                DoctorInitials="{Binding DoctorInitials}"
+                DoctorEmail="{Binding DoctorEmail}"
+                DoctorRole="{Binding DoctorRole}"/>
 
-                 <userControls:AppHeader 
-                                Grid.Row="0" Grid.ColumnSpan="2" Margin="0,9,0,9"
-                               HomeCommand="{Binding HeaderHomeCommand}"
-                               LogoutCommand="{Binding HeaderLogoutCommand}"
-                               ThemeCommand="{Binding HeaderThemeCommand}"
-                               ViewProfileCommand="{Binding HeaderViewProfileCommand}"
-                               DoctorName="{Binding DoctorName}"
-                               DoctorInitials="{Binding DoctorInitials}"
-                               DoctorEmail="{Binding DoctorEmail}"
-                               DoctorRole="{Binding DoctorRole}"/>
-
-                 <materialDesign:Card Grid.Row="1" Grid.Column="0" 
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" 
                            Margin="16" 
                            VerticalAlignment="Stretch"
                            Background="{DynamicResource MaterialDesignCardBackground}">

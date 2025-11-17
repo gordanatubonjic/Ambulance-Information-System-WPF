@@ -3,6 +3,7 @@ using System;
 using AmbulanceWPF.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmbulanceWPF.Migrations
 {
     [DbContext(typeof(AmbulanceDbContext))]
-    partial class AmbulanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251117114543_AddInsuranceToPatient")]
+    partial class AddInsuranceToPatient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
@@ -551,15 +554,6 @@ namespace AmbulanceWPF.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DateOfBirth")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("DateOfBirth");
-
-                    b.Property<bool>("Gender")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("Gender");
-
                     b.Property<bool>("Insurance")
                         .HasColumnType("INTEGER")
                         .HasColumnName("Insurance");
@@ -589,8 +583,6 @@ namespace AmbulanceWPF.Migrations
                         {
                             JMB = "5729618430725",
                             Allergies = "",
-                            DateOfBirth = "12/07/2001",
-                            Gender = false,
                             Insurance = true,
                             LastName = "Horvat",
                             Name = "Ivan",
@@ -600,8 +592,6 @@ namespace AmbulanceWPF.Migrations
                         {
                             JMB = "4185270936518",
                             Allergies = "",
-                            DateOfBirth = "28/02/1995",
-                            Gender = true,
                             Insurance = true,
                             LastName = "Petrovic",
                             Name = "Sara",

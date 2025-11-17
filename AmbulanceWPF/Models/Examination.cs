@@ -26,11 +26,11 @@ namespace AmbulanceWPF.Models
         [ForeignKey("Employee")]
         public string DoctorJMB { get; set; }
 
-                 public virtual Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
         public virtual Employee Employee { get; set; }
 
-                 public virtual ICollection<Diagnosis> Diagnoses { get; set; }
+        public virtual ICollection<Diagnosis> Diagnoses { get; set; }
 
-                 public virtual ICollection<Referral> Referrals { get; set; }
+        public virtual ICollection<Referral> Referrals { get; set; }
     }
 }

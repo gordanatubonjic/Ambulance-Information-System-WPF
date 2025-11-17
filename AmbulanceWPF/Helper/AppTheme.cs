@@ -10,7 +10,6 @@ namespace AmbulanceWPF.Helper
     class AppTheme
     {
 
-
         public static void ChangeTheme(Uri themeURI) {
             ResourceDictionary Theme = new ResourceDictionary()
             {

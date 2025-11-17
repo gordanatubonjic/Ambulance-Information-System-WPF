@@ -27,11 +27,11 @@ namespace AmbulanceWPF.Models
         [Column(TypeName = "TEXT")]
         public string InterventionDescription { get; set; }
 
-                 public virtual Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
 
-                 public virtual ICollection<InterventionDoctor> InterventionDoctors { get; set; }
+        public virtual ICollection<InterventionDoctor> InterventionDoctors { get; set; }
 
-                 public virtual ICollection<Therapy> Therapies { get; set; }
+        public virtual ICollection<Therapy> Therapies { get; set; }
 
 
     }

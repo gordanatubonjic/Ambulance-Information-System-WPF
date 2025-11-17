@@ -21,14 +21,14 @@
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    Margin="0,0,0,16"/>
 
-                 <DataGrid Grid.Row="1" 
+        <DataGrid x:Name="InterventionsListView"  Grid.Row="1" 
                   ItemsSource="{Binding Interventions}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{DynamicResource DateText}" Binding="{Binding Date, StringFormat='yyyy-MM-dd'}" Width="*"/>
                 <DataGridTextColumn Header="{DynamicResource PatientText}" Binding="{Binding Patient}" Width="2*"/>
-                <DataGridTextColumn Header="{DynamicResource DescriptionText}" Binding="{Binding Description}" Width="3*"/>
+                <DataGridTextColumn Header="{DynamicResource DescriptionText}" Binding="{Binding InterventionDescription}" Width="3*"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

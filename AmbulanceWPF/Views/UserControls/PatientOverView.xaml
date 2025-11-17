@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-                 <materialDesign:Card Grid.Row="0" Margin="0,0,0,16">
+        <materialDesign:Card Grid.Row="0" Margin="0,0,0,16">
             <TextBox x:Name="SearchTextBox"
                 Margin="16"
                 materialDesign:HintAssist.Hint="{DynamicResource SearchText}"
@@ -26,11 +26,13 @@
                 FontSize="14"/>
         </materialDesign:Card>
 
-                 <StackPanel Grid.Row="1" 
+        <StackPanel Grid.Row="1" 
                Orientation="Horizontal" 
                HorizontalAlignment="Center"
                Margin="0,0,0,16">
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Background="Bisque"
+                    Foreground="Azure"
                 Width="56" Height="56"
                 Margin="8"
                 ToolTip="{DynamicResource NewExamText}"
@@ -55,19 +57,110 @@
             </Button>
         </StackPanel>
 
-                 <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding FilteredPatients}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <materialDesign:Card Margin="0,0,0,12" 
-                           materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}"
-                           Cursor="Hand">
-                            <Grid Margin="16">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding LastName}" FontSize="14" Margin="0,4,0,0"/>
-                                    <TextBlock Text="{Binding City}" FontSize="12" Foreground="Gray" Margin="0,4,0,0"/>
-                                </StackPanel>
+                        <materialDesign:Card Margin="0,0,0,12"
+                             Padding="16"
+                             materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}"
+                             Cursor="Hand">
+                            <Grid>
+                                <!-- Main patient content -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Patient Avatar -->
+                                    <Border Grid.Column="0"
+                            Width="60" Height="60"
+                            Background="{DynamicResource MaterialDesignPrimaryBrush}"
+                            CornerRadius="30"
+                            Margin="0,0,16,0"
+                            Effect="{StaticResource MaterialDesignElevationShadow1}">
+                                        <TextBlock Text="{Binding Initials}"
+                                   FontSize="18"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                                    </Border>
+
+                                    <!-- Patient Info -->
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding FullName}"
+                                           FontSize="22"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource MaterialDesignBody}"
+                                           Margin="0,0,0,12"/>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
+                                            <materialDesign:PackIcon Kind="IdCard" Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyMediumBrush}" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding JMB}" FontSize="12" Foreground="{DynamicResource MaterialDesignBodyLightBrush}" Margin="0,0,16,0"/>
+                                        </StackPanel>
+
+                                        <WrapPanel Margin="0,0,0,8">
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
+                                                <materialDesign:PackIcon Kind="CakeVariant" Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyMediumBrush}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding DateOfBirth, StringFormat={}{0:dd.MM.yyyy}}" FontSize="13" Foreground="{DynamicResource MaterialDesignBodyMediumBrush}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
+                                                <!-- Icon with Data Trigger -->
+                                                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyMediumBrush}" Margin="0,0,4,0">
+                                                    <materialDesign:PackIcon.Style>
+                                                        <Style TargetType="materialDesign:PackIcon">
+                                                            <Setter Property="Kind" Value="GenderMaleFemale"/>
+                                                            <!-- Default -->
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Gender}" Value="False">
+                                                                    <Setter Property="Kind" Value="GenderMale"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Gender}" Value="True">
+                                                                    <Setter Property="Kind" Value="GenderFemale"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </materialDesign:PackIcon.Style>
+                                                </materialDesign:PackIcon>
+
+                                                <TextBlock Text="{Binding GenderDisplay}" 
+                                                   FontSize="13" 
+                                                   Foreground="{DynamicResource MaterialDesignBodyMediumBrush}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
+                                                <materialDesign:PackIcon Kind="Home" Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyMediumBrush}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding ResidenceLocation.Name}" FontSize="13" Foreground="{DynamicResource MaterialDesignBodyMediumBrush}"/>
+                                            </StackPanel>
+
+                                        </WrapPanel>
+
+                                        <WrapPanel Margin="0,0,0,8">
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
+                                                <materialDesign:PackIcon Kind="ShieldCheck" Width="16" Height="16" Foreground="{Binding InsuranceColor}" Margin="0,0,4,0"/>
+                                                <TextBlock Text="{Binding InsuranceDisplay}" FontSize="13" Foreground="{Binding InsuranceColor}" FontWeight="SemiBold"/>
+                                            </StackPanel>
+                                            
+                                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                                <materialDesign:PackIcon Kind="Allergen" Width="16" Height="16"  Margin="0,0,4,0"/>
+
+                                                <TextBlock Text="{Binding Allergies, FallbackValue='No known allergies'}"
+                                                    FontSize="13"
+                                                    Foreground="{DynamicResource MaterialDesignBodyLightBrush}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    MaxWidth="200"
+                                                    ToolTip="{Binding Allergies}"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!-- Transparent overlay button for click (keeps ripple working) -->
+                                <Button Background="Transparent"
+                        BorderThickness="0"
+                        Command="{Binding DataContext.OpenExaminationCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                        CommandParameter="{Binding}"
+                        ToolTip="Click to view patient examination details"/>
                             </Grid>
                         </materialDesign:Card>
                     </DataTemplate>
