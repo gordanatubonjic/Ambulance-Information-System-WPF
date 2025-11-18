@@ -682,6 +682,10 @@ namespace AmbulanceWPF.Migrations
                     b.Property<int>("ExaminationId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PatientJMB")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Specialists")
                         .IsRequired()
                         .HasMaxLength(45)
@@ -701,6 +705,8 @@ namespace AmbulanceWPF.Migrations
                     b.HasIndex("ExaminationId")
                         .HasDatabaseName("IX_Referral_ExaminationId");
 
+                    b.HasIndex("PatientJMB");
+
                     b.ToTable("Referral", (string)null);
 
                     b.HasData(
@@ -711,6 +717,7 @@ namespace AmbulanceWPF.Migrations
                             DiseaseCode = 1002,
                             DoctorJMB = "6482157394021",
                             ExaminationId = 2,
+                            PatientJMB = "4185270936518",
                             Specialists = "Pulmonologist"
                         });
                 });
@@ -750,7 +757,7 @@ namespace AmbulanceWPF.Migrations
             modelBuilder.Entity("AmbulanceWPF.Models.Diagnosis", b =>
                 {
                     b.HasOne("AmbulanceWPF.Models.DiseaseCatalog", "Disease")
-                        .WithMany("Diagnoses")
+                        .WithMany("Diagnosis")
                         .HasForeignKey("DiseaseCode")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -766,7 +773,7 @@ namespace AmbulanceWPF.Migrations
                         .HasForeignKey("EmployeeJMB");
 
                     b.HasOne("AmbulanceWPF.Models.Examination", "Examination")
-                        .WithMany("Diagnoses")
+                        .WithMany("Diagnosis")
                         .HasForeignKey("ExaminationId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -777,11 +784,19 @@ namespace AmbulanceWPF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("AmbulanceWPF.Models.MedicalRecord", "MedicalRecord")
+                        .WithMany("Diagnoses")
+                        .HasForeignKey("PatientJMB")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Disease");
 
                     b.Navigation("Employee");
 
                     b.Navigation("Examination");
+
+                    b.Navigation("MedicalRecord");
 
                     b.Navigation("Patient");
                 });
@@ -810,11 +825,19 @@ namespace AmbulanceWPF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("AmbulanceWPF.Models.MedicalRecord", "MedicalRecord")
+                        .WithMany("Examinations")
+                        .HasForeignKey("PatientJMB")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AmbulanceWPF.Models.Patient", null)
                         .WithMany("Examinations")
                         .HasForeignKey("PatientJMB1");
 
                     b.Navigation("Employee");
+
+                    b.Navigation("MedicalRecord");
 
                     b.Navigation("Patient");
                 });
@@ -929,11 +952,19 @@ namespace AmbulanceWPF.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("AmbulanceWPF.Models.MedicalRecord", "MedicalRecord")
+                        .WithMany("Referrals")
+                        .HasForeignKey("PatientJMB")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Disease");
 
                     b.Navigation("Employee");
 
                     b.Navigation("Examination");
+
+                    b.Navigation("MedicalRecord");
                 });
 
             modelBuilder.Entity("AmbulanceWPF.Models.Therapy", b =>
@@ -957,7 +988,7 @@ namespace AmbulanceWPF.Migrations
 
             modelBuilder.Entity("AmbulanceWPF.Models.DiseaseCatalog", b =>
                 {
-                    b.Navigation("Diagnoses");
+                    b.Navigation("Diagnosis");
                 });
 
             modelBuilder.Entity("AmbulanceWPF.Models.Employee", b =>
@@ -975,7 +1006,7 @@ namespace AmbulanceWPF.Migrations
 
             modelBuilder.Entity("AmbulanceWPF.Models.Examination", b =>
                 {
-                    b.Navigation("Diagnoses");
+                    b.Navigation("Diagnosis");
 
                     b.Navigation("Referrals");
                 });
@@ -985,6 +1016,15 @@ namespace AmbulanceWPF.Migrations
                     b.Navigation("InterventionDoctors");
 
                     b.Navigation("Therapies");
+                });
+
+            modelBuilder.Entity("AmbulanceWPF.Models.MedicalRecord", b =>
+                {
+                    b.Navigation("Diagnoses");
+
+                    b.Navigation("Examinations");
+
+                    b.Navigation("Referrals");
                 });
 
             modelBuilder.Entity("AmbulanceWPF.Models.MedicationCatalog", b =>

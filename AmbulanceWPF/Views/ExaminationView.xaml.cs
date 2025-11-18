@@ -29,6 +29,11 @@ namespace AmbulanceWPF.Views
             InitializeComponent();
             DataContext = new ExaminationViewModel( doctor);
         }
+        public ExaminationView(Examination examination) {
+            InitializeComponent();
+            //TODO Koji arg treba proslijediti
+           // DataContext = new ExaminationViewModel();
+        }
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)

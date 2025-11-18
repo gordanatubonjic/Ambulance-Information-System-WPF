@@ -36,11 +36,11 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Diagnoses -->
+            <!-- Diagnosis -->
             <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="Diagnoses" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
-                    <DataGrid ItemsSource="{Binding Diagnoses}" AutoGenerateColumns="False" CanUserAddRows="False" Height="150" Margin="0,0,0,12">
+                    <TextBlock Text="Diagnosis" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <DataGrid ItemsSource="{Binding Diagnosis}" AutoGenerateColumns="False" CanUserAddRows="False" Height="150" Margin="0,0,0,12">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Disease" Binding="{Binding Disease.DiseaseName}" Width="*"/>
                             <DataGridTextColumn Header="Opinion" Binding="{Binding DoctorOpinion}" Width="*"/>

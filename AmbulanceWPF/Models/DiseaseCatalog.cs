@@ -26,6 +26,6 @@ namespace AmbulanceWPF.Models
         [Required]
         public DateTime UpdateDate { get; set; }
 
-                 public virtual ICollection<Diagnosis> Diagnoses { get; set; }
+                 public virtual ICollection<Diagnosis> Diagnosis { get; set; }
     }
 }

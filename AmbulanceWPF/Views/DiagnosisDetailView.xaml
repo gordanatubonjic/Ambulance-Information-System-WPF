@@ -1,0 +1,42 @@
+﻿<Window x:Class="AmbulanceWPF.Views.DiagnosisDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:models="clr-namespace:AmbulanceWPF.Models" 
+        d:DataContext="{d:DesignInstance Type=models:Diagnosis}"
+        mc:Ignorable="d"
+        Title="Diagnosis Details" Height="400" Width="500"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Diagnosis Details" FontSize="20" FontWeight="Bold" Margin="0,0,0,16"/>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Diagnosis Date:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <TextBlock Text="{Binding DiagnosisDate, StringFormat='MMM dd, yyyy'}" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Doctor Name:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <TextBlock Text="{Binding DoctorName}" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Description:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Code:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <TextBlock Text="{Binding Code}" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Notes:" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                <TextBlock Text="{Binding Notes}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Grid.Row="2" Content="Close" HorizontalAlignment="Right" Margin="0,16,0,0" Click="Close_Click"/>
+    </Grid>
+</Window>

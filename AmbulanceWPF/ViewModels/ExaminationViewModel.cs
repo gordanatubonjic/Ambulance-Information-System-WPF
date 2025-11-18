@@ -29,7 +29,7 @@ namespace AmbulanceWPF.ViewModels
         private decimal _procurementQuantity;
 
         public ObservableCollection<DiseaseCatalog> Diseases { get; } = new();
-        public ObservableCollection<Diagnosis> Diagnoses { get; } = new();
+        public ObservableCollection<Diagnosis> Diagnosis { get; } = new();
         public ObservableCollection<Referral> Referrals { get; } = new();
         public ObservableCollection<Procurement> Procurements { get; } = new();
 
@@ -142,7 +142,7 @@ namespace AmbulanceWPF.ViewModels
         {
             if (SelectedDisease == null || string.IsNullOrEmpty(DiagnosisOpinion)) return;
 
-            Diagnoses.Add(new Diagnosis
+            Diagnosis.Add(new Diagnosis
             {
                 PatientJMB = _patient.JMB,
                 DiseaseCode = SelectedDisease.DiseaseCode,
@@ -160,7 +160,7 @@ namespace AmbulanceWPF.ViewModels
 
         private void RemoveDiagnosis(Diagnosis diagnosis)
         {
-            Diagnoses.Remove(diagnosis);
+            Diagnosis.Remove(diagnosis);
         }
 
         private void AddReferral()
@@ -216,10 +216,10 @@ namespace AmbulanceWPF.ViewModels
                 _context.Examinations.Add(_examination);
                 await _context.SaveChangesAsync();
 
-                foreach (var diagnosis in Diagnoses)
+                foreach (var diagnosis in Diagnosis)
                 {
                     diagnosis.ExaminationId = _examination.ExaminationId;
-                    _context.Diagnoses.Add(diagnosis);
+                    _context.Diagnosis.Add(diagnosis);
                 }
 
                 foreach (var referral in Referrals)
@@ -246,7 +246,7 @@ namespace AmbulanceWPF.ViewModels
             }
         }
 
-        //private bool CanSave() => !string.IsNullOrEmpty(_examination.ExaminationDescription) && Diagnoses.Any();
+        //private bool CanSave() => !string.IsNullOrEmpty(_examination.ExaminationDescription) && Diagnosis.Any();
         private bool CanSave() => true;
         private void Cancel()
         {

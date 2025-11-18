@@ -37,6 +37,11 @@ namespace AmbulanceWPF.ViewModels
 
 
         private ProfileViewModel profileViewModel;
+        public Patient Patient {
+
+            get;
+            set;
+        }
 
 
         public DoctorHomePageViewModel()
@@ -60,7 +65,7 @@ namespace AmbulanceWPF.ViewModels
             HeaderThemeCommand = new RelayCommand(ChangeTheme);
             HeaderViewProfileCommand = new RelayCommand(ViewProfile);
             OpenAddMedicationCommand = new RelayCommand(OpenAddMedication);
-
+            MedicalRecordDisplayCommand = new RelayCommand<Patient>(NavigateToMedicalRecord);
             CurrentContentView = new PatientOverView();
 
         }
@@ -83,6 +88,8 @@ namespace AmbulanceWPF.ViewModels
             HeaderLogoutCommand = new AsyncRelayCommand(HeaderLogoutAsync);
             HeaderThemeCommand = new AsyncRelayCommand(HeaderThemeAsync);
             HeaderViewProfileCommand = new AsyncRelayCommand(NavigateToProfileAsync);
+            MedicalRecordDisplayCommand = new RelayCommand<Patient>(NavigateToMedicalRecord);
+
             CurrentContentView = new PatientOverView();
             InitializeAsync();
         }
@@ -133,6 +140,24 @@ namespace AmbulanceWPF.ViewModels
         private async Task NavigateToProfileAsync()
         {
             CurrentContentView = new ProfileView(CurrentUser);
+        }
+
+        //Trenutly
+        private void NavigateToMedicalRecord(Patient patient) {
+            if (patient == null) return;
+            var view = new PatientHistoryView(patient)
+            {
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
+            };
+
+            bool? result = view.ShowDialog();
+            if (result == true)
+            {
+                //Treba nesto da se desi
+            }
+            
+
         }
 
        /* private async Task NewInterventionAsync()
@@ -282,6 +307,7 @@ namespace AmbulanceWPF.ViewModels
         public ICommand HeaderThemeCommand { get; }
         public ICommand HeaderViewProfileCommand { get; }
         public ICommand OpenAddMedicationCommand { get; }
+        public ICommand MedicalRecordDisplayCommand { get; }
 
 
         private void LoadPatients()

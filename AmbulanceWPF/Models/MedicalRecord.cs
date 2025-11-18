@@ -14,7 +14,7 @@ namespace AmbulanceWPF.Models
         [Key]
         [Required]
         [MaxLength(13)]
-        [ForeignKey("Patient")]
+        [ForeignKey("PatientJMB")]
         public string PatientJMB { get; set; }
 
         [Required]
@@ -26,7 +26,7 @@ namespace AmbulanceWPF.Models
         public string MaritalStatus { get; set; }
 
         [Required]
-        public bool Gender { get; set; }  
+        public bool Gender { get; set; }
         [Required]
         public bool Insurance { get; set; }
 
@@ -37,7 +37,9 @@ namespace AmbulanceWPF.Models
 
         public virtual Patient Patient { get; set; }
         public virtual Employee Employee { get; set; }
-
+        public virtual ICollection<Examination> Examinations { get; set; } = new List<Examination>();
+        public virtual ICollection<Referral> Referrals { get; set; } = new List<Referral>();
+        public virtual ICollection<Diagnosis> Diagnoses { get; set; } = new List<Diagnosis>();
 
 
         public MedicalRecord() { }

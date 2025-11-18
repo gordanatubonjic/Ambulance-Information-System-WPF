@@ -67,7 +67,7 @@
                             <local:PatientSummary/>
                             <Button Background="Transparent"
                             BorderThickness="0"
-                            Command="{Binding DataContext.NewExamCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            Command="{Binding DataContext.MedicalRecordDisplayCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                             CommandParameter="{Binding}"
                             ToolTip="Click to view patient examination details"
                             Margin="10,0,0,0"

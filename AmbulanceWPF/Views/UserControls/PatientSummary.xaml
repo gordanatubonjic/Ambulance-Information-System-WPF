@@ -45,7 +45,7 @@
                      Margin="8,0,0,0"/>
                 </StackPanel>
 
-                                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+                   <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
                     <materialDesign:PackIcon Kind="Calendar" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>
@@ -83,11 +83,9 @@
                 <TextBlock Text="{Binding ResidenceLocation.Name}" 
                      FontSize="12"
                      Foreground="{DynamicResource MaterialDesignBodyLight}"
-                     Margin="4,0,0,0"
-                     TextTrimming="CharacterEllipsis"/>
-                </StackPanel>
-
-                             <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            Margin="4,0,16,0"  
+                           TextTrimming="CharacterEllipsis"/>
+                
                 <materialDesign:PackIcon Kind="FoodAllergy" Width="16" Height="16" 
                                    Foreground="{DynamicResource MaterialDesignBodyLight}"
                                    VerticalAlignment="Center"/>

@@ -163,7 +163,7 @@ namespace AmbulanceWPF.ViewModels
                 patient = await context.Patients.FirstOrDefaultAsync(p => p.Name == PatientFirstName && p.LastName == PatientLastName);
             }
 
-           
+
 
             if (patient != null)
             {
@@ -176,7 +176,7 @@ namespace AmbulanceWPF.ViewModels
             // Create new patient
             string newJMB = string.IsNullOrEmpty(PatientJMB) ? GenerateUniqueJMB(context) : PatientJMB;
             Location patientLocation = await context.Locations.FirstOrDefaultAsync(p => p.Name == PatientLocation);
-
+            //TODO Wait da su sva polja inicijalizovana
             patient = new Patient
             {
                 JMB = newJMB,
@@ -187,8 +187,10 @@ namespace AmbulanceWPF.ViewModels
                 // Add other required fields if needed
             };
 
+           
             context.Patients.Add(patient);
             await context.SaveChangesAsync();
+            
 
             SelectedPatient = patient;
             MessageBox.Show("New patient created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

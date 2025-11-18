@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AmbulanceWPF.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -85,7 +85,11 @@ namespace AmbulanceWPF.Migrations
                     JMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
                     LastName = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    ResidenceLocationId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ResidenceLocationId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Allergies = table.Column<string>(type: "TEXT", nullable: false),
+                    Insurance = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DateOfBirth = table.Column<string>(type: "TEXT", nullable: false),
+                    Gender = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,40 +193,6 @@ namespace AmbulanceWPF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Examination",
-                columns: table => new
-                {
-                    ExaminationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ExaminationDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    ExaminationDescription = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
-                    PatientJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
-                    DoctorJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
-                    PatientJMB1 = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Examination", x => x.ExaminationId);
-                    table.ForeignKey(
-                        name: "FK_Examination_Employee_DoctorJMB",
-                        column: x => x.DoctorJMB,
-                        principalTable: "Employee",
-                        principalColumn: "JMB",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Examination_Patient_PatientJMB",
-                        column: x => x.PatientJMB,
-                        principalTable: "Patient",
-                        principalColumn: "JMB",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Examination_Patient_PatientJMB1",
-                        column: x => x.PatientJMB1,
-                        principalTable: "Patient",
-                        principalColumn: "JMB");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MedicalRecord",
                 columns: table => new
                 {
@@ -255,7 +225,8 @@ namespace AmbulanceWPF.Migrations
                 columns: table => new
                 {
                     InterventionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DoctorJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false)
+                    DoctorJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
+                    Role = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -300,6 +271,46 @@ namespace AmbulanceWPF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Examination",
+                columns: table => new
+                {
+                    ExaminationId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ExaminationDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    ExaminationDescription = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
+                    PatientJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
+                    DoctorJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
+                    PatientJMB1 = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Examination", x => x.ExaminationId);
+                    table.ForeignKey(
+                        name: "FK_Examination_Employee_DoctorJMB",
+                        column: x => x.DoctorJMB,
+                        principalTable: "Employee",
+                        principalColumn: "JMB",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Examination_MedicalRecord_PatientJMB",
+                        column: x => x.PatientJMB,
+                        principalTable: "MedicalRecord",
+                        principalColumn: "PatientJMB",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Examination_Patient_PatientJMB",
+                        column: x => x.PatientJMB,
+                        principalTable: "Patient",
+                        principalColumn: "JMB",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Examination_Patient_PatientJMB1",
+                        column: x => x.PatientJMB1,
+                        principalTable: "Patient",
+                        principalColumn: "JMB");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Diagnosis",
                 columns: table => new
                 {
@@ -338,6 +349,12 @@ namespace AmbulanceWPF.Migrations
                         principalColumn: "ExaminationId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Diagnosis_MedicalRecord_PatientJMB",
+                        column: x => x.PatientJMB,
+                        principalTable: "MedicalRecord",
+                        principalColumn: "PatientJMB",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Diagnosis_Patient_PatientJMB",
                         column: x => x.PatientJMB,
                         principalTable: "Patient",
@@ -355,7 +372,8 @@ namespace AmbulanceWPF.Migrations
                     Specialists = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
                     DoctorJMB = table.Column<string>(type: "TEXT", maxLength: 13, nullable: false),
                     Date = table.Column<DateTime>(type: "DATE", nullable: false),
-                    ExaminationId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ExaminationId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PatientJMB = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -378,6 +396,12 @@ namespace AmbulanceWPF.Migrations
                         principalTable: "Examination",
                         principalColumn: "ExaminationId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Referral_MedicalRecord_PatientJMB",
+                        column: x => x.PatientJMB,
+                        principalTable: "MedicalRecord",
+                        principalColumn: "PatientJMB",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -455,20 +479,11 @@ namespace AmbulanceWPF.Migrations
 
             migrationBuilder.InsertData(
                 table: "Patient",
-                columns: new[] { "JMB", "LastName", "Name", "ResidenceLocationId" },
+                columns: new[] { "JMB", "Allergies", "DateOfBirth", "Gender", "Insurance", "LastName", "Name", "ResidenceLocationId" },
                 values: new object[,]
                 {
-                    { "4185270936518", "Petrovic", "Sara", 78000 },
-                    { "5729618430725", "Horvat", "Ivan", 71000 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Examination",
-                columns: new[] { "ExaminationId", "DoctorJMB", "ExaminationDate", "ExaminationDescription", "PatientJMB", "PatientJMB1" },
-                values: new object[,]
-                {
-                    { 1, "6482157394021", new DateTime(2025, 4, 20, 10, 30, 0, 0, DateTimeKind.Unspecified), "Routine checkup", "5729618430725", null },
-                    { 2, "6482157394021", new DateTime(2025, 5, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), "Cough and wheezing", "4185270936518", null }
+                    { "4185270936518", "", "28/02/1995", true, true, "Petrovic", "Sara", 78000 },
+                    { "5729618430725", "", "12/07/2001", false, true, "Horvat", "Ivan", 71000 }
                 });
 
             migrationBuilder.InsertData(
@@ -486,6 +501,25 @@ namespace AmbulanceWPF.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Examination",
+                columns: new[] { "ExaminationId", "DoctorJMB", "ExaminationDate", "ExaminationDescription", "PatientJMB", "PatientJMB1" },
+                values: new object[,]
+                {
+                    { 1, "6482157394021", new DateTime(2025, 4, 20, 10, 30, 0, 0, DateTimeKind.Unspecified), "Routine checkup", "5729618430725", null },
+                    { 2, "6482157394021", new DateTime(2025, 5, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), "Cough and wheezing", "4185270936518", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "InterventionDoctor",
+                columns: new[] { "DoctorJMB", "InterventionId", "Role" },
+                values: new object[] { "6482157394021", 1, "Lead Doctor" });
+
+            migrationBuilder.InsertData(
+                table: "Therapy",
+                columns: new[] { "InterventionId", "MedicationCode", "Dosage" },
+                values: new object[] { 1, 2002, 2.5m });
+
+            migrationBuilder.InsertData(
                 table: "Diagnosis",
                 columns: new[] { "Date", "DiseaseCode", "PatientJMB", "DoctorJMB", "DoctorOpinion", "EmployeeJMB", "ExaminationId" },
                 values: new object[,]
@@ -495,19 +529,9 @@ namespace AmbulanceWPF.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "InterventionDoctor",
-                columns: new[] { "DoctorJMB", "InterventionId" },
-                values: new object[] { "6482157394021", 1 });
-
-            migrationBuilder.InsertData(
                 table: "Referral",
-                columns: new[] { "ReferralId", "Date", "DiseaseCode", "DoctorJMB", "ExaminationId", "Specialists" },
-                values: new object[] { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "6482157394021", 2, "Pulmonologist" });
-
-            migrationBuilder.InsertData(
-                table: "Therapy",
-                columns: new[] { "InterventionId", "MedicationCode", "Dosage" },
-                values: new object[] { 1, 2002, 2.5m });
+                columns: new[] { "ReferralId", "Date", "DiseaseCode", "DoctorJMB", "ExaminationId", "PatientJMB", "Specialists" },
+                values: new object[] { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "6482157394021", 2, "4185270936518", "Pulmonologist" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diagnosis_Date",
@@ -650,6 +674,11 @@ namespace AmbulanceWPF.Migrations
                 column: "ExaminationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Referral_PatientJMB",
+                table: "Referral",
+                column: "PatientJMB");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Therapy_InterventionId",
                 table: "Therapy",
                 column: "InterventionId");
@@ -668,9 +697,6 @@ namespace AmbulanceWPF.Migrations
 
             migrationBuilder.DropTable(
                 name: "InterventionDoctor");
-
-            migrationBuilder.DropTable(
-                name: "MedicalRecord");
 
             migrationBuilder.DropTable(
                 name: "MedicationInventory");
@@ -698,6 +724,9 @@ namespace AmbulanceWPF.Migrations
 
             migrationBuilder.DropTable(
                 name: "MedicationCatalog");
+
+            migrationBuilder.DropTable(
+                name: "MedicalRecord");
 
             migrationBuilder.DropTable(
                 name: "Employee");

@@ -29,9 +29,13 @@ namespace AmbulanceWPF.Models
         [Required]
         [ForeignKey("Examination")]
         public int ExaminationId { get; set; }
+        public string PatientJMB { get; set; }
 
-                 public virtual DiseaseCatalog Disease { get; set; }
+        public virtual DiseaseCatalog Disease { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Examination Examination { get; set; }
+
+        [ForeignKey("PatientJMB")]
+        public virtual MedicalRecord MedicalRecord { get; set; }
     }
 }

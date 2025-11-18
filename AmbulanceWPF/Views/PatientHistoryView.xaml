@@ -4,104 +4,288 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AmbulanceWPF.Views"
-        xmlns:userControls="clr-namespace:AmbulanceWPF.Views.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:userControls="clr-namespace:AmbulanceWPF.Views.UserControls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="PatientHistoryView" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="78"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="0.5*"/>
-
         </Grid.RowDefinitions>
-        <userControls:AppHeader Grid.Row="0" Margin="0,9,0,9"/>
+        <Grid Grid.Row="0">
+            <StackPanel Grid.Column="1"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center">
+                <materialDesign:PackIcon Kind="Ambulance" Width="32" Height="32" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center"/>
+                <TextBlock Text="{DynamicResource AppHeaderText}" FontSize="20" FontWeight="Medium" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+            </StackPanel>
+        </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Grid.Column="0"  Kind="Account" Foreground="{DynamicResource MaterialDesignBody}" HorizontalAlignment="Center" Height="119" VerticalAlignment="Center" Width="160" />
-            <userControls:PatientSummary Grid.Column="1" />
+            <materialDesign:PackIcon Grid.Column="0" Kind="Account" Foreground="{DynamicResource MaterialDesignBody}" HorizontalAlignment="Center" Height="119" VerticalAlignment="Center" Width="160" />
+            <userControls:PatientSummary Grid.Column="1" DataContext="{Binding Patient}" />
         </Grid>
-        <Grid Grid.Row="2">
-            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Margin="16,8,16,16">
-                <ItemsControl ItemsSource="{Binding History.Diagnosis}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <materialDesign:Card Margin="0,0,0,12" 
-                                       materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
-                                <Grid Margin="16">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                            <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" 
-                                                   Kind="CalendarCheck" 
-                                                   Width="24" Height="24" 
-                                                   Foreground="{DynamicResource MaterialDesignPrimary}"
-                                                   VerticalAlignment="Top" 
-                                                   Margin="0,2,12,0"/>
-
-                                                                         <TextBlock Grid.Row="0" Grid.Column="1" 
-                                     Text="{Binding CheckupDate, StringFormat='MMM dd, yyyy'}" 
-                                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                     Margin="0,0,0,8"/>
-
-                                                                         <TextBlock Grid.Row="1" Grid.Column="1" 
-                                     Text="{Binding DoctorName}" 
-                                     Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                     Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                     Margin="0,0,0,8"/>
-                                <TextBlock Grid.Row="2" Grid.Column="1" 
-                                     Text="{Binding Summary}" 
-                                     Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                     TextWrapping="Wrap"
-                                     MaxHeight="60"
-                                     Margin="0,0,0,12"/>
-
-                                                                         <Grid Grid.Row="3" Grid.Column="1">
+        <TabControl Grid.Row="2" Margin="16,8,16,8">
+            <TabItem Header="Examinations">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding History.Examinations}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card Margin="0,0,0,12"
+                                           materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
+                                    <Grid Margin="16">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-
-                                                                                 <materialDesign:Chip Grid.Column="0" 
-                                                   Content="{Binding CheckupType}" 
-                                                   HorizontalAlignment="Left"
-                                                   IsEnabled="False"
-                                                   Background="{DynamicResource MaterialDesignChipBackground}"/>
+                                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0"
+                                               Kind="CalendarCheck"
+                                               Width="24" Height="24"
+                                               Foreground="{DynamicResource MaterialDesignPrimary}"
+                                               VerticalAlignment="Top"
+                                               Margin="0,2,12,0"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding ExaminationDate, StringFormat='MMM dd, yyyy'}"
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                           Margin="0,0,0,8"/>
+                                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+                                            <materialDesign:PackIcon Grid.Row="1" Grid.Column="1" Kind="Stethoscope" 
+                                                    Width="20" 
+                                                    Height="20" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                                                                    <TextBlock Grid.Row="1" Grid.Column="1"
+                                            Text="{Binding Employee.FullName}"
+                                            Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                            Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                            Margin="4,0,16,0"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding ExaminationDescription}"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           TextWrapping="Wrap"
+                                           MaxHeight="60"
+                                           Margin="0,0,0,12"/>
+                                        <Grid Grid.Row="3" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:Chip Grid.Column="0"
+                                               Content="Chekap tip"
+                                               HorizontalAlignment="Left"
+                                               IsEnabled="False"
+                                               Background="{DynamicResource MaterialDesignChipBackground}"/>
+                                        </Grid>
+                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="View detailed report"
+                                        Command="{Binding DataContext.ShowDetailedReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="OpenInNew"
+                                                           Width="20" Height="20"/>
+                                        </Button>
                                     </Grid>
-
-                                                                         <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
-                                  Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                  ToolTip="View detailed report"
-                                  Command="{Binding DataContext.ShowDetailedReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                  CommandParameter="{Binding}"
-                                  VerticalAlignment="Center">
-                                        <materialDesign:PackIcon Kind="OpenInNew" 
-                                                       Width="20" Height="20"/>
-                                    </Button>
-
-                                </Grid>
-                            </materialDesign:Card>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Grid>
-
-        <Button Grid.Row="3" Background="#14990B" Height="30" Width="150" HorizontalAlignment="Right" Margin="0,0,60,0" >
-            <materialDesign:PackIcon Height="20" Width="20" x:Name="packIcon" Kind="Add" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-        </Button>
-
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Referrals">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding History.Referrals}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card Margin="0,0,0,12"
+                                           materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
+                                    <Grid Margin="16">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0"
+                                               Kind="CalendarCheck"
+                                               Width="24" Height="24"
+                                               Foreground="{DynamicResource MaterialDesignPrimary}"
+                                               VerticalAlignment="Top"
+                                               Margin="0,2,12,0"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Date, StringFormat='MMM dd, yyyy'}"
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                           Margin="0,0,0,8"/>
+                                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+                                            <materialDesign:PackIcon Grid.Row="1" Grid.Column="1" Kind="Stethoscope" 
+                                                    Width="20" 
+                                                    Height="20" Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Top"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding Employee.FullName}"
+                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                           Margin="4,0,16,0"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
+                                            <materialDesign:PackIcon  Kind="Virus" 
+                                                        Width="20" 
+                                                        Height="20" Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                            <TextBlock 
+                                           Text="{Binding DiseaseCode}"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           TextWrapping="Wrap"
+                                           MaxHeight="60"
+                                           Margin="4,0,16,0"/>
+                                        </StackPanel>
+                                        <Grid Grid.Row="3" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <materialDesign:Chip Grid.Column="0"
+                                               Content="{Binding Specialists}"
+                                               HorizontalAlignment="Left"
+                                               IsEnabled="False"
+                                               Background="{DynamicResource MaterialDesignChipBackground}"/>
+                                        </Grid>
+                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="View detailed referral"
+                                        Command="{Binding DataContext.ShowDetailedReferralCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="OpenInNew"
+                                                           Width="20" Height="20"/>
+                                        </Button>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Diagnosis">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding History.Diagnoses}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card Margin="0,0,0,12"
+                                           materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
+                                    <Grid Margin="16">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0"
+                                               Kind="CalendarCheck"
+                                               Width="24" Height="24"
+                                               Foreground="{DynamicResource MaterialDesignPrimary}"
+                                               VerticalAlignment="Top"
+                                               Margin="0,2,12,0"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding Date, StringFormat='MMM dd, yyyy'}"
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                           Margin="0,2,0,8"/>
+                                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
+                                            <materialDesign:PackIcon  Kind="Stethoscope" 
+                                            Width="20" 
+                                            Height="20" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="0,4,0,0"/>
+                                            <TextBlock 
+                                           Text="{Binding Employee.FullName}"
+                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                            VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,8">
+                                            <materialDesign:PackIcon  Kind="Pencil" 
+                                                Width="20" 
+                                                Height="20"
+                                              Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center"
+                                                 Margin="0,2,4,0"/>
+                                            <TextBlock 
+                                           Text="{Binding DoctorOpinion}"
+                                           Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                           TextWrapping="Wrap"
+                                           MaxHeight="60"/>
+                                        </StackPanel>
+                                        <Grid Grid.Row="3" Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,8">
+                                            <materialDesign:PackIcon Kind="ClipboardPulse" 
+                                                        Width="20" 
+                                                        Height="20"
+                                              Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center"  Margin="0,0,4,0"/>
+                                            <materialDesign:Chip 
+                                               Content="{Binding DiseaseCode}"
+                                               HorizontalAlignment="Left"
+                                               IsEnabled="False"
+                                               Background="{DynamicResource MaterialDesignChipBackground}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        ToolTip="View detailed diagnosis"
+                                        Command="{Binding DataContext.ShowDetailedDiagnosisCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                        CommandParameter="{Binding}"
+                                        VerticalAlignment="Center">
+                                            <materialDesign:PackIcon Kind="OpenInNew"
+                                                           Width="20" Height="20"/>
+                                        </Button>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,16,0">
+            <Button Background="#14990B" Height="30" Width="150" Margin="8,0,0,0" ToolTip="Add New Examination" Command="{Binding AddExaminationCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Stethoscope" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Add Examination" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Background="#14990B" Height="30" Width="150" Margin="8,0,0,0" ToolTip="Add New Referral" Command="{Binding AddReferralCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Add Referral" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Background="#14990B" Height="30" Width="150" Margin="8,0,0,0" ToolTip="Add New Diagnosis" Command="{Binding AddDiagnosisCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ClipboardPulse" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <TextBlock Text="Add Diagnosis" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

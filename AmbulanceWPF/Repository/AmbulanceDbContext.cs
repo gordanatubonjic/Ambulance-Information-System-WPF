@@ -15,7 +15,7 @@ namespace AmbulanceWPF.Data
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<DiseaseCatalog> DiseaseCatalogs { get; set; }
         public DbSet<Examination> Examinations { get; set; }
-        public DbSet<Diagnosis> Diagnoses { get; set; }
+        public DbSet<Diagnosis> Diagnosis { get; set; }
         public DbSet<Intervention> Interventions { get; set; }
         public DbSet<InterventionDoctor> InterventionDoctors { get; set; }
         public DbSet<MedicationCatalog> MedicationCatalogs { get; set; }
@@ -29,7 +29,7 @@ namespace AmbulanceWPF.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=../../../AmbulanceDatabase.db");
+                optionsBuilder.UseSqlite("Data Source=../../../AmbulanceWPFDatabase.db");
 
             }
         }
@@ -39,9 +39,9 @@ namespace AmbulanceWPF.Data
 
             modelBuilder.Entity<Phone>(entity =>
 {
-    entity.ToTable("Phone");
-    entity.HasKey(e => e.PhoneNumber);
-    entity.Property(e => e.PhoneNumber)
+            entity.ToTable("Phone");
+            entity.HasKey(e => e.PhoneNumber);
+            entity.Property(e => e.PhoneNumber)
           .IsRequired()
           .HasMaxLength(20);
 });
@@ -152,7 +152,23 @@ namespace AmbulanceWPF.Data
           .WithMany(d => d.MedicalRecords)
           .HasForeignKey(mr => mr.DoctorJMB)
           .OnDelete(DeleteBehavior.Restrict);
+    modelBuilder.Entity<MedicalRecord>()
+            .HasMany(mr => mr.Referrals)
+            .WithOne(r => r.MedicalRecord)
+            .HasForeignKey(r => r.PatientJMB)  // Adjust if your Referral FK is named differently
+            .OnDelete(DeleteBehavior.Cascade);
 
+    modelBuilder.Entity<MedicalRecord>()
+            .HasMany(mr => mr.Examinations)
+            .WithOne(e => e.MedicalRecord)
+            .HasForeignKey(e => e.PatientJMB)  // Explicitly use your FK property
+            .OnDelete(DeleteBehavior.Cascade);
+    // Configure MedicalRecord -> Diagnoses
+    modelBuilder.Entity<MedicalRecord>()
+        .HasMany(mr => mr.Diagnoses)
+        .WithOne(d => d.MedicalRecord)
+        .HasForeignKey(d => d.PatientJMB)  // Adjust if your Diagnosis FK is named differently
+        .OnDelete(DeleteBehavior.Cascade);
     entity.HasIndex(mr => mr.PatientJMB)
       .HasDatabaseName("IX_MedicalRecord_PatientJMB");
     entity.HasIndex(mr => mr.DoctorJMB)
@@ -239,12 +255,12 @@ namespace AmbulanceWPF.Data
       .OnDelete(DeleteBehavior.Restrict);
 
     entity.HasOne(d => d.Disease)
-          .WithMany(dc => dc.Diagnoses)
+          .WithMany(dc => dc.Diagnosis)
           .HasForeignKey(d => d.DiseaseCode)
           .OnDelete(DeleteBehavior.Restrict);
 
     entity.HasOne(d => d.Examination)
- .WithMany(e => e.Diagnoses)
+ .WithMany(e => e.Diagnosis)
  .HasForeignKey(d => d.ExaminationId)
  .OnDelete(DeleteBehavior.Restrict);
 
@@ -534,6 +550,7 @@ new Employee
 
 
                 }
+
             );
 
             modelBuilder.Entity<MedicalRecord>().HasData(
@@ -700,7 +717,8 @@ new Employee
                     Specialists = "Pulmonologist",
                     DoctorJMB = "6482157394021",
                     Date = new DateTime(2025, 5, 5),
-                    ExaminationId = 2
+                    ExaminationId = 2,
+                    PatientJMB= "4185270936518"
                 }
             );
 
