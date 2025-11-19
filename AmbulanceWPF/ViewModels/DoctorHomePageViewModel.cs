@@ -17,16 +17,31 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Mysqlx.Crud;
+using System.Globalization;
+using Google.Protobuf.WellKnownTypes;
 
 namespace AmbulanceWPF.ViewModels
 {
     public class DoctorHomePageViewModel : INotifyPropertyChanged
     {
         private string _searchText = string.Empty;
-        private Employee CurrentUser { get; set; }
-        private object _currentContentView;
-        public ObservableCollection<string> AvailableThemes { get; set; }
-        public ObservableCollection<string> AvailableLanguages { get; set; }
+        private Employee _currentUser;
+        public Employee CurrentUser
+        {
+            get => _currentUser!;
+            set
+            {
+                if (_currentUser != value)
+                {
+                    _currentUser = value;
+                    OnPropertyChanged(nameof(CurrentUser));
+
+                }
+            }
+        }
+
+private object _currentContentView;
+        
 
         private AmbulanceDbContext _context = new AmbulanceDbContext();
         private ObservableCollection<Patient> _allPatients;
@@ -39,11 +54,9 @@ namespace AmbulanceWPF.ViewModels
         public ObservableCollection<MedicalRecord> AllRecords => _allRecords;
 
         private ProfileViewModel profileViewModel;
-        public Patient Patient
-        {
-            get;
-            set;
-        }
+        public ObservableCollection<string> AvailableThemes { get; set; }
+        public ObservableCollection<string> AvailableLanguages { get; set; }
+
         private string? _selectedTheme;
         public string SelectedTheme
         {
@@ -54,12 +67,11 @@ namespace AmbulanceWPF.ViewModels
                 {
                     _selectedTheme = value;
                     OnPropertyChanged();
-                    ApplyTheme(value);
                     
+                    //IsThemeComboBoxVisible = false;
                 }
             }
         }
-
         private string? _selectedLanguage;
         public string SelectedLanguage
         {
@@ -70,22 +82,34 @@ namespace AmbulanceWPF.ViewModels
                 {
                     _selectedLanguage = value;
                     OnPropertyChanged();
-                    ApplyLanguage(value);
-                  
+                    
+                    //IsLanguageComboBoxVisible = false;
                 }
             }
         }
-
+        public Patient Patient
+        {
+            get;
+            set;
+        }
         public DoctorHomePageViewModel(Employee currentUser)
         {
             this.CurrentUser = currentUser;
+            AvailableThemes = new ObservableCollection<string> { "Light", "Gray", "Dark" };
+            AvailableLanguages = new ObservableCollection<string> { "English", "Serbian" };
             SelectedTheme = SessionManager.CurrentTheme
                             ?? CurrentUser.Theme
                             ?? "Light";
-
             SelectedLanguage = SessionManager.CurrentLanguage
                                ?? CurrentUser.Language
                                ?? "English";
+
+            _currentThemeIndex = AvailableThemes.IndexOf(SelectedTheme);
+            if (_currentThemeIndex < 0) _currentThemeIndex = 0;
+            _currentLanguageIndex = AvailableLanguages.IndexOf(SelectedLanguage);
+            if (_currentLanguageIndex < 0) _currentLanguageIndex = 0;
+            HeaderThemeCommand = new AsyncRelayCommand(CycleTheme);
+            HeaderLanguageCommand = new AsyncRelayCommand(CycleLanguage);
             LoadPatients();
             LoadInterventions();
 
@@ -101,41 +125,104 @@ namespace AmbulanceWPF.ViewModels
             OpenAddMedicationCommand = new AsyncRelayCommand(OpenAddMedicationAsync);
             HeaderHomeCommand = new AsyncRelayCommand(HeaderHomeAsync);
             HeaderLogoutCommand = new AsyncRelayCommand(HeaderLogoutAsync);
-            HeaderThemeCommand = new AsyncRelayCommand(ChangeThemeAsync);  // Changed to AsyncRelayCommand and async method
-             HeaderViewProfileCommand = new AsyncRelayCommand(NavigateToProfileAsync);
+            HeaderViewProfileCommand = new AsyncRelayCommand(NavigateToProfileAsync);
             MedicalRecordDisplayCommand = new RelayCommand<Patient>(NavigateToMedicalRecord);
-            HeaderLanguageCommand = new AsyncRelayCommand(ChangeLanguageAsync);
-
             CurrentContentView = new PatientOverView();
-
-            AvailableThemes = new ObservableCollection<string> { "Light", "Gray", "Dark" };
-            AvailableLanguages = new ObservableCollection<string> { "en", "sr" };
             InitializeAsync();
 
 
         }
         private async Task InitializeAsync()
         {
-            
             await LoadPatientsAsync();
             await LoadInterventionsAsync();
             FilteredPatients = new ObservableCollection<Patient>(_allPatients ?? new ObservableCollection<Patient>());
             CurrentContentView = new PatientOverView();
-            await LoadAndApplyInitialThemeAsync();
+            //await LoadAndApplyInitialThemeAsync();
         }
-        private async Task LoadAndApplyInitialThemeAsync()
+        private async Task CycleTheme()
         {
-            string savedTheme = null;
-            using (var context = new AmbulanceDbContext())
-            {
-                var userInDb = await context.Employees.FirstOrDefaultAsync(u => u.JMB == CurrentUser.JMB);
-                savedTheme = userInDb?.Theme ?? "Light";  // Default to Light if not found
-            }
+            if (AvailableThemes == null || AvailableThemes.Count == 0)
+                return;
 
-            // Set index and apply
-            _currentThemeIndex = AvailableThemes.IndexOf(savedTheme);
-            if (_currentThemeIndex == -1) _currentThemeIndex = 0;  // Fallback if invalid
-            await ApplyThemeAsync(savedTheme);
+            _currentThemeIndex = (_currentThemeIndex + 1) % AvailableThemes.Count;
+            _selectedTheme = AvailableThemes[_currentThemeIndex];
+            ApplyTheme(_selectedTheme);
+        }
+        private async Task CycleLanguage()
+        {
+            if (AvailableLanguages == null || AvailableLanguages.Count == 0)
+                return;
+
+            _currentLanguageIndex = (_currentLanguageIndex + 1) % AvailableLanguages.Count;
+
+            string langCode = AvailableLanguages[_currentLanguageIndex];
+            SelectedLanguage = langCode;
+            await ApplyLanguage(langCode);
+        }
+        private async Task ApplyTheme(string themeName)
+        {
+            SessionManager.CurrentTheme = themeName;
+            string themePath = themeName switch
+            {
+                "Light" => "Themes/Light.xaml",
+                "Blue" => "Themes/Blue.xaml",
+                "Dark" => "Themes/Dark.xaml",
+                _ => "Themes/Light.xaml"
+            };
+            var themeDict = new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
+            var materialDesignDefaults = new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml")
+            };
+            for (int i = Application.Current.Resources.MergedDictionaries.Count - 1; i >= 0; i--)
+            {
+                var md = Application.Current.Resources.MergedDictionaries[i];
+                if (md.Source != null &&
+                    (md.Source.OriginalString.Contains("Theme") ||
+                     md.Source.OriginalString.Contains("Styles.xaml") ||
+                     md.Source.OriginalString.Contains("MaterialDesign3.Defaults.xaml")))
+                {
+                    Application.Current.Resources.MergedDictionaries.Remove(md);
+                }
+            }
+            Application.Current.Resources.MergedDictionaries.Add(materialDesignDefaults);
+            Application.Current.Resources.MergedDictionaries.Add(themeDict);
+            using var context = new AmbulanceDbContext();
+            var userInDb = context.Employees.FirstOrDefault(u => u.JMB == _currentUser.JMB);
+            if (userInDb != null)
+            {
+                userInDb.Theme = themeName;
+                context.SaveChanges();
+            }
+        }
+        private async Task ApplyLanguage(string langCode)
+        {
+            SessionManager.CurrentLanguage = langCode;
+            string dictionaryPath = langCode == "Serbian"
+                ? "LanguageDictionaries/SerbianDictionary.xaml"
+                : "LanguageDictionaries/EnglishDictionary.xaml";
+            var newDict = new ResourceDictionary
+            {
+                Source = new Uri(dictionaryPath, UriKind.Relative)
+            };
+            for (int i = Application.Current.Resources.MergedDictionaries.Count - 1; i >= 0; i--)
+            {
+                var md = Application.Current.Resources.MergedDictionaries[i];
+                if (md.Source != null && md.Source.OriginalString.Contains("LanguageDictionaries"))
+                {
+                    Application.Current.Resources.MergedDictionaries.Remove(md);
+                }
+            }
+            Application.Current.Resources.MergedDictionaries.Add(newDict);
+
+            using var context = new AmbulanceDbContext();
+            var userInDb = context.Employees.FirstOrDefault(u => u.JMB == _currentUser.JMB);
+            if (userInDb != null)
+            {
+                userInDb.Language = langCode;
+                context.SaveChanges();
+            }
         }
         private async Task LoadPatientsAsync()
         {
@@ -147,14 +234,10 @@ namespace AmbulanceWPF.ViewModels
 
             _allPatients = new ObservableCollection<Patient>(medicalRecords.Select(mr => mr.Patient).Distinct());
         }
-
-
-
         private async Task NavigateToInterventionsAsync()
         {
             CurrentContentView = new InterventionsContents(_interventions);
         }
-
         private async Task NavigateToPatientsAsync()
         {
             CurrentContentView = new PatientOverView();
@@ -163,8 +246,6 @@ namespace AmbulanceWPF.ViewModels
         {
             CurrentContentView = new ProfileView(CurrentUser);
         }
-
-        //Trenutly
         private void NavigateToMedicalRecord(Patient patient)
         {
             if (patient == null) return;
@@ -182,7 +263,6 @@ namespace AmbulanceWPF.ViewModels
 
 
         }
-
         private async Task OpenAddMedicationAsync()
         {
             var view = new AddMedicationView
@@ -196,14 +276,11 @@ namespace AmbulanceWPF.ViewModels
                 // Refresh medications if needed
             }
         }
-
         private async Task HeaderHomeAsync()
         {
             CurrentContentView = new PatientOverView();
             Console.WriteLine("Home button clicked");
         }
-
-
         private async Task HeaderLogoutAsync()
         {
             // Create the login window first
@@ -223,18 +300,6 @@ namespace AmbulanceWPF.ViewModels
 
             // Set it as main window if needed
             Application.Current.MainWindow = loginWindow;
-        }
-
-        private async Task LanguageThemeAsync()
-        {/*
-            var currentTheme = Application.Current.Resources.MergedDictionaries
-                .FirstOrDefault(d => d.Source?.OriginalString.Contains("Language Dictionaries/"));
-
-            Uri newThemeUri = currentTheme?.Source.OriginalString.Contains("Light") ?? false
-                ? new Uri("Themes/Dark.xaml", UriKind.Relative)
-                : new Uri("Themes/Light.xaml", UriKind.Relative);
-
-            AppTheme.ChangeTheme(newThemeUri);*/
         }
         private void FilterPatients()
         {
@@ -256,7 +321,6 @@ namespace AmbulanceWPF.ViewModels
         public string DoctorInitials => GetInitials(CurrentUser);
         public string DoctorEmail => $"{CurrentUser?.Username}@ambulance.com";
         public string DoctorRole => CurrentUser?.Role;
-
         private string GetInitials(Employee employee)
         {
             return employee == null || string.IsNullOrEmpty(employee.Name) || string.IsNullOrEmpty(employee.LastName)
@@ -314,7 +378,8 @@ namespace AmbulanceWPF.ViewModels
         public ICommand OpenAddMedicationCommand { get; }
         public ICommand MedicalRecordDisplayCommand { get; }
 
-
+        private int _currentThemeIndex;
+        private int _currentLanguageIndex;
         private void LoadPatients()
         {
             using (var context = new AmbulanceDbContext())
@@ -353,22 +418,7 @@ namespace AmbulanceWPF.ViewModels
         {
             CurrentContentView = new PatientOverView();
         }
-        /*private void FilterPatients()
-        {
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
-                FilteredPatients = new ObservableCollection<Patient>(_allPatients);
-                return;
-            }
-
-            var filtered = _allPatients.Where(p =>
-                p.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                p.LastName.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                p.JMB.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-
-            FilteredPatients = new ObservableCollection<Patient>(filtered);
-        }*/
+     
         private void ViewPatient(Patient patient)
         {
             var patientHistoryView = new PatientHistoryView(new PatientHistoryViewModel(patient));
@@ -420,7 +470,6 @@ namespace AmbulanceWPF.ViewModels
             }
 
         }
-        // In your main ViewModel (e.g., MainViewModel.cs), add the command
         private async Task MonthlyReportCommandAsync()
         {
             var window = new AmbulanceWPF.Views.MonthlyReportView();
@@ -437,7 +486,7 @@ namespace AmbulanceWPF.ViewModels
                     .ThenInclude(id => id.Employee) // Include doctor details if needed
                 .Include(i => i.Therapies) // Include therapies if needed
                     .ThenInclude(t => t.Medication)
-                .Where(i => i.InterventionDoctors.Any(id => id.DoctorJMB == CurrentUser.JMB))
+                .Where(i => i.InterventionDoctors.Any(id => id.DoctorJMB == _currentUser.JMB))
                 .OrderByDescending(i => i.Date) // Changed from DateTime to Date
                 .ToListAsync();
 
@@ -474,205 +523,11 @@ namespace AmbulanceWPF.ViewModels
             loginWindow.Show();
         }
        
-        int _currentThemeIndex = 0;
-        int _currentLanguagesIndex = 0;
-
-        private async Task ChangeThemeAsync()  // Renamed to async Task for AsyncRelayCommand
-        {
-            if (AvailableThemes == null || AvailableThemes.Count == 0)
-                return;
-
-            // Increment first to apply the NEXT theme
-            _currentThemeIndex = (_currentThemeIndex + 1) % AvailableThemes.Count;
-            string theme = AvailableThemes[_currentThemeIndex];
-            await ApplyThemeAsync(theme);
-
-            // If you have a CurrentThemeName property, notify here
-             OnPropertyChanged(nameof(SelectedTheme));
-        }
-
-        private async Task ApplyThemeAsync(string themeName)
-        {
-            if (!AvailableThemes.Contains(themeName))
-            {
-                themeName = "Light";  // Fallback
-            }
-
-            SessionManager.CurrentTheme = themeName;
-
-            string themePath = themeName switch
-            {
-                "Light" => "Themes/Light.xaml",
-                "Gray" => "Themes/Blue.xaml",  // Assuming "Gray" means "Blue.xaml" based on your code
-                "Dark" => "Themes/Dark.xaml",
-                _ => "Themes/Light.xaml"
-            };
-
-            // UI work on dispatcher
-            await Application.Current.Dispatcher.InvokeAsync(() =>
-            {
-                var themeDict = new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
-                var materialDesignDefaults = new ResourceDictionary
-                {
-                    Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml")
-                };
-
-                // Remove old theme-related dictionaries
-                for (int i = Application.Current.Resources.MergedDictionaries.Count - 1; i >= 0; i--)
-                {
-                    var dict = Application.Current.Resources.MergedDictionaries[i];
-                    if (dict.Source != null &&
-                        (dict.Source.OriginalString.Contains("Theme") ||
-                         dict.Source.OriginalString.Contains("MaterialDesign3.Defaults.xaml")))
-                    {
-                        Application.Current.Resources.MergedDictionaries.RemoveAt(i);
-                    }
-                }
-
-                Application.Current.Resources.MergedDictionaries.Add(materialDesignDefaults);
-                Application.Current.Resources.MergedDictionaries.Add(themeDict);
-            });
-            await Task.Run(async () =>
-            {
-                using var context = new AmbulanceDbContext();
-                var userInDb = await context.Employees.FirstOrDefaultAsync(u => u.JMB == CurrentUser.JMB);
-                if (userInDb != null)
-                {
-                    userInDb.Theme = themeName;
-                    await context.SaveChangesAsync();
-                }
-            });
-        }
-        private async Task ChangeLanguageAsync()
-        {
-            if (AvailableLanguages == null || AvailableLanguages.Count == 0)
-                return;
-
-            _currentLanguagesIndex = (_currentLanguagesIndex + 1) % AvailableLanguages.Count;
-            string lang = AvailableLanguages[_currentLanguagesIndex];
-            await ApplyLanguageAsync(lang);  // Make this async if DB save is involved
-                                             // Force UI to refresh
-        }
-
-        private async Task ApplyLanguageAsync(string langCode)
-        {
-            SessionManager.CurrentLanguage = langCode;
-
-            string dictionaryName = langCode == "Serbian" ? "SerbianDictionary.xaml" : "EnglishDictionary.xaml";
-
-            // Use Pack URI for better reliability
-            var newDict = new ResourceDictionary
-            {
-                Source = new Uri($"/AmbulanceWPF;component/LanguageDictionaries/{dictionaryName}", UriKind.Relative)
-            };
-
-            // Remove old dictionaries
-            var dictsToRemove = Application.Current.Resources.MergedDictionaries
-                .Where(d => d.Source?.OriginalString?.Contains("Dictionary") == true)
-                .ToList();
-
-            foreach (var dict in dictsToRemove)
-                Application.Current.Resources.MergedDictionaries.Remove(dict);
-
-            // Add new dictionary
-            Application.Current.Resources.MergedDictionaries.Add(newDict);
-
-            // Force refresh of all bindings that use dynamic resources
-            CommandManager.InvalidateRequerySuggested();
-
-            // Save to database
-            await SaveLanguageToDatabaseAsync(langCode);
-        }
-
-        private async Task SaveLanguageToDatabaseAsync(string langCode)
-        {
-            using var context = new AmbulanceDbContext();
-            var userInDb = await context.Employees.FirstOrDefaultAsync(u => u.JMB == CurrentUser.JMB);
-            if (userInDb != null)
-            {
-                userInDb.Language = langCode;
-                await context.SaveChangesAsync();
-            }
-        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     
-    private void ApplyTheme(string themeName)
-        {
-            SessionManager.CurrentTheme = themeName;
-
-            string themePath = themeName switch
-            {
-                "Light" => "Themes/Light.xaml",
-                "Gray" => "Themes/Blue.xaml",
-                "Dark" => "Themes/Dark.xaml",
-                _ => "Themes/Light.xaml"
-            };
-
-            var themeDict = new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
-            var materialDesignDefaults = new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml")
-            };
-
-            for (int i = Application.Current.Resources.MergedDictionaries.Count - 1; i >= 0; i--)
-            {
-                var md = Application.Current.Resources.MergedDictionaries[i];
-                if (md.Source != null &&
-                    (md.Source.OriginalString.Contains("Theme") ||
-                     md.Source.OriginalString.Contains("MaterialDesign3.Defaults.xaml")))
-                {
-                    Application.Current.Resources.MergedDictionaries.Remove(md);
-                }
-            }
-
-            Application.Current.Resources.MergedDictionaries.Add(materialDesignDefaults);
-            Application.Current.Resources.MergedDictionaries.Add(themeDict);
-
-            using var context = new AmbulanceDbContext();
-            var userInDb = context.Employees.FirstOrDefault(u => u.JMB == CurrentUser.JMB);
-            if (userInDb != null)
-            {
-                userInDb.Theme = themeName;
-                context.SaveChanges();
-            }
-        }
-
-        private void ApplyLanguage(string langCode)
-        {
-            SessionManager.CurrentLanguage = langCode;
-
-            string dictionaryPath = langCode == "Serbian"
-                ? "LanguageDictionaries/SerbianDictionary.xaml"
-                : "LanguageDictionaries/EnglishDictionary.xaml";
-
-            var newDict = new ResourceDictionary
-            {
-                Source = new Uri(dictionaryPath, UriKind.Relative)
-            };
-
-            for (int i = Application.Current.Resources.MergedDictionaries.Count - 1; i >= 0; i--)
-            {
-                var md = Application.Current.Resources.MergedDictionaries[i];
-                if (md.Source != null && md.Source.OriginalString.Contains("Dictionary"))
-                {
-                    Application.Current.Resources.MergedDictionaries.Remove(md);
-                }
-            }
-
-            Application.Current.Resources.MergedDictionaries.Add(newDict);
-
-            using var context = new AmbulanceDbContext();
-            var userInDb = context.Employees.FirstOrDefault(u => u.JMB == CurrentUser.JMB);
-            if (userInDb != null)
-            {
-                userInDb.Language = langCode;
-                context.SaveChanges();
-            }
-        }
-
-
+  
 
     }
 }
