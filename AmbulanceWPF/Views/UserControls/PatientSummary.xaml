@@ -71,6 +71,22 @@
                         </Style>
                     </materialDesign:PackIcon.Style>
                 </materialDesign:PackIcon>
+                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="16,0,4,0">
+                    <materialDesign:PackIcon.Style>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Setter Property="Kind" Value="Shield"/>
+                            <!-- Default -->
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Insurance}" Value="False">
+                                    <Setter Property="Kind" Value="ShieldOutline"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Insurance}" Value="True">
+                                    <Setter Property="Kind" Value="Shield"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
 
             </StackPanel>
 

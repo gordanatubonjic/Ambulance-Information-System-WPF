@@ -15,6 +15,8 @@ using System.Diagnostics;
 using AmbulanceWPF.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Mysqlx.Crud;
 
 namespace AmbulanceWPF.ViewModels
 {
@@ -59,7 +61,7 @@ namespace AmbulanceWPF.ViewModels
             NavigateToPatientsCommand = new RelayCommand(ViewPatients);
             NavigateToProfileCommand = new RelayCommand(ViewProfile);
             NewInterventionCommand = new RelayCommand(NewIntervention);
- 
+            MonthlyReportCommand = new AsyncRelayCommand(MonthlyReportCommandAsync);
             HeaderHomeCommand = new RelayCommand(GoHome);
             HeaderLogoutCommand = new RelayCommand(Logout);
             HeaderThemeCommand = new RelayCommand(ChangeTheme);
@@ -83,6 +85,7 @@ namespace AmbulanceWPF.ViewModels
             NavigateToProfileCommand = new AsyncRelayCommand(NavigateToProfileAsync);
             NewInterventionCommand = new AsyncRelayCommand(NewInterventionAsync);
             NewExamCommand = new AsyncRelayCommand(NewExaminationAsync);
+            MonthlyReportCommand = new AsyncRelayCommand(MonthlyReportCommandAsync);
             OpenAddMedicationCommand = new AsyncRelayCommand(OpenAddMedicationAsync);
             HeaderHomeCommand = new AsyncRelayCommand(HeaderHomeAsync);
             HeaderLogoutCommand = new AsyncRelayCommand(HeaderLogoutAsync);
@@ -112,21 +115,7 @@ namespace AmbulanceWPF.ViewModels
             _allPatients = new ObservableCollection<Patient>(medicalRecords.Select(mr => mr.Patient).Distinct());
         }
 
-        /*private async Task LoadInterventionsAsync()
-        {
-            var interventions = await _context.Interventions
-                .Include(i => i.Patient)
-                    .ThenInclude(p => p.ResidenceLocation)
-                .Include(i => i.InterventionDoctors)
-                    .ThenInclude(id => id.Employee)
-                .Include(i => i.Therapies)
-                    .ThenInclude(t => t.Medication)
-                .Where(i => i.InterventionDoctors.Any(id => id.DoctorJMB == CurrentUser.JMB))
-                .OrderByDescending(i => i.Date)
-                .ToListAsync();
-
-            _interventions = new ObservableCollection<Intervention>(interventions);
-        }*/
+        
 
         private async Task NavigateToInterventionsAsync()
         {
@@ -194,32 +183,26 @@ namespace AmbulanceWPF.ViewModels
             Console.WriteLine("Home button clicked");
         }
 
-        /*private async Task HeaderLogoutAsync()
-        {
-            foreach (Window window in Application.Current.Windows.ToList())
-            {
-                if (window is DoctorHomePageView)
-                {
-                    window.Close();
-                    break;
-                }
-            }
-            var loginWindow = new LoginFormView();
-            loginWindow.Show();
-        }*/
+
         private async Task HeaderLogoutAsync()
         {
+            // Create the login window first
+            var loginWindow = new LoginFormView();
+
+            // Close all existing windows except the login window
             foreach (Window window in Application.Current.Windows.OfType<Window>().ToList())
             {
-                if (window is DoctorHomePageView)
+                if (window != loginWindow)
                 {
                     window.Close();
-                    break;
                 }
             }
 
-            var loginWindow = new LoginFormView();
+            // Show the login window
             loginWindow.Show();
+
+            // Set it as main window if needed
+            Application.Current.MainWindow = loginWindow;
         }
 
         private async Task HeaderThemeAsync()
@@ -302,6 +285,7 @@ namespace AmbulanceWPF.ViewModels
         public ICommand NavigateToProfileCommand { get; }
         public ICommand NewInterventionCommand { get; }
         public ICommand NewExamCommand { get; }
+        public ICommand MonthlyReportCommand { get; }
         public ICommand HeaderHomeCommand { get; }
         public ICommand HeaderLogoutCommand { get; }
         public ICommand HeaderThemeCommand { get; }
@@ -414,6 +398,14 @@ namespace AmbulanceWPF.ViewModels
             }
 
         }
+        // In your main ViewModel (e.g., MainViewModel.cs), add the command
+        private async Task MonthlyReportCommandAsync()
+        {
+            var window = new AmbulanceWPF.Views.MonthlyReportView();
+            window.ShowDialog(); // Or window.Show() for non-modal
+        }
+
+
         private async Task LoadInterventionsAsync()
         {
             var interventions = await _context.Interventions

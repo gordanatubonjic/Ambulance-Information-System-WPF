@@ -37,6 +37,12 @@ namespace AmbulanceWPF.Views.UserControls
             {
                 viewModel.Password = ((PasswordBox)sender).Password;
             }
+        }   private void PasswordBox_PasswordRepeatChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ProfileViewModel viewModel)
+            {
+                viewModel.PasswordRepeat = ((PasswordBox)sender).Password;
+            }
         }
     }
 }

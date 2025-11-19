@@ -14,6 +14,8 @@ using System.Data;
 using System.Net;
 using AmbulanceWPF.Helper;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace AmbulanceWPF.ViewModels
 {
@@ -32,15 +34,30 @@ namespace AmbulanceWPF.ViewModels
             }
         }
 
-        /* public SecureString Password
-         {
-             get => _password;
-             set { _password = value ?? new SecureString(); OnPropertyChanged(nameof(Password)); }
-         }*/
         public String Password
         {
             get => _password;
             set { _password = value; OnPropertyChanged(nameof(Password)); }
+        }
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+                OnPropertyChanged(nameof(HasErrorMessage)); // For visibility binding
+            }
+        }
+
+        public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
+
+        private bool _isPasswordVisible;
+        public bool IsPasswordVisible
+        {
+            get => _isPasswordVisible;
+            set { _isPasswordVisible = value; OnPropertyChanged(nameof(IsPasswordVisible)); }
         }
         //QA Za sta sam ovo koristila
         static public BooleanToVisibilityConverter BooleanToVisibilityConverter = new BooleanToVisibilityConverter();
@@ -50,7 +67,9 @@ namespace AmbulanceWPF.ViewModels
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ICommand LoginCommand { get; set; }
-           
+        public ICommand TogglePasswordCommand { get; }
+
+        // In constructor:
 
         public int? Active
         {
@@ -65,25 +84,21 @@ namespace AmbulanceWPF.ViewModels
             LoginCommand = new RelayCommand(Login, CanLogin);
             //QA Da li mi treba ovo uopste
             employees = _context.Employees.ToList<Employee>();
-            Username = "amar.k";
-            Password = "amarovasifra";
+            //Username = "amar.k";
+            //Password = "amarovasifra";
+            TogglePasswordCommand = new RelayCommand(() => IsPasswordVisible = !IsPasswordVisible);
+
 
         }
 
         private async void Login()
         {
-            // 1. Validate input
-            /*if (string.IsNullOrWhiteSpace(Username))
+            ErrorMessage = string.Empty;
+            if (Username == null || Password ==null)
             {
-                Console.WriteLine("Unesite korisničko ime.");
+                ErrorMessage = "Username or Password must be put in.";
                 return;
             }
-
-            if (Password == null || Password.Length == 0)
-            {
-                Console.WriteLine("Unesite lozinku.");
-                return;
-            }*/
 
             Employee? employee = null;
             bool loginSuccess = false;
@@ -96,54 +111,46 @@ namespace AmbulanceWPF.ViewModels
 
                 if (employee == null)
                 {
-                    Console.WriteLine("Nespješan login: Korisnik ne postoji.");
+                    ErrorMessage = "Username or Password are wrong. Try again!";
                     return;
                 }
 
                 // 3. Check if account is active
                 if (employee.IsActive != 1)
                 {
-                    Console.WriteLine("Korisnik nema pravo logina!");
+                    ErrorMessage = "User is no longer active in system!";
                     return;
                 }
 
-                // 4. Verify password hash
-               /* if (string.IsNullOrEmpty(employee.PasswordHash))
-                {
-                    Console.WriteLine("Greška: Lozinka nije postavljena.");
-                    return;
-                }*/
-
-                //loginSuccess = PasswordHasher.Verify(Password, employee.PasswordHash);
+               
                 loginSuccess = Password == employee.Password;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Greška pri prijavi: {ex.Message}");
+                ErrorMessage = "Something went wrong with your login!";
+
                 return;
             }
             finally
             {
-                // Always clear password from memory
-                //Password?.Clear();
+            
                 Password = string.Empty;
             }
 
             // 5. Final login result
             if (!loginSuccess)
             {
-                Console.WriteLine("Nespješan login: Pogrešna lozinka.");
+                ErrorMessage = "Username or Password are wrong. Try again!";
                 return;
             }
 
-            Console.WriteLine("Uspješan login!");
 
             // 6. Open correct window based on role
             Window nextWindow = employee.Role switch
             {
                 "Doctor" => new DoctorHomePageView(employee),
                 "MedicalTechnician" => new TechnicianHomePageView(employee),
-                _ => new DoctorHomePageView(employee) // fallback
+                _ => new LoginFormView() // fallback
             };
 
             nextWindow.Show();
@@ -160,18 +167,7 @@ namespace AmbulanceWPF.ViewModels
              return true;
         }
 
-       /* public bool AuthenticateUser(NetworkCredential credential)
-        {
-            bool validUser;
-            
-                command.CommandText = "select *from [User] where username=@username and [password]=@password";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
-                validUser = command.ExecuteScalar() == null ? false : true;
-            }
-            return validUser;
-        }*/
-
+        
 
     }
 }

@@ -1,22 +1,19 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows;
-using MaterialDesignThemes.Wpf;
 
 namespace AmbulanceWPF.Converters
 {
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class BoolToIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (value is bool boolValue && boolValue) ? Visibility.Visible : Visibility.Collapsed;
+            return (bool)value ? PackIconKind.EyeOff : PackIconKind.Eye;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -24,8 +21,4 @@ namespace AmbulanceWPF.Converters
             throw new NotImplementedException();
         }
     }
-
-    
-
-
 }

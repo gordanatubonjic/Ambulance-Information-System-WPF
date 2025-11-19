@@ -61,62 +61,96 @@
                 Background="{DynamicResource MaterialDesignCardBackground}"
                 CornerRadius="8">
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Text="{DynamicResource LoginHeaderText}"
+                 <TextBlock Text="{DynamicResource LoginHeaderText}"
                           FontSize="18"
                           FontWeight="Bold"
                           HorizontalAlignment="Center"
                           Margin="0,0,0,30"
                           Foreground="{DynamicResource MaterialDesignBody}"/>
 
-                                 <materialDesign:Card Margin="0,0,0,20" 
+                 <materialDesign:Card Margin="0,0,0,20" 
                                     Padding="0"
                                     Background="Transparent">
-                    <TextBox x:Name="UsernameTextBox"
+                     
+                            <TextBox x:Name="UsernameTextBox"
                              Text="{Binding Username}"
                              materialDesign:HintAssist.Hint="{DynamicResource Username}"
                             materialDesign:TextFieldAssist.HasClearButton="True"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             FontSize="14"
+                            Width="400"
+                            HorizontalAlignment="Left"
                             Margin="0"/>
                 </materialDesign:Card>
 
-                                 <materialDesign:Card Margin="0,0,0,10" 
-                                    Padding="0"
-                                    Background="Transparent">
-                    <userControl:BindablePasswordBox 
-                        Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         materialDesign:HintAssist.Hint="{DynamicResource Password}"
-                                     Height="28"                            
-                                     Margin="0,5,0,0">
-                    </userControl:BindablePasswordBox>
-
+                <materialDesign:Card Margin="0,0,0,10"
+Padding="0"
+Background="Transparent">
+                    <Grid Height="28" Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <userControl:BindablePasswordBox
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="{DynamicResource Password}"
+                            Padding="0,0,32,0"
+                            Visibility="{Binding IsPasswordVisible, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                        <TextBox
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            materialDesign:HintAssist.Hint="{DynamicResource Password}"
+                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                            Padding="0,0,32,0"
+                            FontSize="14"
+                            Visibility="{Binding IsPasswordVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <ToggleButton
+                            Grid.Column="1"
+                            IsChecked="{Binding IsPasswordVisible}"
+                            Style="{StaticResource MaterialDesignActionToggleButton}"
+                            Foreground="Gray"
+                            Background="Transparent"
+                            ToolTip="Show/Hide Password" 
+                            VerticalAlignment="Top"
+                            
+                            >
+                            <materialDesign:PackIcon x:Name="PasswordToggleIcon" Kind="EyeOutline"/>
+                        </ToggleButton>
+                    </Grid>
                 </materialDesign:Card>
 
-                                 <Grid Margin="0,10,0,30">
+                <Grid Margin="0,10,0,30">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <CheckBox x:Name="RememberMeCheckBox"
-                             Content="Remember me"
-                             Style="{StaticResource MaterialDesignCheckBox}"
-                             VerticalAlignment="Center"/>
-
-                    <TextBlock Grid.Column="1"
-                              Text="Forgot Password?"
-                              Foreground="{DynamicResource MaterialDesignPrimaryBrush}"
-                              HorizontalAlignment="Right"
-                              VerticalAlignment="Center"
-                              Cursor="Hand"
-                              TextDecorations="Underline">
-                        <TextBlock.InputBindings>
-                            <MouseBinding MouseAction="LeftClick" Command="{Binding ForgotPasswordCommand}"/>
-                        </TextBlock.InputBindings>
-                    </TextBlock>
+                    
                 </Grid>
+                <!-- Error Message -->
+                <Border Visibility="{Binding HasErrorMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+        Background="{DynamicResource MaterialDesignValidationErrorBrush}"
+        CornerRadius="4"
+        Padding="12,8"
+        Margin="0,10,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="AlertCircle"
+                                Foreground="{DynamicResource MaterialDesignErrorForeground}"
+                                Width="16"
+                                Height="16"
+                                Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding ErrorMessage}"
+                  Foreground="{DynamicResource MaterialDesignErrorForeground}"
+                  FontSize="13"
+                  TextWrapping="Wrap"
+                  VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
 
-                        <Button x:Name="LoginButton"
+                <Button x:Name="LoginButton"
                         Content="{DynamicResource LoginBtnText}"
                         Command="{Binding LoginCommand}"
                         Style="{StaticResource MaterialDesignRaisedDarkButton}"

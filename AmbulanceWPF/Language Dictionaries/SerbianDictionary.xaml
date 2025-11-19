@@ -26,6 +26,7 @@
     <sys:String x:Key="LastNameText">Prezime</sys:String>
     <sys:String x:Key="UsernameFillerText">Unesite korisničko ime (min 6 karaktera)</sys:String>
     <sys:String x:Key="PasswordFillerText">Unesite novu lozinku (min 6 karaktera)</sys:String>
+    <sys:String x:Key="PasswordRepeatFillerText">Ponovi unos nove lozinke (mora biti ista kao u polju iznad)</sys:String>
     <sys:String x:Key="CancelText">Otkaži</sys:String>
     <sys:String x:Key="AddMedicationHeaderText">DODAJ TERAPIJU</sys:String>
     <sys:String x:Key="SelectMedicationText">Izaberi lijek</sys:String>
@@ -41,8 +42,8 @@
     <sys:String x:Key="CloseText">ZATVORI</sys:String>
     <sys:String x:Key="NextAppointmentText">Naredni termin</sys:String>
     <sys:String x:Key="NavigationText">Navigacioni meni</sys:String>
-    <sys:String x:Key="PatientsText">Moji pacijenti</sys:String>
-    <sys:String x:Key="MyProfileText">Moji profile</sys:String>
+    <sys:String x:Key="PatientsText">Moji Pacijenti</sys:String>
+    <sys:String x:Key="MyProfileText">Moj Profil</sys:String>
     <sys:String x:Key="PatientInfoText">INFORMACIJE O PACIJENTU</sys:String>
     <sys:String x:Key="AssessmentFillerText">Kratak opis procjene stanja pacijenta</sys:String>
     <sys:String x:Key="AllergiesText">Alergije</sys:String>

@@ -84,20 +84,12 @@
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
                                             <materialDesign:Chip Grid.Column="0"
-                                               Content="Chekap tip"
+                                               Content="Checkup"
                                                HorizontalAlignment="Left"
                                                IsEnabled="False"
                                                Background="{DynamicResource MaterialDesignChipBackground}"/>
                                         </Grid>
-                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
-                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                        ToolTip="View detailed report"
-                                        Command="{Binding DataContext.ShowDetailedReportCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                        CommandParameter="{Binding}"
-                                        VerticalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="OpenInNew"
-                                                           Width="20" Height="20"/>
-                                        </Button>
+                                        
                                     </Grid>
                                 </materialDesign:Card>
                             </DataTemplate>
@@ -166,15 +158,7 @@
                                                IsEnabled="False"
                                                Background="{DynamicResource MaterialDesignChipBackground}"/>
                                         </Grid>
-                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
-                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                        ToolTip="View detailed referral"
-                                        Command="{Binding DataContext.ShowDetailedReferralCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                        CommandParameter="{Binding}"
-                                        VerticalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="OpenInNew"
-                                                           Width="20" Height="20"/>
-                                        </Button>
+                                        
                                     </Grid>
                                 </materialDesign:Card>
                             </DataTemplate>
@@ -250,15 +234,7 @@
                                                Background="{DynamicResource MaterialDesignChipBackground}"/>
                                             </StackPanel>
                                         </Grid>
-                                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4"
-                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                        ToolTip="View detailed diagnosis"
-                                        Command="{Binding DataContext.ShowDetailedDiagnosisCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                        CommandParameter="{Binding}"
-                                        VerticalAlignment="Center">
-                                            <materialDesign:PackIcon Kind="OpenInNew"
-                                                           Width="20" Height="20"/>
-                                        </Button>
+                                        
                                     </Grid>
                                 </materialDesign:Card>
                             </DataTemplate>

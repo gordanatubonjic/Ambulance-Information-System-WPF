@@ -26,6 +26,8 @@
     <sys:String x:Key="LastNameText">Last Name</sys:String>
     <sys:String x:Key="UsernameFillerText">Enter username (min 6 characters)</sys:String>
     <sys:String x:Key="PasswordFillerText">Enter new password (min 6 characters)</sys:String>
+    <sys:String x:Key="PasswordRepeatFillerText">Repeat new password (must be same as field above)</sys:String>
+    
     <sys:String x:Key="CancelText">Cancel</sys:String>
     <sys:String x:Key="AddMedicationHeaderText">ADD MEDICATION</sys:String>
     <sys:String x:Key="SelectMedicationText">Select MedicationCatalog</sys:String>

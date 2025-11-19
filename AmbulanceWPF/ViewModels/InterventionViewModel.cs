@@ -20,9 +20,11 @@ namespace AmbulanceWPF.ViewModels
         private Patient _selectedPatient;
         private string _interventionDescription;
         private string _proceduresDescription;
+
         private string _patientFirstName;
         private string _patientLastName;
         private string _patientJMB;
+         
         private string _allergies;
         private Employee _selectedEmployee;
         private string _selectedRole;
