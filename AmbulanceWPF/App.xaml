@@ -14,7 +14,8 @@ StartupUri="Views/LoginFormView.xaml"
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
-                <ResourceDictionary Source="Language Dictionaries/SerbianDictionary.xaml"/>
+                <ResourceDictionary Source="LanguageDictionaries/SerbianDictionary.xaml"/>
+                <ResourceDictionary Source="Themes/Light.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <helpers:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <helpers:BoolToIconConverter x:Key="BoolToIconConverter"/>

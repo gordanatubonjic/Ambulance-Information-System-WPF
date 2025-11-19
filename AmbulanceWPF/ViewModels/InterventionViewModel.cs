@@ -24,10 +24,17 @@ namespace AmbulanceWPF.ViewModels
         private string _patientFirstName;
         private string _patientLastName;
         private string _patientJMB;
-         
+        private string _patientLocationName;
+
+        private readonly InterventionView _view;
+
         private string _allergies;
         private Employee _selectedEmployee;
         private string _selectedRole;
+        
+        public DateTime? PatientDateOfBirth { get; set; }
+        public ObservableCollection<string> AvailableLocations { get; set; }
+        public string SelectedLocation { get; set; }
 
         public ObservableCollection<InterventionDoctor> TeamMembers { get; } = new();
         public ObservableCollection<Therapy> AdministeredMedications { get; } = new();
@@ -45,7 +52,10 @@ namespace AmbulanceWPF.ViewModels
                     PatientFirstName = value.Name;
                     PatientLastName = value.LastName;
                     PatientJMB = value.JMB;
-                    //Allergies = value.Allergies;
+                    //PatientDateOfBirth = value.DateOfBirth,
+                    Allergies = value.Allergies;
+                    SelectedLocation = PatientLocationName = value.ResidenceLocation.Name;
+                    
                 }
                 OnPropertyChanged(nameof(SelectedPatient));
             }
@@ -80,10 +90,10 @@ namespace AmbulanceWPF.ViewModels
             get => _patientJMB;
             set { _patientJMB = value; OnPropertyChanged(); }
         }
-        public string PatientLocation
+        public string PatientLocationName
         {
-            get => _patientJMB;
-            set { _patientJMB = value; OnPropertyChanged(); }
+            get { return _patientLocationName;  }
+            set { _patientLocationName = value; OnPropertyChanged(); }
         }
 
         public string Allergies
@@ -112,13 +122,14 @@ namespace AmbulanceWPF.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public InterventionViewModel(Employee currentDoctor)
+        public InterventionViewModel(Employee currentDoctor, InterventionView view)
         {
             _currentDoctor = currentDoctor ?? throw new ArgumentNullException(nameof(currentDoctor));
             _context = new AmbulanceDbContext();
+            _view = view;
 
             LoadAvailableEmployees();
-
+            LoadAvailableLocations();
             FindOrCreatePatientCommand = new AsyncRelayCommand(FindOrCreatePatientAsync);
             AddTeamMemberCommand = new RelayCommand(AddTeamMember, CanAddTeamMember);
             RemoveTeamMemberCommand = new RelayCommand<InterventionDoctor>(RemoveTeamMember);
@@ -135,7 +146,14 @@ namespace AmbulanceWPF.ViewModels
                 Employee = _currentDoctor
             });
         }
-
+        private async Task LoadAvailableLocations() {
+            AvailableLocations = new ObservableCollection<string>(
+                await _context.Locations
+                    .Select(l => l.Name)
+                    .OrderBy(name => name)
+                    .ToListAsync()
+            );
+        }
         private void LoadAvailableEmployees()
         {
             using var context = new AmbulanceDbContext();
@@ -157,15 +175,17 @@ namespace AmbulanceWPF.ViewModels
 
             if (!string.IsNullOrEmpty(PatientJMB))
             {
-                patient = await context.Patients.FirstOrDefaultAsync(p => p.JMB == PatientJMB);
+                patient = await context.Patients.Include(p=> p.ResidenceLocation).FirstOrDefaultAsync(p => p.JMB == PatientJMB);
             }
 
             if (patient == null && !string.IsNullOrEmpty(PatientFirstName) && !string.IsNullOrEmpty(PatientLastName))
             {
-                patient = await context.Patients.FirstOrDefaultAsync(p => p.Name == PatientFirstName && p.LastName == PatientLastName);
+                patient = await context.Patients
+                        .Include(p => p.ResidenceLocation)
+                        .FirstOrDefaultAsync(p =>
+                            p.Name.ToLower() == PatientFirstName.ToLower() &&
+                            p.LastName.ToLower() == PatientLastName.ToLower());
             }
-
-
 
             if (patient != null)
             {
@@ -173,23 +193,44 @@ namespace AmbulanceWPF.ViewModels
                 MessageBox.Show("Patient found.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+            // Validate that every required field is filled
+            if (string.IsNullOrEmpty(PatientFirstName) ||
+                string.IsNullOrEmpty(PatientLastName) ||
+                string.IsNullOrEmpty(PatientLocationName) ||
+                !PatientDateOfBirth.HasValue || SelectedPatient == null)
+            {
+                // Show error message
+                MessageBox.Show("Please fill all required fields: First Name, Last Name, Date of Birth, and Location",
+                               "Validation Error",
+                               MessageBoxButton.OK,
+                               MessageBoxImage.Error);
+                return;
+            }
 
-            //TODO Kreirnje novog pacijentan koji je prosao kroz intervenciju
-            // Create new patient
+            // Create new patient from data in form
             string newJMB = string.IsNullOrEmpty(PatientJMB) ? GenerateUniqueJMB(context) : PatientJMB;
-            Location patientLocation = await context.Locations.FirstOrDefaultAsync(p => p.Name == PatientLocation);
-            //TODO Wait da su sva polja inicijalizovana
+            Location patientLocation = await context.Locations.FirstOrDefaultAsync(p => p.Name == PatientLocationName);
+
+            // If location doesn't exist, create a new one
+            if (patientLocation == null)
+            {
+                patientLocation = new Location { Name = PatientLocationName };
+                context.Locations.Add(patientLocation);
+                await context.SaveChangesAsync();
+            }
+
             patient = new Patient
             {
                 JMB = newJMB,
                 Name = PatientFirstName,
                 LastName = PatientLastName,
+                DateOfBirth = PatientDateOfBirth.Value.ToShortDateString(), // Required field
                 Allergies = Allergies,
-                ResidenceLocation = patientLocation
-                // Add other required fields if needed
+                ResidenceLocation = patientLocation,
+                ResidenceLocationId = patientLocation.PostalCode
             };
 
-           
+
             context.Patients.Add(patient);
             await context.SaveChangesAsync();
             
@@ -265,14 +306,14 @@ namespace AmbulanceWPF.ViewModels
             try
             {
                 using var context = new AmbulanceDbContext();
-
-                var intervention = new Intervention
-                {
-                    PatientJMB = SelectedPatient.JMB,
-                    Date = DateTime.Now,
-                    InterventionDescription = InterventionDescription + "\n\nProcedures: " + ProceduresDescription
-                };
-
+                if (InterventionDescription == null || ProceduresDescription == null) return;
+                    var intervention = new Intervention
+                    {
+                        PatientJMB = SelectedPatient.JMB,
+                        Date = DateTime.Now,
+                        InterventionDescription = InterventionDescription + "\n\nProcedures: " + ProceduresDescription
+                    };
+                
                 context.Interventions.Add(intervention);
                 await context.SaveChangesAsync(); // Auto-generates InterventionId
 
@@ -299,8 +340,9 @@ namespace AmbulanceWPF.ViewModels
                 await context.SaveChangesAsync();
 
                 MessageBox.Show($"Intervention saved! ID: {intervention.InterventionId}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-               //TODO Da li je ovo ispravan pristup
-                Window.GetWindow((DependencyObject)(this as object))?.Close(); // Close view
+                //TODO Da li je ovo ispravan pristup
+                // Window.GetWindow((DependencyObject)(this as object))?.Close(); // Close view
+                CloseIntervention();
             }
             catch (Exception ex)
             {
@@ -315,7 +357,10 @@ namespace AmbulanceWPF.ViewModels
                    //&& TeamMembers.Any()
                    ;
         }
-
+        private void CloseIntervention()
+        {
+            _view.CloseWindow();
+        }
         private void Cancel()
         {
            // Window.GetWindow(this as object)?.Close();

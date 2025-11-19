@@ -34,7 +34,7 @@
                            Margin="16" 
                            VerticalAlignment="Stretch"
                            Background="{DynamicResource MaterialDesignCardBackground}">
-            <StackPanel Margin="16">
+            <StackPanel Background="{DynamicResource Backdrop}"  Margin="16">
                 <TextBlock Text="{DynamicResource NavigationText}" 
                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                           Margin="0,0,0,20"/>

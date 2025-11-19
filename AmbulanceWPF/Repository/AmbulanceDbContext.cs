@@ -74,6 +74,9 @@ namespace AmbulanceWPF.Data
     entity.Property(e => e.Theme)
           .IsRequired()
           .HasMaxLength(100);
+    entity.Property(e => e.Language)
+          .HasMaxLength(100)
+          .HasDefaultValue("English");
     entity.HasOne(e => e.Phone)
  .WithMany(p => p.Employees)
  .HasForeignKey(e => e.PhoneNumber)
@@ -510,7 +513,8 @@ new Employee
     Role = "Doctor",
     IsActive = 1,
     Theme = "Light",
-    PhoneNumber = "+38761111222"
+    PhoneNumber = "+38761111222",
+    Language="English"
 },
 new Employee
 {
@@ -522,7 +526,8 @@ new Employee
     PasswordHash = "amarovasifra",
     Role = "MedicalTechnician",
     IsActive = 1,
-    Theme = "Dark"
+    Theme = "Dark",
+    Language = "English"
 }
 );
 

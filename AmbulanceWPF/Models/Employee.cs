@@ -38,10 +38,14 @@ namespace AmbulanceWPF.Models
         [Required]
         [MaxLength(100)]
         public string Theme { get; set; }
-                 [MaxLength(20)]
+        
+        [MaxLength(100)]
+        public string Language { get; set; }
+
+        [MaxLength(20)]
         public string? PhoneNumber { get; set; }
 
-                 [ForeignKey("PhoneNumber")]
+        [ForeignKey("PhoneNumber")]
         public virtual Phone? Phone { get; set; }
         public virtual ICollection<MedicalRecord> MedicalRecords { get; set; }
         public virtual ICollection<Examination> Examinations { get; set; }

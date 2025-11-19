@@ -7,10 +7,17 @@ namespace AmbulanceWPF.Views
 {
     public partial class InterventionView : Window
     {
-        public InterventionView(Employee employee)
+        
+        public InterventionView(Employee currentUser)
         {
             InitializeComponent();
-            DataContext = new InterventionViewModel(employee);
+            DataContext = new InterventionViewModel(currentUser, this); // Pass 'this' to VM
+        }
+
+        public void CloseWindow()
+        {
+            this.DialogResult = true; // or false
+            this.Close();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

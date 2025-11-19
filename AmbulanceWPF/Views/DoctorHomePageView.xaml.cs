@@ -18,13 +18,7 @@ namespace AmbulanceWPF.Views
 {
 public partial class DoctorHomePageView : Window
     {
-        public DoctorHomePageView()
-        {
-            InitializeComponent();
-            DoctorHomePageViewModel homePageViewModel = new DoctorHomePageViewModel();
-            this.DataContext = homePageViewModel;
-
-        }
+        
         public DoctorHomePageView(Employee e)
         {
             InitializeComponent();

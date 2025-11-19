@@ -98,7 +98,7 @@
                             </Button>
 
                             <Button Style="{StaticResource ProfileMenuItem}" 
-                            Command="{Binding ThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Command="{Binding HeaderThemeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                             Click="ClosePopup_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ThemeOutline"  
@@ -106,6 +106,18 @@
                                                            Foreground="{DynamicResource MaterialDesignBodyLight}"
                                                            VerticalAlignment="Center"/>
                                     <TextBlock Text="Change Theme" 
+                                             Margin="12,0,0,0"
+                                             VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button><Button Style="{StaticResource ProfileMenuItem}" 
+                            Command="{Binding HeaderLanguageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Click="ClosePopup_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Language"  
+                                                           Width="20" Height="20"
+                                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                           VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding SelectedLanguage}" 
                                              Margin="12,0,0,0"
                                              VerticalAlignment="Center"/>
                                 </StackPanel>

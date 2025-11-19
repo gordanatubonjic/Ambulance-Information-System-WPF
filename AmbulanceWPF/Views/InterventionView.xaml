@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+
         xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:InterventionViewModel}"
         mc:Ignorable="d"
@@ -31,7 +33,7 @@
             <!-- Patient Info -->
             <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
-                    <TextBlock Text="Patient Information" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <!-- Name Row -->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -39,37 +41,61 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0"
-                                 Text="{Binding PatientFirstName, UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="First Name"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                     Text="{Binding PatientFirstName, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="First Name"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         <TextBox Grid.Column="2"
-                                 Text="{Binding PatientLastName, UpdateSourceTrigger=PropertyChanged}"
-                                 materialDesign:HintAssist.Hint="Last Name"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                     Text="{Binding PatientLastName, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="Last Name"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                     </Grid>
+
+                    <!-- Date of Birth -->
+                    <DatePicker 
+                        SelectedDate="{Binding PatientDateOfBirth}"
+                        materialDesign:HintAssist.Hint="Date of Birth"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                        Margin="0,12,0,0"
+                        DisplayDateEnd="{x:Static sys:DateTime.Today}"/>
+
+                    <!-- JMB -->
                     <TextBox Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="JMB (optional)"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Margin="0,12,0,0"/>
-                    <TextBox Text="{Binding PatientLocation, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="Location"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Margin="0,5,0,0"/>
+                 materialDesign:HintAssist.Hint="JMB "
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0,12,0,0"/>
+
+                    <!-- Location Search -->
+                    <ComboBox 
+            ItemsSource="{Binding AvailableLocations}"
+            SelectedItem="{Binding SelectedLocation}"
+            Text="{Binding PatientLocationName, UpdateSourceTrigger=PropertyChanged}"
+            materialDesign:HintAssist.Hint="Location"
+            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+            Margin="0,12,0,0"
+            IsEditable="True"
+            StaysOpenOnEdit="True">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel />
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+
+                    <!-- Allergies -->
                     <TextBox Text="{Binding Allergies, UpdateSourceTrigger=PropertyChanged}"
-                             materialDesign:HintAssist.Hint="Allergies"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Margin="0,12,0,0"
-                             AcceptsReturn="True"
-                             Height="50"
-                             VerticalScrollBarVisibility="Auto"/>
-                    <Button Content="Find or Create Patient"
-                            Command="{Binding FindOrCreatePatientCommand}"
-                            HorizontalAlignment="Left"
-                            Margin="0,12,0,0"/>
+                 materialDesign:HintAssist.Hint="Allergies"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Margin="0,12,0,0"
+                 AcceptsReturn="True"
+                 Height="50"
+                 VerticalScrollBarVisibility="Auto"
+                 TextWrapping="Wrap"/>
+                                <Button Content="Find or Create Patient"
+                    Command="{Binding FindOrCreatePatientCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="0,12,0,0"/>
                 </StackPanel>
             </materialDesign:Card>
-
-            <!-- Assessment -->
             <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
                     <TextBlock Text="Assessment and Description" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
@@ -82,7 +108,6 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <!-- Team -->
             <materialDesign:Card Margin="0,0,0,20" Padding="16">
                 <StackPanel>
                     <TextBlock Text="Medical Team" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>

@@ -144,6 +144,7 @@ namespace AmbulanceWPF.ViewModels
                 return;
             }
 
+            ApplyUserPreferences(employee.Theme, employee.Language);
 
             // 6. Open correct window based on role
             Window nextWindow = employee.Role switch
@@ -167,7 +168,46 @@ namespace AmbulanceWPF.ViewModels
              return true;
         }
 
-        
+        private void ApplyUserPreferences(string themeName, string langCode)
+        {
+            string themePath = themeName switch
+            {
+                "Light" => "Themes/Light.xaml",
+                "Blue" => "Themes/Blue.xaml",
+                "Dark" => "Themes/Dark.xaml",
+                _ => "Themes/Light.xaml"
+            };
+
+            string langPath = langCode == "Serbian"
+                ? "LanguageDictionaries/SerbianDictionary.xaml"
+                : "LanguageDictionaries/EnglishDictionary.xaml";
+
+            var themeDict = new ResourceDictionary { Source = new Uri(themePath, UriKind.Relative) };
+            var langDict = new ResourceDictionary { Source = new Uri(langPath, UriKind.Relative) };
+            var materialDesignDefaults = new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml")
+            };
+
+            for (int i = Application.Current.Resources.MergedDictionaries.Count - 1; i >= 0; i--)
+            {
+                var md = Application.Current.Resources.MergedDictionaries[i];
+                if (md.Source != null &&
+                    (md.Source.OriginalString.Contains("Theme") ||
+                     md.Source.OriginalString.Contains("MaterialDesign3.Defaults.xaml") ||
+                     md.Source.OriginalString.Contains("Languages/")))
+                {
+                    Application.Current.Resources.MergedDictionaries.RemoveAt(i);
+                }
+            }
+
+            Application.Current.Resources.MergedDictionaries.Add(materialDesignDefaults);
+            Application.Current.Resources.MergedDictionaries.Add(themeDict);
+            Application.Current.Resources.MergedDictionaries.Add(langDict);
+        }
+
+
+
 
     }
 }
