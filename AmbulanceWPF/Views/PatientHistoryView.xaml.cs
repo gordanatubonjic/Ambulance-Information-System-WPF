@@ -8,11 +8,11 @@ namespace AmbulanceWPF.Views
     public partial class PatientHistoryView : Window
     {
         
-        public PatientHistoryView(Patient patient)
+        public PatientHistoryView(Patient patient, Employee user)
         {
             InitializeComponent();
             // For design-time or default
-            DataContext = new PatientHistoryViewModel(patient);
+            DataContext = new PatientHistoryViewModel(patient, user);
         }
 
         public PatientHistoryView(PatientHistoryViewModel phvm)

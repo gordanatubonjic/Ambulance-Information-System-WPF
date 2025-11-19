@@ -22,7 +22,7 @@
             Grid.Row="0"
             Grid.Column="0"
             SelectedDate="{Binding SelectedMonth}"
-            materialDesign:HintAssist.Hint="Select Month"
+            materialDesign:HintAssist.Hint="{DynamicResource SelectMonthText}"
             DisplayDateStart="2020-01-01"
             DisplayDateEnd="{x:Static sys:DateTime.Now}"
             SelectedDateChanged="OnSelectedDateChanged"
@@ -37,16 +37,16 @@
                          AutoGenerateColumns="False" 
                          IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Employee" 
+                        <DataGridTextColumn Header="{DynamicResource EmployeeText}" 
                                            Binding="{Binding Employee}" 
                                            Width="*" />
-                        <DataGridTextColumn Header="Number of Patients" 
+                        <DataGridTextColumn Header="{DynamicResource NumPatientsText}" 
                                            Binding="{Binding NumberOfPatients}" 
                                            Width="Auto" />
-                        <DataGridTextColumn Header="Number of Examinations" 
+                        <DataGridTextColumn Header="{DynamicResource NumExaminationsText}" 
                                            Binding="{Binding NumberOfExaminations}" 
                                            Width="Auto" />
-                        <DataGridTextColumn Header="Number of Interventions" 
+                        <DataGridTextColumn Header="{DynamicResource NumInterventionsText}"
                                            Binding="{Binding NumberOfInterventions}" 
                                            Width="Auto" />
                     </DataGrid.Columns>

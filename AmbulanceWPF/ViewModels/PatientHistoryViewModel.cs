@@ -13,6 +13,7 @@ using AmbulanceWPF.Models;
 using AmbulanceWPF.Services;
 using AmbulanceWPF.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Controls;
 
 namespace AmbulanceWPF.ViewModels
 {
@@ -21,6 +22,7 @@ namespace AmbulanceWPF.ViewModels
 
         private AmbulanceDbContext _context = new AmbulanceDbContext();
         private MedicalRecord _history;
+        private Employee _currentEmployee;
 
         public MedicalRecord? History
         {
@@ -39,7 +41,7 @@ namespace AmbulanceWPF.ViewModels
             set
             {
                 _patient = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Patient));
             }
         }
 
@@ -53,15 +55,14 @@ namespace AmbulanceWPF.ViewModels
             // Placeholder; use DI in real app
         }
 
-        public PatientHistoryViewModel(Patient patient) : this()
+        public PatientHistoryViewModel(Patient patient, Employee currentEmployee) : this()
         {
             Patient = patient;
+           _currentEmployee = currentEmployee;
             LoadMedicalRecordAsync(); // Load data
         }
 
         // Commands
-        public ICommand ShowDetailedReportCommand { get; private set; }
-        public ICommand ShowDetailedReferralCommand { get; private set; }
         public ICommand ShowDetailedDiagnosisCommand { get; private set; }
         public ICommand AddExaminationCommand { get; private set; }
         public ICommand AddReferralCommand { get; private set; }
@@ -69,10 +70,7 @@ namespace AmbulanceWPF.ViewModels
 
         private void InitializeCommands()
         {
-            ShowDetailedReportCommand = new RelayCommand<Examination>(ShowDetailedExamination);
-            ShowDetailedReferralCommand = new RelayCommand<Referral>(ShowDetailedReferral);
-            ShowDetailedDiagnosisCommand = new RelayCommand<Diagnosis>(ShowDetailedDiagnosis);
-            AddExaminationCommand = new RelayCommand(AddNewExamination);
+            AddExaminationCommand = new AsyncRelayCommand(AddNewExaminationAsync);
             AddReferralCommand = new RelayCommand(AddNewReferral);
             AddDiagnosisCommand = new RelayCommand(AddNewDiagnosis);
         }
@@ -108,60 +106,22 @@ namespace AmbulanceWPF.ViewModels
 
         }
 
-        private void ShowDetailedExamination(Examination examination)
+        
+
+        private async Task AddNewExaminationAsync()
         {
-            if (examination == null) return;
-
-            var detailWindow = new ExaminationDetailView // Create this window similar to CheckupDetailWindow
-            {
-                DataContext = examination,
-                Owner = Application.Current.MainWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            detailWindow.Show();
-        }
-
-        private void ShowDetailedReferral(Referral referral)
-        {
-            if (referral == null) return;
-
-            var detailWindow = new ReferralDetailView // Create this window
-            {
-                DataContext = referral,
-                Owner = Application.Current.MainWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            detailWindow.Show();
-        }
-
-        private void ShowDetailedDiagnosis(Diagnosis diagnosis)
-        {
-            if (diagnosis == null) return;
-
-            var detailWindow = new DiagnosisDetailView // Create this window
-            {
-                DataContext = diagnosis,
-                Owner = Application.Current.MainWindow,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
-            detailWindow.Show();
-        }
-
-        private void AddNewExamination()
-        {
-            var newExam = new Examination { PatientJMB = Patient.JMB /* defaults */ };
-            var addWindow = new ExaminationView(newExam) // Create this dialog window with form
+            var view = new ExaminationView(_patient, _currentEmployee)
             {
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            if (addWindow.ShowDialog() == true)
+            bool? result = view.ShowDialog();
+            if (result == true)
             {
-                _patientService.SaveExaminationAsync(newExam); // Save to DB
-                History.Examinations.Add(newExam);
-                OnPropertyChanged(nameof(History)); // Refresh binding
+               // await LoadInterventionsAsync(); // Refresh
             }
+
         }
 
         private void AddNewReferral()

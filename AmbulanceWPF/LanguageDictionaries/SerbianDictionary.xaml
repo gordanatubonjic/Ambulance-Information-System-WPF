@@ -5,6 +5,7 @@
     <sys:String x:Key="Username">Korisničko ime</sys:String>
     <sys:String x:Key="Password">Lozinka</sys:String>
     <sys:String x:Key="LoginButtonText">Prijavi se</sys:String>
+    <sys:String x:Key="LogoutText">Odjavi se</sys:String>
     <sys:String x:Key="AppTMText">© 2025 Servis Ambulante Opšte Medicine. Sva prava zadržana.</sys:String>
     <sys:String x:Key="AppNameText">AMBULANTA PORODIČNE MEDICINE</sys:String>
     <sys:String x:Key="AppNameSubText">Sistem za redovne preglede i intervencije</sys:String>
@@ -61,6 +62,37 @@
     <sys:String x:Key="SaveText">SAČUVAJ</sys:String>
     <sys:String x:Key="ReferalFormText">UPUTNICA</sys:String>
     <sys:String x:Key="AgeText">Godine starosti</sys:String>
+    <sys:String x:Key="JMBText">JMB Pacijenta</sys:String>
+    <sys:String x:Key="SpecialistsText">Doktor specijalista</sys:String>
+    <sys:String x:Key="DiseaseText">Bolest</sys:String>
+    <sys:String x:Key="ViewProfileText">Pogledaj profil</sys:String>
+    <sys:String x:Key="ChangeThemeText">Promijeni temu</sys:String>
+    <sys:String x:Key="AddDiagnosisText">Dodaj Novu Dijagnozu</sys:String>
+    <sys:String x:Key="DoctorOpinionText">Misljenje ljekara</sys:String>
+    <sys:String x:Key="ExaminationIDText">ID Pregleda</sys:String>
+    <sys:String x:Key="DoctorJMBText">JMB Ljekara</sys:String>
+    <sys:String x:Key="LocationText">Mjesto stanovanja</sys:String>
+    <sys:String x:Key="FindorCreatePatientText">Pronadji Dodaj Pacijenta</sys:String>
+    <sys:String x:Key="AssessmentDescriptionText">Procjena stanja i opis pregleda</sys:String>
+    <sys:String x:Key="SelfAssesment">Opisite simptome, smetnje, vitalne znakove . . .</sys:String>
+    <sys:String x:Key="SelectEmployeeText">Izaberite zaposlenog</sys:String>
+    <sys:String x:Key="AdministeredMedicationsText">Koristeni lijekovi</sys:String>
+    <sys:String x:Key="MedicationText">Lijek</sys:String>
+    <sys:String x:Key="AddMedicationText">Dodaj lijek</sys:String>
+    <sys:String x:Key="ProceduresText">Izvrsene procedure</sys:String>
+    <sys:String x:Key="ReferalText">Uputnica</sys:String>
+    <sys:String x:Key="AddReferralText">Dodaj Uputnicu</sys:String>
+    <sys:String x:Key="ShowHidePasswordText">Prikazi ili sakrij lozinku</sys:String>
+    <sys:String x:Key="SelectMonthText">Izaberi mjesec</sys:String>
+    <sys:String x:Key="EmployeeText">Zaposleni</sys:String>
+    <sys:String x:Key="NumPatientsText">Broj Pacijenata</sys:String>
+    <sys:String x:Key="NumExaminationsText">Broj Pregleda</sys:String>
+    <sys:String x:Key="NumInterventionsText">Broj Intervencija</sys:String>
+    <sys:String x:Key="ExaminationsText">Pregledi</sys:String>
+    <sys:String x:Key="ReferalsText">Uputnice</sys:String>
+    <sys:String x:Key="DiagnosissText">Dijagnoze</sys:String>
+
+
     <sys:String x:Key="GenderText">Pol</sys:String>
     <sys:String x:Key="DateOfBirthText">Datum rođenja</sys:String>
     <sys:String x:Key="ReferalDetailsHeaderText">Upućuje se na pregled specijalisti</sys:String>

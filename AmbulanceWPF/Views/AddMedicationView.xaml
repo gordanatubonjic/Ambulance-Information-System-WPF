@@ -17,19 +17,19 @@
 
         <ComboBox x:Name="MedicationComboBox"
                   Grid.Row="0"
-                  materialDesign:HintAssist.Hint="Select Medication"
+                  materialDesign:HintAssist.Hint="{DynamicResource SelectMedicationText}"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   Margin="0,0,0,16"/>
 
         <TextBox x:Name="DosageTextBox"
                  Grid.Row="1"
-                 materialDesign:HintAssist.Hint="Dosage (e.g., 100mg)"
+                 materialDesign:HintAssist.Hint="{DynamicResource DosageText}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Margin="0,0,0,16"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="AddButton" Content="Add" Width="100" Margin="0,0,8,0"/>
-            <Button x:Name="CancelButton" Content="Cancel" Style="{StaticResource MaterialDesignFlatButton}" Width="100"/>
+            <Button x:Name="AddButton" Content="{DynamicResource AddText}" Width="100" Margin="0,0,8,0"/>
+            <Button x:Name="CancelButton" Content="{DynamicResource CancelText}" Style="{StaticResource MaterialDesignFlatButton}" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -95,7 +95,7 @@ private object _currentContentView;
         public DoctorHomePageViewModel(Employee currentUser)
         {
             this.CurrentUser = currentUser;
-            AvailableThemes = new ObservableCollection<string> { "Light", "Gray", "Dark" };
+            AvailableThemes = new ObservableCollection<string> { "Light", "Blue", "Dark" };
             AvailableLanguages = new ObservableCollection<string> { "English", "Serbian" };
             SelectedTheme = SessionManager.CurrentTheme
                             ?? CurrentUser.Theme
@@ -249,7 +249,7 @@ private object _currentContentView;
         private void NavigateToMedicalRecord(Patient patient)
         {
             if (patient == null) return;
-            var view = new PatientHistoryView(patient)
+            var view = new PatientHistoryView(patient, CurrentUser)
             {
                 Owner = Application.Current.MainWindow,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner
@@ -421,7 +421,7 @@ private object _currentContentView;
      
         private void ViewPatient(Patient patient)
         {
-            var patientHistoryView = new PatientHistoryView(new PatientHistoryViewModel(patient));
+            var patientHistoryView = new PatientHistoryView(new PatientHistoryViewModel(patient, _currentUser));
             patientHistoryView.Owner = Application.Current.MainWindow;
             patientHistoryView.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             patientHistoryView.Show();
@@ -466,7 +466,7 @@ private object _currentContentView;
             bool? result = view.ShowDialog();
             if (result == true)
             {
-                await LoadInterventionsAsync(); // Refresh
+                //await LoadExaminationsAsync(); // Refresh
             }
 
         }

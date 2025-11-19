@@ -1,0 +1,80 @@
+﻿<Window x:Class="AmbulanceWPF.Views.AddDiagnosisView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Add Diagnosis" Height="500" Width="400"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="{DynamicResource AddDiagnosisText}" 
+                   FontSize="18" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <!-- Form -->
+        <StackPanel Grid.Row="1">
+            <!-- Patient JMB -->
+            <TextBox Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{DynamicResource JMBText}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Margin="0,0,0,10"                     IsReadOnly="True"
+
+                     Height="30"/>
+
+            <!-- Disease -->
+            <ComboBox ItemsSource="{Binding Diseases}"
+                      DisplayMemberPath="DiseaseName"
+                      SelectedValuePath="DiseaseCode"
+                      SelectedValue="{Binding DiseaseCode}"
+                      materialDesign:HintAssist.Hint="{DynamicResource DiseaseText}"
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                      Margin="0,0,0,10"/>
+
+            <!-- Doctor Opinion -->
+            <TextBox Text="{Binding DiagnosisOpinion, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{DynamicResource DoctorOpinionText}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Margin="0,0,0,10"
+                     AcceptsReturn="True"
+                     Height="60"
+                     VerticalScrollBarVisibility="Auto"
+                     TextWrapping="Wrap"/>
+
+            <!-- Examination ID -->
+            <TextBox Text="{Binding ExaminationId, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{DynamicResource ExaminationIDText}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          IsReadOnly="True"
+
+                     Margin="0,0,0,10"/>
+
+            <!-- Doctor JMB -->
+            <TextBox Text="{Binding Doctor.JMB, UpdateSourceTrigger=PropertyChanged}"
+                     materialDesign:HintAssist.Hint="{DynamicResource DoctorJMBText}"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     IsReadOnly="True"
+                     Margin="0,0,0,20"/>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{DynamicResource CancelText}" 
+                    Command="{Binding CancelDiagnosisCommand}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Margin="0,0,10,0"/>
+            <Button Content="{DynamicResource SaveText}" 
+                    Command="{Binding SaveDiagnosisCommand}"
+                    Style="{StaticResource MaterialDesignRaisedButton}"/>
+        </StackPanel>
+    </Grid>
+</Window>

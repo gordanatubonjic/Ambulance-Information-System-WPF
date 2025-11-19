@@ -4,7 +4,9 @@
 
     <sys:String x:Key="Username">Username</sys:String>
     <sys:String x:Key="Password">Password</sys:String>
-    <sys:String x:Key="LoginButtonText">Sign in</sys:String>
+    <sys:String x:Key="LoginButtonText">Sign In</sys:String>
+    <sys:String x:Key="LogoutText">Log Out</sys:String>
+
     <sys:String x:Key="AppTMText">© 2025 Medical Ambulance Services. All rights reserved.</sys:String>
     <sys:String x:Key="AppNameText">MEDICAL AMBULANCE</sys:String>
     <sys:String x:Key="AppNameSubText">Emergency Response System</sys:String>
@@ -26,7 +28,8 @@
     <sys:String x:Key="LastNameText">Last Name</sys:String>
     <sys:String x:Key="UsernameFillerText">Enter username (min 6 characters)</sys:String>
     <sys:String x:Key="PasswordFillerText">Enter new password (min 6 characters)</sys:String>
-    <sys:String x:Key="PasswordRepeatFillerText">Repeat new password (must be same as field above)</sys:String>
+    <sys:String x:Key="PasswordRepeatFillerText">Repeat new password (must be same as field above)
+    </sys:String>
     
     <sys:String x:Key="CancelText">Cancel</sys:String>
     <sys:String x:Key="AddMedicationHeaderText">ADD MEDICATION</sys:String>
@@ -62,6 +65,36 @@
     <sys:String x:Key="SaveText">SAVE</sys:String>
     <sys:String x:Key="ReferalFormText">Medical Referral Form</sys:String>
     <sys:String x:Key="AgeText">Patient Age</sys:String>
+    <sys:String x:Key="JMBText">Patient JMB</sys:String>
+    <sys:String x:Key="SpecialistsText">Expert in specific field</sys:String>
+    <sys:String x:Key="DiseaseText">Disease</sys:String>
+    <sys:String x:Key="ViewProfileText">View Profile</sys:String>
+    <sys:String x:Key="ChangeThemeText">Change Theme</sys:String>
+    <sys:String x:Key="AddDiagnosisText">Add New Diagnosis</sys:String>
+    <sys:String x:Key="DoctorOpinionText">Doctor Opinion</sys:String>
+    <sys:String x:Key="ExaminationIDText">Examination ID</sys:String>
+    <sys:String x:Key="DoctorJMBText">Doctor JMB</sys:String>
+    <sys:String x:Key="LocationText">Resident</sys:String>
+    <sys:String x:Key="FindorCreatePatientText">Find or Create Patient</sys:String>
+    <sys:String x:Key="AssessmentDescriptionText">Assessment and Description</sys:String>
+    <sys:String x:Key="SelfAssesment">Describe findings, symptoms, vital signs...</sys:String>
+    <sys:String x:Key="SelectEmployeeText">Select Employee</sys:String>
+    <sys:String x:Key="AdministeredMedicationsText">Administered Medications</sys:String>
+    <sys:String x:Key="MedicationText">Medication</sys:String>
+    <sys:String x:Key="AddMedicationText">Add Medication</sys:String>
+    <sys:String x:Key="ProceduresText">Procedures</sys:String>
+    <sys:String x:Key="ReferalText">Referal</sys:String>
+    <sys:String x:Key="AddReferralText">Add Referral</sys:String>
+    <sys:String x:Key="ShowHidePasswordText">Show or Hide Password</sys:String>
+    <sys:String x:Key="SelectMonthText">Select Month</sys:String>
+    <sys:String x:Key="EmployeeText">Zaposleni</sys:String>
+    <sys:String x:Key="NumPatientsText">Number of Patients</sys:String>
+    <sys:String x:Key="NumExaminationsText">Number of Examinations</sys:String>
+    <sys:String x:Key="ExaminationsText">Examinations</sys:String>
+    <sys:String x:Key="ReferalsText">Referals</sys:String>
+    <sys:String x:Key="DiagnosissText">Diagnosis'</sys:String>
+
+
     <sys:String x:Key="GenderText">Patient Gender</sys:String>
     <sys:String x:Key="DateOfBirthText">Patient Date of Birth</sys:String>
     <sys:String x:Key="ReferalDetailsHeaderText">Referral Details</sys:String>

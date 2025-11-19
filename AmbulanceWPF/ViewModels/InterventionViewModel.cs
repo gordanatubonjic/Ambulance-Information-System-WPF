@@ -130,6 +130,7 @@ namespace AmbulanceWPF.ViewModels
 
             LoadAvailableEmployees();
             LoadAvailableLocations();
+
             FindOrCreatePatientCommand = new AsyncRelayCommand(FindOrCreatePatientAsync);
             AddTeamMemberCommand = new RelayCommand(AddTeamMember, CanAddTeamMember);
             RemoveTeamMemberCommand = new RelayCommand<InterventionDoctor>(RemoveTeamMember);
@@ -363,7 +364,8 @@ namespace AmbulanceWPF.ViewModels
         }
         private void Cancel()
         {
-           // Window.GetWindow(this as object)?.Close();
+            _view.CloseWindow();
+            // Window.GetWindow(this as object)?.Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

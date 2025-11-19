@@ -113,9 +113,8 @@ Background="Transparent">
                             Style="{StaticResource MaterialDesignActionToggleButton}"
                             Foreground="Gray"
                             Background="Transparent"
-                            ToolTip="Show/Hide Password" 
+                            ToolTip="{DynamicResource ShowHidePasswordText}" 
                             VerticalAlignment="Top"
-                            
                             >
                             <materialDesign:PackIcon x:Name="PasswordToggleIcon" Kind="EyeOutline"/>
                         </ToggleButton>

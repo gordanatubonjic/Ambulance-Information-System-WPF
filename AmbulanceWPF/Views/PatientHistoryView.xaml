@@ -33,7 +33,7 @@
             <userControls:PatientSummary Grid.Column="1" DataContext="{Binding Patient}" />
         </Grid>
         <TabControl Grid.Row="2" Margin="16,8,16,8">
-            <TabItem Header="Examinations">
+            <TabItem Header="{DynamicResource ExaminationsText}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding History.Examinations}">
                         <ItemsControl.ItemTemplate>
@@ -97,7 +97,7 @@
                     </ItemsControl>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Referrals">
+            <TabItem Header="{DynamicResource ReferalsText}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding History.Referrals}">
                         <ItemsControl.ItemTemplate>
@@ -166,7 +166,7 @@
                     </ItemsControl>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="Diagnosis">
+            <TabItem Header="{DynamicResource DiagnosissText}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding History.Diagnoses}">
                         <ItemsControl.ItemTemplate>
@@ -244,24 +244,13 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,16,0">
-            <Button Background="#14990B" Height="30" Width="150" Margin="8,0,0,0" ToolTip="Add New Examination" Command="{Binding AddExaminationCommand}">
+            <Button Background="#14990B" Height="30" Width="180" Margin="8,0,0,0" ToolTip="Add New Examination" Command="{Binding AddExaminationCommand}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Stethoscope" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
                     <TextBlock Text="Add Examination" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Background="#14990B" Height="30" Width="150" Margin="8,0,0,0" ToolTip="Add New Referral" Command="{Binding AddReferralCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="FileDocument" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <TextBlock Text="Add Referral" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Background="#14990B" Height="30" Width="150" Margin="8,0,0,0" ToolTip="Add New Diagnosis" Command="{Binding AddDiagnosisCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="ClipboardPulse" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <TextBlock Text="Add Diagnosis" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+           
         </StackPanel>
     </Grid>
 </Window>

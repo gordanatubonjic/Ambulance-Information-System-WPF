@@ -84,8 +84,8 @@ namespace AmbulanceWPF.ViewModels
             LoginCommand = new RelayCommand(Login, CanLogin);
             //QA Da li mi treba ovo uopste
             employees = _context.Employees.ToList<Employee>();
-            //Username = "amar.k";
-            //Password = "amarovasifra";
+            Username = "amar.k";
+            Password = "lozinka";
             TogglePasswordCommand = new RelayCommand(() => IsPasswordVisible = !IsPasswordVisible);
 
 

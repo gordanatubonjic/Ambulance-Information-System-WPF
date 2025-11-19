@@ -23,16 +23,21 @@ namespace AmbulanceWPF.Views
         public ExaminationView(Patient patient, Employee doctor)
         {
             InitializeComponent();
-            DataContext = new ExaminationViewModel(patient, doctor);
+            DataContext = new ExaminationViewModel(patient, doctor, this);
         }
         public ExaminationView(Employee doctor) {
             InitializeComponent();
-            DataContext = new ExaminationViewModel( doctor);
+            DataContext = new ExaminationViewModel( doctor, this);
         }
         public ExaminationView(Examination examination) {
             InitializeComponent();
             //TODO Koji arg treba proslijediti
-           // DataContext = new ExaminationViewModel();
+         // DataContext = new ExaminationViewModel();
+        }
+        public void CloseWindow()
+        {
+            this.DialogResult = true; // or false
+            this.Close();
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {

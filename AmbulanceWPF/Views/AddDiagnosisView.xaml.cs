@@ -1,0 +1,29 @@
+﻿using AmbulanceWPF.ViewModels;
+using System.Windows;
+using System.Windows.Input;
+
+namespace AmbulanceWPF.Views
+{
+    public partial class AddDiagnosisView : Window
+    {
+        
+        public AddDiagnosisView(ExaminationViewModel ev)
+        {
+            InitializeComponent();
+            DataContext = ev;
+        }
+        public void CloseWindow()
+        {
+            this.DialogResult = true; // or false
+            this.Close();
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+            base.OnKeyDown(e);
+        }
+    }
+}

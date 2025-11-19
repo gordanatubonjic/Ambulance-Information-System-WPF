@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmbulanceWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,29 @@ namespace AmbulanceWPF.Views
         {
             InitializeComponent();
         }
+        public ReferralView(ExaminationViewModel evm)
+        {
+            InitializeComponent();
+            DataContext = evm;
+        }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+        public void CloseWindow()
+        {
+            this.DialogResult = true; // or false
+            this.Close();
+        }
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+            base.OnKeyDown(e);
         }
     }
 }
