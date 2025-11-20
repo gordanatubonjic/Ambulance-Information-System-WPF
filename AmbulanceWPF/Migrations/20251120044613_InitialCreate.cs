@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AmbulanceWPF.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -133,6 +133,7 @@ namespace AmbulanceWPF.Migrations
                     Role = table.Column<string>(type: "TEXT", maxLength: 45, nullable: false),
                     IsActive = table.Column<int>(type: "INTEGER", nullable: false),
                     Theme = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Language = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false, defaultValue: "English"),
                     PhoneNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true)
                 },
                 constraints: table =>
@@ -410,13 +411,16 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 1001, "Persistent high arterial blood pressure.", "Hypertension", new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 1002, "Inflammation of the bronchial tubes, often viral.", "Acute bronchitis", new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1002, "Inflammation of the bronchial tubes, often viral.", "Acute bronchitis", new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1003, "Chronic condition with high blood sugar levels.", "Diabetes Mellitus", new DateTime(2025, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1004, "Chronic respiratory condition with airway inflammation.", "Asthma", new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 1005, "Recurrent headaches often with nausea and sensitivity to light.", "Migraine", new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Employee",
-                columns: new[] { "JMB", "IsActive", "LastName", "Name", "Password", "PasswordHash", "PhoneNumber", "Role", "Theme", "Username" },
-                values: new object[] { "9035172846109", 1, "Juric", "Mila", "milinasifra", "amarovasifra", null, "MedicalTechnician", "Dark", "mila.j" });
+                columns: new[] { "JMB", "IsActive", "Language", "LastName", "Name", "Password", "PasswordHash", "PhoneNumber", "Role", "Theme", "Username" },
+                values: new object[] { "9035172846109", 1, "English", "Juric", "Mila", "milinasifra", "amarovasifra", null, "MedicalTechnician", "Dark", "mila.j" });
 
             migrationBuilder.InsertData(
                 table: "Location",
@@ -424,7 +428,10 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 71000, "Sarajevo" },
-                    { 78000, "Banja Luka" }
+                    { 72000, "Zenica" },
+                    { 75000, "Tuzla" },
+                    { 78000, "Banja Luka" },
+                    { 88000, "Mostar" }
                 });
 
             migrationBuilder.InsertData(
@@ -433,7 +440,10 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 2001, true, "ACME Pharma", "Lisinopril" },
-                    { 2002, true, "BreatheWell", "Salbutamol" }
+                    { 2002, true, "BreatheWell", "Salbutamol" },
+                    { 2003, true, "GlucoPharm", "Metformin" },
+                    { 2004, true, "RespiraMed", "Albuterol" },
+                    { 2005, true, "PainRelief Inc", "Ibuprofen" }
                 });
 
             migrationBuilder.InsertData(
@@ -442,7 +452,10 @@ namespace AmbulanceWPF.Migrations
                 values: new object[]
                 {
                     "+38761111222",
-                    "+38762123456"
+                    "+38762123456",
+                    "+38763333444",
+                    "+38764444555",
+                    "+38765555666"
                 });
 
             migrationBuilder.InsertData(
@@ -451,13 +464,22 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 1, new DateTime(2025, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null },
-                    { 2, new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null }
+                    { 2, new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null },
+                    { 3, new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), null },
+                    { 4, new DateTime(2025, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), null },
+                    { 5, new DateTime(2025, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Employee",
-                columns: new[] { "JMB", "IsActive", "LastName", "Name", "Password", "PasswordHash", "PhoneNumber", "Role", "Theme", "Username" },
-                values: new object[] { "6482157394021", 1, "Kovacevic", "Amar", "amarovasifra", "amarovasifra", "+38761111222", "Doctor", "Light", "amar.k" });
+                columns: new[] { "JMB", "IsActive", "Language", "LastName", "Name", "Password", "PasswordHash", "PhoneNumber", "Role", "Theme", "Username" },
+                values: new object[,]
+                {
+                    { "1234567890123", 1, "Serbian", "Doe", "John", "password", "hash", "+38763333444", "Doctor", "Gray", "john.d" },
+                    { "2345678901234", 1, "English", "Smith", "Jane", "password", "hash", "+38764444555", "MedicalTechnician", "Light", "jane.s" },
+                    { "3456789012345", 1, "Serbian", "Johnson", "Alice", "password", "hash", "+38765555666", "Doctor", "Dark", "alice.j" },
+                    { "6482157394021", 1, "English", "Kovacevic", "Amar", "amarovasifra", "amarovasifra", "+38761111222", "Doctor", "Light", "amar.k" }
+                });
 
             migrationBuilder.InsertData(
                 table: "MedicationInventory",
@@ -465,7 +487,10 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 2001, 25m },
-                    { 2002, 40m }
+                    { 2002, 40m },
+                    { 2003, 50m },
+                    { 2004, 30m },
+                    { 2005, 60m }
                 });
 
             migrationBuilder.InsertData(
@@ -474,7 +499,10 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 2001, 1, 50 },
-                    { 2002, 2, 100 }
+                    { 2002, 2, 100 },
+                    { 2003, 3, 75 },
+                    { 2004, 4, 120 },
+                    { 2005, 5, 90 }
                 });
 
             migrationBuilder.InsertData(
@@ -483,13 +511,21 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { "4185270936518", "", "28/02/1995", true, true, "Petrovic", "Sara", 78000 },
-                    { "5729618430725", "", "12/07/2001", false, true, "Horvat", "Ivan", 71000 }
+                    { "4567890123456", "", "15/03/1980", false, false, "Brown", "Bob", 75000 },
+                    { "5678901234567", "", "10/11/1990", true, true, "Green", "Eva", 88000 },
+                    { "5729618430725", "", "12/07/2001", false, true, "Horvat", "Ivan", 71000 },
+                    { "6789012345678", "", "05/06/2005", false, false, "Black", "Charlie", 72000 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Intervention",
                 columns: new[] { "InterventionId", "Date", "InterventionDescription", "PatientJMB" },
-                values: new object[] { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nebulization therapy administered.", "4185270936518" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nebulization therapy administered.", "4185270936518" },
+                    { 2, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Insulin injection training.", "4567890123456" },
+                    { 3, new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bronchodilator administration.", "5678901234567" }
+                });
 
             migrationBuilder.InsertData(
                 table: "MedicalRecord",
@@ -497,7 +533,10 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { "4185270936518", "6482157394021", 1, 0, "Married", "Ivana" },
-                    { "5729618430725", "6482157394021", 0, 0, "Single", "Marko" }
+                    { "4567890123456", "1234567890123", 0, 1, "Divorced", "Slavica" },
+                    { "5678901234567", "3456789012345", 1, 0, "Single", "Ljuboslav" },
+                    { "5729618430725", "6482157394021", 0, 0, "Single", "Marko" },
+                    { "6789012345678", "1234567890123", 0, 1, "Married", "Rajko" }
                 });
 
             migrationBuilder.InsertData(
@@ -506,18 +545,35 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { 1, "6482157394021", new DateTime(2025, 4, 20, 10, 30, 0, 0, DateTimeKind.Unspecified), "Routine checkup", "5729618430725", null },
-                    { 2, "6482157394021", new DateTime(2025, 5, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), "Cough and wheezing", "4185270936518", null }
+                    { 2, "6482157394021", new DateTime(2025, 5, 5, 9, 0, 0, 0, DateTimeKind.Unspecified), "Cough and wheezing", "4185270936518", null },
+                    { 3, "1234567890123", new DateTime(2025, 6, 10, 11, 0, 0, 0, DateTimeKind.Unspecified), "Blood sugar check", "4567890123456", null },
+                    { 4, "3456789012345", new DateTime(2025, 7, 15, 14, 30, 0, 0, DateTimeKind.Unspecified), "Respiratory exam", "5678901234567", null },
+                    { 5, "1234567890123", new DateTime(2025, 8, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), "Headache evaluation", "6789012345678", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "InterventionDoctor",
                 columns: new[] { "DoctorJMB", "InterventionId", "Role" },
-                values: new object[] { "6482157394021", 1, "Lead Doctor" });
+                values: new object[,]
+                {
+                    { "1234567890123", 1, "Assistant" },
+                    { "6482157394021", 1, "Lead Doctor" },
+                    { "1234567890123", 2, "Lead Doctor" },
+                    { "3456789012345", 2, "Assistant" },
+                    { "3456789012345", 3, "Lead Doctor" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Therapy",
                 columns: new[] { "InterventionId", "MedicationCode", "Dosage" },
-                values: new object[] { 1, 2002, 2.5m });
+                values: new object[,]
+                {
+                    { 1, 2002, 2.5m },
+                    { 1, 2005, 200m },
+                    { 2, 2003, 500m },
+                    { 3, 2001, 10m },
+                    { 3, 2004, 100m }
+                });
 
             migrationBuilder.InsertData(
                 table: "Diagnosis",
@@ -525,13 +581,23 @@ namespace AmbulanceWPF.Migrations
                 values: new object[,]
                 {
                     { new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "4185270936518", "6482157394021", "Likely viral origin.", null, 2 },
-                    { new DateTime(2025, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1001, "5729618430725", "6482157394021", "Stage 1 hypertension; monitor BP.", null, 1 }
+                    { new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1003, "4567890123456", "1234567890123", "Type 2 diabetes; diet control recommended.", null, 3 },
+                    { new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1004, "5678901234567", "3456789012345", "Mild asthma; inhaler prescribed.", null, 4 },
+                    { new DateTime(2025, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1001, "5729618430725", "6482157394021", "Stage 1 hypertension; monitor BP.", null, 1 },
+                    { new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1005, "6789012345678", "1234567890123", "Chronic migraine; trigger avoidance advised.", null, 5 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Referral",
                 columns: new[] { "ReferralId", "Date", "DiseaseCode", "DoctorJMB", "ExaminationId", "PatientJMB", "Specialists" },
-                values: new object[] { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "6482157394021", 2, "4185270936518", "Pulmonologist" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 1002, "6482157394021", 2, "4185270936518", "Pulmonologist" },
+                    { 2, new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1003, "1234567890123", 3, "4567890123456", "Endocrinologist" },
+                    { 3, new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1004, "3456789012345", 4, "5678901234567", "Pulmonologist" },
+                    { 4, new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1005, "1234567890123", 5, "6789012345678", "Neurologist" },
+                    { 5, new DateTime(2025, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1001, "6482157394021", 1, "5729618430725", "Cardiologist" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Diagnosis_Date",

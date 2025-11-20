@@ -170,7 +170,7 @@ namespace AmbulanceWPF.ViewModels
 
         private async Task FindOrCreatePatientAsync()
         {
-            Patient patient = null;
+            Patient? patient = null;
 
             using var context = new AmbulanceDbContext();
 

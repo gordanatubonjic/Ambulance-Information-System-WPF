@@ -29,7 +29,7 @@ namespace AmbulanceWPF.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=../../../AmbulanceWPFDatabase.db");
+                optionsBuilder.UseSqlite("Data Source=../../../AmbulanceHCIDatabase.db");
 
             }
         }
@@ -492,13 +492,20 @@ namespace AmbulanceWPF.Data
 });
             //
             modelBuilder.Entity<Phone>().HasData(
+   
    new Phone { PhoneNumber = "+38761111222" },
-   new Phone { PhoneNumber = "+38762123456" }
+   new Phone { PhoneNumber = "+38762123456" },
+   new Phone { PhoneNumber = "+38763333444" },
+   new Phone { PhoneNumber = "+38764444555" },
+   new Phone { PhoneNumber = "+38765555666" }
 );
 
             modelBuilder.Entity<Location>().HasData(
                 new Location { PostalCode = 71000, Name = "Sarajevo" },
-                new Location { PostalCode = 78000, Name = "Banja Luka" }
+                new Location { PostalCode = 78000, Name = "Banja Luka" },
+                new Location { PostalCode = 75000, Name = "Tuzla" },
+                new Location { PostalCode = 88000, Name = "Mostar" },
+                new Location { PostalCode = 72000, Name = "Zenica" }
             );
 
             modelBuilder.Entity<Employee>().HasData(
@@ -528,7 +535,50 @@ new Employee
     IsActive = 1,
     Theme = "Dark",
     Language = "English"
+},
+new Employee
+{
+    JMB = "1234567890123",
+    Name = "John",
+    LastName = "Doe",
+    Username = "john.d",
+    Password = "password",
+    PasswordHash = "hash",
+    Role = "Doctor",
+    IsActive = 1,
+    Theme = "Gray",
+    PhoneNumber = "+38763333444",
+    Language = "Serbian"
+},
+new Employee
+{
+    JMB = "2345678901234",
+    Name = "Jane",
+    LastName = "Smith",
+    Username = "jane.s",
+    Password = "password",
+    PasswordHash = "hash",
+    Role = "MedicalTechnician",
+    IsActive = 1,
+    Theme = "Light",
+    PhoneNumber = "+38764444555",
+    Language = "English"
+},
+new Employee
+{
+    JMB = "3456789012345",
+    Name = "Alice",
+    LastName = "Johnson",
+    Username = "alice.j",
+    Password = "password",
+    PasswordHash = "hash",
+    Role = "Doctor",
+    IsActive = 1,
+    Theme = "Dark",
+    PhoneNumber = "+38765555666",
+    Language = "Serbian"
 }
+
 );
 
             modelBuilder.Entity<Patient>().HasData(
@@ -554,6 +604,36 @@ new Employee
                     Gender=true
 
 
+                },
+                new Patient
+                {
+                    JMB = "4567890123456",
+                    Name = "Bob",
+                    LastName = "Brown",
+                    ResidenceLocationId = 75000,
+                    Insurance = false,
+                    DateOfBirth = "15/03/1980",
+                    Gender = false
+                },
+                new Patient
+                {
+                    JMB = "5678901234567",
+                    Name = "Eva",
+                    LastName = "Green",
+                    ResidenceLocationId = 88000,
+                    Insurance = true,
+                    DateOfBirth = "10/11/1990",
+                    Gender = true
+                },
+                new Patient
+                {
+                    JMB = "6789012345678",
+                    Name = "Charlie",
+                    LastName = "Black",
+                    ResidenceLocationId = 72000,
+                    Insurance = false,
+                    DateOfBirth = "05/06/2005",
+                    Gender = false
                 }
 
             );
@@ -576,6 +656,33 @@ new Employee
                     Gender = true,
                     Insurance = false,
                     DoctorJMB = "6482157394021"
+                },
+                new MedicalRecord
+                {
+                    PatientJMB = "4567890123456",
+                    ParentName = "Slavica",
+                    MaritalStatus = "Divorced",
+                    Gender = false,
+                    Insurance = true,
+                    DoctorJMB = "1234567890123"
+                },
+                new MedicalRecord
+                {
+                    PatientJMB = "5678901234567",
+                    ParentName = "Ljuboslav",
+                    MaritalStatus = "Single",
+                    Gender = true,
+                    Insurance = false,
+                    DoctorJMB = "3456789012345"
+                },
+                new MedicalRecord
+                {
+                    PatientJMB = "6789012345678",
+                    ParentName = "Rajko",
+                    MaritalStatus = "Married",
+                    Gender = false,
+                    Insurance = true,
+                    DoctorJMB = "1234567890123"
                 }
             );
 
@@ -593,6 +700,27 @@ new Employee
                     DiseaseName = "Acute bronchitis",
                     Description = "Inflammation of the bronchial tubes, often viral.",
                     UpdateDate = new DateTime(2025, 1, 15)
+                },
+                new DiseaseCatalog
+                {
+                    DiseaseCode = 1003,
+                    DiseaseName = "Diabetes Mellitus",
+                    Description = "Chronic condition with high blood sugar levels.",
+                    UpdateDate = new DateTime(2025, 2, 10)
+                },
+                new DiseaseCatalog
+                {
+                    DiseaseCode = 1004,
+                    DiseaseName = "Asthma",
+                    Description = "Chronic respiratory condition with airway inflammation.",
+                    UpdateDate = new DateTime(2025, 3, 5)
+                },
+                new DiseaseCatalog
+                {
+                    DiseaseCode = 1005,
+                    DiseaseName = "Migraine",
+                    Description = "Recurrent headaches often with nausea and sensitivity to light.",
+                    UpdateDate = new DateTime(2025, 4, 1)
                 }
             );
 
@@ -610,12 +738,36 @@ new Employee
                     Name = "Salbutamol",
                     Manufacturer = "BreatheWell",
                     IsActive = true
+                },
+                new MedicationCatalog
+                {
+                    MedicationCode = 2003,
+                    Name = "Metformin",
+                    Manufacturer = "GlucoPharm",
+                    IsActive = true
+                },
+                new MedicationCatalog
+                {
+                    MedicationCode = 2004,
+                    Name = "Albuterol",
+                    Manufacturer = "RespiraMed",
+                    IsActive = true
+                },
+                new MedicationCatalog
+                {
+                    MedicationCode = 2005,
+                    Name = "Ibuprofen",
+                    Manufacturer = "PainRelief Inc",
+                    IsActive = true
                 }
             );
 
             modelBuilder.Entity<MedicationInventory>().HasData(
                 new MedicationInventory { MedicationCode = 2001, Quantity = (decimal)25.0 },
-                new MedicationInventory { MedicationCode = 2002, Quantity = (decimal)40.0 }
+                new MedicationInventory { MedicationCode = 2002, Quantity = (decimal)40.0 },
+                new MedicationInventory { MedicationCode = 2003, Quantity = (decimal)50.0 },
+                new MedicationInventory { MedicationCode = 2004, Quantity = (decimal)30.0 },
+                new MedicationInventory { MedicationCode = 2005, Quantity = (decimal)60.0 }
             );
 
             modelBuilder.Entity<Procurement>().HasData(
@@ -628,6 +780,21 @@ new Employee
                 {
                     ProcurementId = 2,
                     ProcurementDate = new DateTime(2025, 3, 10)
+                },
+                new Procurement
+                {
+                    ProcurementId = 3,
+                    ProcurementDate = new DateTime(2025, 4, 15)
+                },
+                new Procurement
+                {
+                    ProcurementId = 4,
+                    ProcurementDate = new DateTime(2025, 5, 20)
+                },
+                new Procurement
+                {
+                    ProcurementId = 5,
+                    ProcurementDate = new DateTime(2025, 6, 25)
                 }
             );
 
@@ -643,6 +810,24 @@ new Employee
                     MedicationCode = 2002,
                     ProcurementId = 2,
                     Quantity = 100
+                },
+                new MedicationItem
+                {
+                    MedicationCode = 2003,
+                    ProcurementId = 3,
+                    Quantity = 75
+                },
+                new MedicationItem
+                {
+                    MedicationCode = 2004,
+                    ProcurementId = 4,
+                    Quantity = 120
+                },
+                new MedicationItem
+                {
+                    MedicationCode = 2005,
+                    ProcurementId = 5,
+                    Quantity = 90
                 }
             );
 
@@ -662,6 +847,30 @@ new Employee
                     ExaminationDescription = "Cough and wheezing",
                     PatientJMB = "4185270936518",
                     DoctorJMB = "6482157394021"
+                },
+                new Examination
+                {
+                    ExaminationId = 3,
+                    ExaminationDate = new DateTime(2025, 6, 10, 11, 0, 0),
+                    ExaminationDescription = "Blood sugar check",
+                    PatientJMB = "4567890123456",
+                    DoctorJMB = "1234567890123"
+                },
+                new Examination
+                {
+                    ExaminationId = 4,
+                    ExaminationDate = new DateTime(2025, 7, 15, 14, 30, 0),
+                    ExaminationDescription = "Respiratory exam",
+                    PatientJMB = "5678901234567",
+                    DoctorJMB = "3456789012345"
+                },
+                new Examination
+                {
+                    ExaminationId = 5,
+                    ExaminationDate = new DateTime(2025, 8, 20, 16, 0, 0),
+                    ExaminationDescription = "Headache evaluation",
+                    PatientJMB = "6789012345678",
+                    DoctorJMB = "1234567890123"
                 }
             );
 
@@ -683,6 +892,33 @@ new Employee
                     DoctorOpinion = "Likely viral origin.",
                     ExaminationId = 2,
                     DoctorJMB = "6482157394021"
+                },
+                new Diagnosis
+                {
+                    PatientJMB = "4567890123456",
+                    DiseaseCode = 1003,
+                    Date = new DateTime(2025, 6, 10),
+                    DoctorOpinion = "Type 2 diabetes; diet control recommended.",
+                    ExaminationId = 3,
+                    DoctorJMB = "1234567890123"
+                },
+                new Diagnosis
+                {
+                    PatientJMB = "5678901234567",
+                    DiseaseCode = 1004,
+                    Date = new DateTime(2025, 7, 15),
+                    DoctorOpinion = "Mild asthma; inhaler prescribed.",
+                    ExaminationId = 4,
+                    DoctorJMB = "3456789012345"
+                },
+                new Diagnosis
+                {
+                    PatientJMB = "6789012345678",
+                    DiseaseCode = 1005,
+                    Date = new DateTime(2025, 8, 20),
+                    DoctorOpinion = "Chronic migraine; trigger avoidance advised.",
+                    ExaminationId = 5,
+                    DoctorJMB = "1234567890123"
                 }
             );
 
@@ -693,6 +929,20 @@ new Employee
                     PatientJMB = "4185270936518",
                     Date = new DateTime(2025, 5, 5),
                     InterventionDescription = "Nebulization therapy administered."
+                },
+                new Intervention
+                {
+                    InterventionId = 2,
+                    PatientJMB = "4567890123456",
+                    Date = new DateTime(2025, 6, 10),
+                    InterventionDescription = "Insulin injection training."
+                },
+                new Intervention
+                {
+                    InterventionId = 3,
+                    PatientJMB = "5678901234567",
+                    Date = new DateTime(2025, 7, 15),
+                    InterventionDescription = "Bronchodilator administration."
                 }
             );
 
@@ -702,6 +952,30 @@ new Employee
                     InterventionId = 1,
                     DoctorJMB = "6482157394021",
                     Role = "Lead Doctor"
+                },
+                new InterventionDoctor
+                {
+                    InterventionId = 2,
+                    DoctorJMB = "1234567890123",
+                    Role = "Lead Doctor"
+                },
+                new InterventionDoctor
+                {
+                    InterventionId = 3,
+                    DoctorJMB = "3456789012345",
+                    Role = "Lead Doctor"
+                },
+                new InterventionDoctor
+                {
+                    InterventionId = 1,
+                    DoctorJMB = "1234567890123",
+                    Role = "Assistant"
+                },
+                new InterventionDoctor
+                {
+                    InterventionId = 2,
+                    DoctorJMB = "3456789012345",
+                    Role = "Assistant"
                 }
             );
 
@@ -711,6 +985,30 @@ new Employee
                     InterventionId = 1,
                     MedicationCode = 2002,
                     Dosage = (decimal)2.5
+                },
+                new Therapy
+                {
+                    InterventionId = 2,
+                    MedicationCode = 2003,
+                    Dosage = (decimal)500.0
+                },
+                new Therapy
+                {
+                    InterventionId = 3,
+                    MedicationCode = 2004,
+                    Dosage = (decimal)100.0
+                },
+                new Therapy
+                {
+                    InterventionId = 1,
+                    MedicationCode = 2005,
+                    Dosage = (decimal)200.0
+                },
+                new Therapy
+                {
+                    InterventionId = 3,
+                    MedicationCode = 2001,
+                    Dosage = (decimal)10.0
                 }
             );
 
@@ -724,6 +1022,46 @@ new Employee
                     Date = new DateTime(2025, 5, 5),
                     ExaminationId = 2,
                     PatientJMB= "4185270936518"
+                },
+                new Referral
+                {
+                    ReferralId = 2,
+                    DiseaseCode = 1003,
+                    Specialists = "Endocrinologist",
+                    DoctorJMB = "1234567890123",
+                    Date = new DateTime(2025, 6, 10),
+                    ExaminationId = 3,
+                    PatientJMB = "4567890123456"
+                },
+                new Referral
+                {
+                    ReferralId = 3,
+                    DiseaseCode = 1004,
+                    Specialists = "Pulmonologist",
+                    DoctorJMB = "3456789012345",
+                    Date = new DateTime(2025, 7, 15),
+                    ExaminationId = 4,
+                    PatientJMB = "5678901234567"
+                },
+                new Referral
+                {
+                    ReferralId = 4,
+                    DiseaseCode = 1005,
+                    Specialists = "Neurologist",
+                    DoctorJMB = "1234567890123",
+                    Date = new DateTime(2025, 8, 20),
+                    ExaminationId = 5,
+                    PatientJMB = "6789012345678"
+                },
+                new Referral
+                {
+                    ReferralId = 5,
+                    DiseaseCode = 1001,
+                    Specialists = "Cardiologist",
+                    DoctorJMB = "6482157394021",
+                    Date = new DateTime(2025, 4, 20),
+                    ExaminationId = 1,
+                    PatientJMB = "5729618430725"
                 }
             );
 

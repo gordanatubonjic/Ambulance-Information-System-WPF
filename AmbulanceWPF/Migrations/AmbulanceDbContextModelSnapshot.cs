@@ -85,6 +85,33 @@ namespace AmbulanceWPF.Migrations
                             DoctorJMB = "6482157394021",
                             DoctorOpinion = "Likely viral origin.",
                             ExaminationId = 2
+                        },
+                        new
+                        {
+                            PatientJMB = "4567890123456",
+                            DiseaseCode = 1003,
+                            Date = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorJMB = "1234567890123",
+                            DoctorOpinion = "Type 2 diabetes; diet control recommended.",
+                            ExaminationId = 3
+                        },
+                        new
+                        {
+                            PatientJMB = "5678901234567",
+                            DiseaseCode = 1004,
+                            Date = new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorJMB = "3456789012345",
+                            DoctorOpinion = "Mild asthma; inhaler prescribed.",
+                            ExaminationId = 4
+                        },
+                        new
+                        {
+                            PatientJMB = "6789012345678",
+                            DiseaseCode = 1005,
+                            Date = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DoctorJMB = "1234567890123",
+                            DoctorOpinion = "Chronic migraine; trigger avoidance advised.",
+                            ExaminationId = 5
                         });
                 });
 
@@ -123,6 +150,27 @@ namespace AmbulanceWPF.Migrations
                             Description = "Inflammation of the bronchial tubes, often viral.",
                             DiseaseName = "Acute bronchitis",
                             UpdateDate = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DiseaseCode = 1003,
+                            Description = "Chronic condition with high blood sugar levels.",
+                            DiseaseName = "Diabetes Mellitus",
+                            UpdateDate = new DateTime(2025, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DiseaseCode = 1004,
+                            Description = "Chronic respiratory condition with airway inflammation.",
+                            DiseaseName = "Asthma",
+                            UpdateDate = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            DiseaseCode = 1005,
+                            Description = "Recurrent headaches often with nausea and sensitivity to light.",
+                            DiseaseName = "Migraine",
+                            UpdateDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -214,6 +262,48 @@ namespace AmbulanceWPF.Migrations
                             Role = "MedicalTechnician",
                             Theme = "Dark",
                             Username = "mila.j"
+                        },
+                        new
+                        {
+                            JMB = "1234567890123",
+                            IsActive = 1,
+                            Language = "Serbian",
+                            LastName = "Doe",
+                            Name = "John",
+                            Password = "password",
+                            PasswordHash = "hash",
+                            PhoneNumber = "+38763333444",
+                            Role = "Doctor",
+                            Theme = "Gray",
+                            Username = "john.d"
+                        },
+                        new
+                        {
+                            JMB = "2345678901234",
+                            IsActive = 1,
+                            Language = "English",
+                            LastName = "Smith",
+                            Name = "Jane",
+                            Password = "password",
+                            PasswordHash = "hash",
+                            PhoneNumber = "+38764444555",
+                            Role = "MedicalTechnician",
+                            Theme = "Light",
+                            Username = "jane.s"
+                        },
+                        new
+                        {
+                            JMB = "3456789012345",
+                            IsActive = 1,
+                            Language = "Serbian",
+                            LastName = "Johnson",
+                            Name = "Alice",
+                            Password = "password",
+                            PasswordHash = "hash",
+                            PhoneNumber = "+38765555666",
+                            Role = "Doctor",
+                            Theme = "Dark",
+                            Username = "alice.j"
                         });
                 });
 
@@ -275,6 +365,30 @@ namespace AmbulanceWPF.Migrations
                             ExaminationDate = new DateTime(2025, 5, 5, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             ExaminationDescription = "Cough and wheezing",
                             PatientJMB = "4185270936518"
+                        },
+                        new
+                        {
+                            ExaminationId = 3,
+                            DoctorJMB = "1234567890123",
+                            ExaminationDate = new DateTime(2025, 6, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExaminationDescription = "Blood sugar check",
+                            PatientJMB = "4567890123456"
+                        },
+                        new
+                        {
+                            ExaminationId = 4,
+                            DoctorJMB = "3456789012345",
+                            ExaminationDate = new DateTime(2025, 7, 15, 14, 30, 0, 0, DateTimeKind.Unspecified),
+                            ExaminationDescription = "Respiratory exam",
+                            PatientJMB = "5678901234567"
+                        },
+                        new
+                        {
+                            ExaminationId = 5,
+                            DoctorJMB = "1234567890123",
+                            ExaminationDate = new DateTime(2025, 8, 20, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExaminationDescription = "Headache evaluation",
+                            PatientJMB = "6789012345678"
                         });
                 });
 
@@ -313,6 +427,20 @@ namespace AmbulanceWPF.Migrations
                             Date = new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InterventionDescription = "Nebulization therapy administered.",
                             PatientJMB = "4185270936518"
+                        },
+                        new
+                        {
+                            InterventionId = 2,
+                            Date = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InterventionDescription = "Insulin injection training.",
+                            PatientJMB = "4567890123456"
+                        },
+                        new
+                        {
+                            InterventionId = 3,
+                            Date = new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            InterventionDescription = "Bronchodilator administration.",
+                            PatientJMB = "5678901234567"
                         });
                 });
 
@@ -347,6 +475,30 @@ namespace AmbulanceWPF.Migrations
                             InterventionId = 1,
                             DoctorJMB = "6482157394021",
                             Role = "Lead Doctor"
+                        },
+                        new
+                        {
+                            InterventionId = 2,
+                            DoctorJMB = "1234567890123",
+                            Role = "Lead Doctor"
+                        },
+                        new
+                        {
+                            InterventionId = 3,
+                            DoctorJMB = "3456789012345",
+                            Role = "Lead Doctor"
+                        },
+                        new
+                        {
+                            InterventionId = 1,
+                            DoctorJMB = "1234567890123",
+                            Role = "Assistant"
+                        },
+                        new
+                        {
+                            InterventionId = 2,
+                            DoctorJMB = "3456789012345",
+                            Role = "Assistant"
                         });
                 });
 
@@ -375,6 +527,21 @@ namespace AmbulanceWPF.Migrations
                         {
                             PostalCode = 78000,
                             Name = "Banja Luka"
+                        },
+                        new
+                        {
+                            PostalCode = 75000,
+                            Name = "Tuzla"
+                        },
+                        new
+                        {
+                            PostalCode = 88000,
+                            Name = "Mostar"
+                        },
+                        new
+                        {
+                            PostalCode = 72000,
+                            Name = "Zenica"
                         });
                 });
 
@@ -433,6 +600,33 @@ namespace AmbulanceWPF.Migrations
                             Insurance = 0,
                             MaritalStatus = "Married",
                             ParentName = "Ivana"
+                        },
+                        new
+                        {
+                            PatientJMB = "4567890123456",
+                            DoctorJMB = "1234567890123",
+                            Gender = 0,
+                            Insurance = 1,
+                            MaritalStatus = "Divorced",
+                            ParentName = "Slavica"
+                        },
+                        new
+                        {
+                            PatientJMB = "5678901234567",
+                            DoctorJMB = "3456789012345",
+                            Gender = 1,
+                            Insurance = 0,
+                            MaritalStatus = "Single",
+                            ParentName = "Ljuboslav"
+                        },
+                        new
+                        {
+                            PatientJMB = "6789012345678",
+                            DoctorJMB = "1234567890123",
+                            Gender = 0,
+                            Insurance = 1,
+                            MaritalStatus = "Married",
+                            ParentName = "Rajko"
                         });
                 });
 
@@ -483,6 +677,27 @@ namespace AmbulanceWPF.Migrations
                             IsActive = true,
                             Manufacturer = "BreatheWell",
                             Name = "Salbutamol"
+                        },
+                        new
+                        {
+                            MedicationCode = 2003,
+                            IsActive = true,
+                            Manufacturer = "GlucoPharm",
+                            Name = "Metformin"
+                        },
+                        new
+                        {
+                            MedicationCode = 2004,
+                            IsActive = true,
+                            Manufacturer = "RespiraMed",
+                            Name = "Albuterol"
+                        },
+                        new
+                        {
+                            MedicationCode = 2005,
+                            IsActive = true,
+                            Manufacturer = "PainRelief Inc",
+                            Name = "Ibuprofen"
                         });
                 });
 
@@ -508,6 +723,21 @@ namespace AmbulanceWPF.Migrations
                         {
                             MedicationCode = 2002,
                             Quantity = 40m
+                        },
+                        new
+                        {
+                            MedicationCode = 2003,
+                            Quantity = 50m
+                        },
+                        new
+                        {
+                            MedicationCode = 2004,
+                            Quantity = 30m
+                        },
+                        new
+                        {
+                            MedicationCode = 2005,
+                            Quantity = 60m
                         });
                 });
 
@@ -546,6 +776,24 @@ namespace AmbulanceWPF.Migrations
                             MedicationCode = 2002,
                             ProcurementId = 2,
                             Quantity = 100
+                        },
+                        new
+                        {
+                            MedicationCode = 2003,
+                            ProcurementId = 3,
+                            Quantity = 75
+                        },
+                        new
+                        {
+                            MedicationCode = 2004,
+                            ProcurementId = 4,
+                            Quantity = 120
+                        },
+                        new
+                        {
+                            MedicationCode = 2005,
+                            ProcurementId = 5,
+                            Quantity = 90
                         });
                 });
 
@@ -615,6 +863,39 @@ namespace AmbulanceWPF.Migrations
                             LastName = "Petrovic",
                             Name = "Sara",
                             ResidenceLocationId = 78000
+                        },
+                        new
+                        {
+                            JMB = "4567890123456",
+                            Allergies = "",
+                            DateOfBirth = "15/03/1980",
+                            Gender = false,
+                            Insurance = false,
+                            LastName = "Brown",
+                            Name = "Bob",
+                            ResidenceLocationId = 75000
+                        },
+                        new
+                        {
+                            JMB = "5678901234567",
+                            Allergies = "",
+                            DateOfBirth = "10/11/1990",
+                            Gender = true,
+                            Insurance = true,
+                            LastName = "Green",
+                            Name = "Eva",
+                            ResidenceLocationId = 88000
+                        },
+                        new
+                        {
+                            JMB = "6789012345678",
+                            Allergies = "",
+                            DateOfBirth = "05/06/2005",
+                            Gender = false,
+                            Insurance = false,
+                            LastName = "Black",
+                            Name = "Charlie",
+                            ResidenceLocationId = 72000
                         });
                 });
 
@@ -636,6 +917,18 @@ namespace AmbulanceWPF.Migrations
                         new
                         {
                             PhoneNumber = "+38762123456"
+                        },
+                        new
+                        {
+                            PhoneNumber = "+38763333444"
+                        },
+                        new
+                        {
+                            PhoneNumber = "+38764444555"
+                        },
+                        new
+                        {
+                            PhoneNumber = "+38765555666"
                         });
                 });
 
@@ -668,6 +961,21 @@ namespace AmbulanceWPF.Migrations
                         {
                             ProcurementId = 2,
                             ProcurementDate = new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ProcurementId = 3,
+                            ProcurementDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ProcurementId = 4,
+                            ProcurementDate = new DateTime(2025, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ProcurementId = 5,
+                            ProcurementDate = new DateTime(2025, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -728,6 +1036,46 @@ namespace AmbulanceWPF.Migrations
                             ExaminationId = 2,
                             PatientJMB = "4185270936518",
                             Specialists = "Pulmonologist"
+                        },
+                        new
+                        {
+                            ReferralId = 2,
+                            Date = new DateTime(2025, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DiseaseCode = 1003,
+                            DoctorJMB = "1234567890123",
+                            ExaminationId = 3,
+                            PatientJMB = "4567890123456",
+                            Specialists = "Endocrinologist"
+                        },
+                        new
+                        {
+                            ReferralId = 3,
+                            Date = new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DiseaseCode = 1004,
+                            DoctorJMB = "3456789012345",
+                            ExaminationId = 4,
+                            PatientJMB = "5678901234567",
+                            Specialists = "Pulmonologist"
+                        },
+                        new
+                        {
+                            ReferralId = 4,
+                            Date = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DiseaseCode = 1005,
+                            DoctorJMB = "1234567890123",
+                            ExaminationId = 5,
+                            PatientJMB = "6789012345678",
+                            Specialists = "Neurologist"
+                        },
+                        new
+                        {
+                            ReferralId = 5,
+                            Date = new DateTime(2025, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DiseaseCode = 1001,
+                            DoctorJMB = "6482157394021",
+                            ExaminationId = 1,
+                            PatientJMB = "5729618430725",
+                            Specialists = "Cardiologist"
                         });
                 });
 
@@ -760,6 +1108,30 @@ namespace AmbulanceWPF.Migrations
                             InterventionId = 1,
                             MedicationCode = 2002,
                             Dosage = 2.5m
+                        },
+                        new
+                        {
+                            InterventionId = 2,
+                            MedicationCode = 2003,
+                            Dosage = 500m
+                        },
+                        new
+                        {
+                            InterventionId = 3,
+                            MedicationCode = 2004,
+                            Dosage = 100m
+                        },
+                        new
+                        {
+                            InterventionId = 1,
+                            MedicationCode = 2005,
+                            Dosage = 200m
+                        },
+                        new
+                        {
+                            InterventionId = 3,
+                            MedicationCode = 2001,
+                            Dosage = 10m
                         });
                 });
 
