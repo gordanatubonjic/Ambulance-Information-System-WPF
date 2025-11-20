@@ -1,8 +1,8 @@
-# AmbulanceWPF
+#  🚑 AmbulanceWPF   
 
 AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Foundation) za upravljanje medicinskim podacima u ambulantnim uslugama. Aplikacija omogućava upravljanje pacijentima, intervencijama, pregledima, dijagnozama i inventarom lijekova. Podržava višejezičnost (engleski i srpski) i teme (svijetla, siva, tamna).
 
-## Funkcionalnosti
+## 📋 Funkcionalnosti
 
 - Upravljanje pacijentima: Prikaz pacijenata, pretraga po imenu, te prikaz medicinske istorije pacijenata.
 - Intervencije i pregledi: Kreiranje novih intervencija, pregleda i dijagnoza, kao i izdavanje uputnica.
@@ -12,7 +12,7 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 
 ## Način korištenja
 
-### Prijava na sistem
+### 🔐 Prijava na sistem
 - Na sistem se prijavljuje sa posebno pribavljenim korisničkim imenom i lozinkom
   
 <img width="530" height="690" alt="LoginDark" src="https://github.com/user-attachments/assets/eef8c52c-4cb5-416f-9347-2647d13b5645" />
@@ -27,30 +27,30 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 
 - Ukoliko je prijava bila uspješna, korisnik se preusmjerava ka adekvatnom dijelu aplikacije. Po prijavi se učitavaju detalji preferirane teme i jezika.
 
-### Početni prozor ljekara
+### 🏠 Početni prozor ljekara
 - Na vrhu ekrana se nalazi zaglavlje sa "Home" dugmetom koje korisnika vraća na ovu stranicu, naslov sistema, i meni za personalizaciju iskustva sa indikatorom trenutnog korisnika sistema
 - Sa lijeve strane prozor sadrži Navigacioni meni sa opcijama pregleda pacijenata, intervencija i korisnikovog profila, dok je centralni dio rezervisan za pretragu pacijenata putem search bara, dugmad za kreiranje novog pregleda, intervencije i pregled izvjestaja, kao i uopšteni pregled pacijenata.
 
 <img width="984" height="590" alt="DoctorHomePageSearchDark" src="https://github.com/user-attachments/assets/63dea0e8-2691-46b9-bde6-8cc83ef4db44" />
 
-### Moje Intervencije
+### 🚨 Moje Intervencije
 - Prikaz svih intervencija na kojima je učetvovao prijavljeni korisnik.
   
 <img width="980" height="591" alt="MyInterventionsDark" src="https://github.com/user-attachments/assets/8a305baf-e3dc-4ee8-9069-af4cdeed005d" />
 
-### Moj profil
+### 👤 Moj profil
 - Prikaz ličnih podataka i mogućnost njihove izmjene pod određenim ograničenjima. Ime i prezime moraju samo početi velikim slovom i sadržavati samo slova. Korisničko ime mora biti bar 6 karaktera dugo, ne smije biti već upotrijebljeno i smije sadržati mala slova i znak "\.". Loznika se sastoji od velikih, malih slova, brojeva i karaktera "\!", "\#", "\$".
 
 <img width="983" height="590" alt="MyProfileDark" src="https://github.com/user-attachments/assets/32cfb997-1e25-484d-b85f-6b1acf087131" /><img width="981" height="591" alt="MyProfileDarkErr" src="https://github.com/user-attachments/assets/4ed00d42-c079-405f-888f-8b9a9811ca5c" />
 
-### Meni za personalizaciju
+### 🎨 Meni za personalizaciju
 - Sadrži opcije za izmjenu profila, promjenu teme, jezika i odjavljivanje sa sistema.
   
 <img width="990" height="596" alt="ProfileMenuDarkChangeTheme" src="https://github.com/user-attachments/assets/90d7269e-86e4-4ce1-a301-6120e2ebfe41" />
 <img width="990" height="596" alt="ProfileMenuDarkChangeLanguage" src="https://github.com/user-attachments/assets/ac9ca98d-aca0-4806-a288-595806f6ca8b" />
 <img width="990" height="596" alt="Logout" src="https://github.com/user-attachments/assets/f31b2e63-f5f0-4fa5-bc9b-fb1544dfb1ea" />
 
-### Novi pregled
+### 🩺 Novi pregled
 - Dugme za novi pregled otvara novi prozor. Unosom imena i prezimena u odgovarajuća polja, zatim klikom na dugme "Pronadji Dodaj Pacijenta" sistem učitava pacijenta iz baze, ukoliko je on redovan pacijent ambulante. U slučaju da pacijent nije prijavljeni pacijent ambulante, potrebno je OBAVEZNO popuniti ostatak polja te ponovo kliknuti na dugme da bi se pacijent sačuvao. 
 <img width="981" height="728" alt="NewExaminationPart1" src="https://github.com/user-attachments/assets/4673bdb8-2cd3-4a9b-97b7-d0047cc41955" />
 
@@ -68,7 +68,7 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
   
 <img width="486" height="593" alt="NewExaminationAddReferral" src="https://github.com/user-attachments/assets/45e4b900-f44e-425f-85ee-67f463e19806" />
 
-### Nova intervencija
+### 🚑 Nova intervencija
 - Dugme za novu intervenciju otvara novi prozor. Unosom imena i prezimena u odgovarajuća polja, zatim klikom na dugme "Pronadji Dodaj Pacijenta" sistem učitava pacijenta iz baze, ukoliko je on redovan pacijent ambulante. U slučaju da pacijent nije prijavljeni pacijent ambulante, potrebno je OBAVEZNO popuniti ostatak polja te ponovo kliknuti na dugme da bi se pacijent sačuvao.
   
 <img width="886" height="693" alt="InterventionView" src="https://github.com/user-attachments/assets/3c0c5053-10d9-4483-a520-f3596f9e335e" />
@@ -85,11 +85,11 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 - Intervencija se sačuva klikom na dugme SAČUVAJ. Dugme Otkaži poništava sve informacije i izlazi iz ovog prozora.
 <img width="886" height="693" alt="InterventionViewPt3" src="https://github.com/user-attachments/assets/20056db2-7b35-4ce6-b7d9-ee2b688f8ada" />
 
-### Mjesečni izvještaj
+### 📈 Mjesečni izvještaj
 - Pomoću kalendara se bira datum na osnovu kog se generiše izvještaj i prikazuje u ovom prozoru. Izvještaj predstavlja statistiku svakog ljekara, broja pacijenata, broja intervencija i pregleda u periodu od 30 (trideset) dana unazad od izabranog datuma. Klikom na dugme ZATVORI, zatvara se prozor.
 <img width="886" height="443" alt="MonthlyReport" src="https://github.com/user-attachments/assets/fc69baae-5db0-44ca-a57b-3de4e1986f39" />
 
-### Medicinska istorija pacijenta (Karton)
+### 📁 Medicinska istorija pacijenta (Karton)
 - Medicinska istorija sadrži osnovne informacije o pacijentu, poput: imena, prezimena, datuma rodjenja, pola, alergijskim reakcijama, mjesta stanovanja, JMB,  osiguranja, i kratkih sadržaja o svim njegovim pregledima, uputnicama i dijagnozama.
   #### Pregledi
   - Pregledi sadrže informaciju o datumu pregleda, ljekaru koji je obavio pregled, simptomima i tipu pregleda.
@@ -106,13 +106,13 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 <img width="786" height="593" alt="MedicalRecordDiagnosis" src="https://github.com/user-attachments/assets/0b0a6b15-53fb-4e51-93bf-a75f9ef2c41c" />
 
 
-### Odjava sa sistema
+### 💨 Odjava sa sistema
 - Odjava se dešava klikom na opciju u meniju profila
 
   <img width="990" height="596" alt="Logout" src="https://github.com/user-attachments/assets/1b954cbf-b93e-43ad-91fe-bc1ff16d9b41" />
 
 
-## Instalacija
+## 🚀 Instalacija
 
 - Klonirajte repozitorijum:textgit clone https://github.com/yourusername/AmbulanceWPF.git
 - Otvorite projekat u Visual Studio (preporučeno 2022 ili novije).
