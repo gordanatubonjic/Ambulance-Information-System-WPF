@@ -117,8 +117,8 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 - Klonirajte repozitorijum:textgit clone https://github.com/yourusername/AmbulanceWPF.git
 - Otvorite projekat u Visual Studio (preporučeno 2022 ili novije).
 - Instalirajte NuGet pakete:
-- Microsoft.EntityFrameworkCore.Sqlite
-- Microsoft.EntityFrameworkCore.Tools
-- MaterialDesignThemes
+-- Microsoft.EntityFrameworkCore.Sqlite
+-- Microsoft.EntityFrameworkCore.Tools
+-- MaterialDesignThemes
 - Kreirajte bazu podataka:   Update-Database
 - Pokrenite aplikaciju (F5).
