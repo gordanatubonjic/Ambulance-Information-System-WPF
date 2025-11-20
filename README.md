@@ -28,10 +28,21 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 - Ukoliko je prijava bila uspješna, korisnik se preusmjerava ka adekvatnom dijelu aplikacije. Po prijavi se učitavaju detalji preferirane teme i jezika.
 
 ### Početni prozor ljekara
-- Na vrhu ekrana se nalazi zaglavlje sa "Home" dugmetom koje korisnika vraća na ovu stranicu, naslov sistema, i meni za personalizaciju iskustva
-- Sa lijeve strane proyor sadrži Navigacioni meni sa opcijama pregleda pacijenata, intervencija i korisnikovog profila, dok je centralni dio rezervisan za pretragu pacijenata, dugmad za kreiranje novog pregleda, intervencije i pregled izvjestaja, kao i uopšteni pregled pacijenata
+- Na vrhu ekrana se nalazi zaglavlje sa "Home" dugmetom koje korisnika vraća na ovu stranicu, naslov sistema, i meni za personalizaciju iskustva sa indikatorom trenutnog korisnika sistema
+- Sa lijeve strane prozor sadrži Navigacioni meni sa opcijama pregleda pacijenata, intervencija i korisnikovog profila, dok je centralni dio rezervisan za pretragu pacijenata, dugmad za kreiranje novog pregleda, intervencije i pregled izvjestaja, kao i uopšteni pregled pacijenata.
 
 <img width="984" height="590" alt="DoctorHomePageSearchDark" src="https://github.com/user-attachments/assets/63dea0e8-2691-46b9-bde6-8cc83ef4db44" />
+
+### Moje Intervencije
+- Prikaz svih intervencija na kojima je učetvovao prijavljeni korisnik.
+  
+<img width="980" height="591" alt="MyInterventionsDark" src="https://github.com/user-attachments/assets/8a305baf-e3dc-4ee8-9069-af4cdeed005d" />
+
+### Moj profil
+-Prikaz ličnih podataka i mogućnost njihove izmjene pod određenim ograničenjima. Ime i prezime moraju samo početi velikim slovom i sadržavati samo slova. Korisničko ime mora biti bar 6 karaktera dugo, ne smije biti već upotrijebljeno i smije sadržati mala slova i znak "\.". Loznika se sastoji od velikih, malih slova, brojeva i karaktera "\!", "\#", "\$".
+
+<img width="983" height="590" alt="MyProfileDark" src="https://github.com/user-attachments/assets/32cfb997-1e25-484d-b85f-6b1acf087131" /><img width="981" height="591" alt="MyProfileDarkErr" src="https://github.com/user-attachments/assets/4ed00d42-c079-405f-888f-8b9a9811ca5c" />
+
 
 ## Instalacija
 
