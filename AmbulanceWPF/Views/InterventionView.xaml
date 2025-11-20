@@ -9,7 +9,7 @@
         xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels" 
         d:DataContext="{d:DesignInstance Type=viewmodels:InterventionViewModel}"
         mc:Ignorable="d"
-        Title="New Intervention" Height="750" Width="900"
+        Title="New Intervention" Height="700" Width="900"
         WindowStartupLocation="CenterOwner"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"

@@ -16,7 +16,7 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
     </UserControl.Resources>
-    <Border Background="{DynamicResource MaterialDesignPaper}"
+    <Border Background="{DynamicResource PrimaryBackground}"
             BorderBrush="{DynamicResource MaterialDesignDivider}"
             BorderThickness="0,0,0,1">
         <Border.Effect>
@@ -34,14 +34,14 @@
         ToolTip="Home"
         Width="40" Height="40"
         VerticalAlignment="Center">
-                <materialDesign:PackIcon Kind="Home" Width="26" Height="26" Foreground="{DynamicResource MaterialDesignBody}"/>
+                <materialDesign:PackIcon Kind="Home" Width="26" Height="26" Foreground="{DynamicResource PrimaryForeground}"/>
             </Button>
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
-                <materialDesign:PackIcon Kind="Ambulance" Width="32" Height="32" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center"/>
-                <TextBlock Text="{DynamicResource AppHeaderText}" FontSize="20" FontWeight="Medium" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                <materialDesign:PackIcon Kind="Ambulance" Width="32" Height="32" Foreground="{DynamicResource PrimaryForeground}" VerticalAlignment="Center"/>
+                <TextBlock Text="{DynamicResource AppHeaderText}" FontSize="20" FontWeight="Medium" Foreground="{DynamicResource PrimaryForeground}" VerticalAlignment="Center" Margin="12,0,0,0"/>
             </StackPanel>
             <Grid Grid.Column="2" VerticalAlignment="Center">
                 <Button x:Name="ProfileButton"
@@ -52,10 +52,10 @@
                         ToolTip="Profile Menu">
                     <StackPanel Orientation="Horizontal">
                         <Border Background="{DynamicResource MaterialDesignDivider}" CornerRadius="20" Width="32" Height="32" Margin="0,0,8,0">
-                            <TextBlock Text="{Binding DoctorInitials}" FontSize="14" FontWeight="Medium" Foreground="{DynamicResource MaterialDesignBody}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding DoctorInitials}" FontSize="14" FontWeight="Medium" Foreground="{DynamicResource PrimaryForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
-                        <TextBlock Text="{Binding DoctorName}" FontSize="14" FontWeight="Medium" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <materialDesign:PackIcon Kind="ChevronDown" Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyLight}" VerticalAlignment="Center" x:Name="DropdownArrow">
+                        <TextBlock Text="{Binding DoctorName}" FontSize="14" FontWeight="Medium" Foreground="{DynamicResource PrimaryForeground}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <materialDesign:PackIcon Kind="ChevronDown" Width="16" Height="16" Foreground="{DynamicResource PrimaryForeground}" VerticalAlignment="Center" x:Name="DropdownArrow">
                             <materialDesign:PackIcon.RenderTransform>
                                 <RotateTransform x:Name="ArrowRotateTransform" CenterX="8" CenterY="8"/>
                             </materialDesign:PackIcon.RenderTransform>
@@ -70,16 +70,16 @@
                        VerticalOffset="8"
                        Opened="ProfilePopup_Opened"
                        Closed="ProfilePopup_Closed">
-                    <Border Background="{DynamicResource MaterialDesignPaper}" CornerRadius="4" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" Width="200">
+                    <Border Background="{DynamicResource PrimaryBackground}" CornerRadius="4" BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1" Width="200">
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="4" Direction="315" Color="Black" Opacity="0.3" BlurRadius="8"/>
                         </Border.Effect>
                         <StackPanel>
-                            <Border Background="{DynamicResource MaterialDesignToolBarBackground}" Padding="16,12" CornerRadius="4,4,0,0">
+                            <Border Background="{DynamicResource PrimaryBackground}" Padding="16,12" CornerRadius="4,4,0,0">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding DoctorName}" FontSize="16" FontWeight="Medium" Foreground="{DynamicResource MaterialDesignBody}"/>
-                                    <TextBlock Text="{Binding DoctorEmail}" FontSize="12" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="0,2,0,0"/>
-                                    <TextBlock Text="{Binding DoctorRole}" FontSize="12" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding DoctorName}" FontSize="16" FontWeight="Medium" Foreground="{DynamicResource PrimaryForeground}"/>
+                                    <TextBlock Text="{Binding DoctorEmail}" FontSize="12"  Foreground="{DynamicResource PrimaryForeground}" Margin="0,2,0,0"/>
+                                    <TextBlock Text="{Binding DoctorRole}" FontSize="12"  Foreground="{DynamicResource PrimaryForeground}" Margin="0,2,0,0"/>
                                 </StackPanel>
                             </Border>
                             <Rectangle Height="1" Fill="{DynamicResource MaterialDesignDivider}"/>
@@ -89,11 +89,11 @@
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Account" 
                                                            Width="20" Height="20"
-                                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                           Foreground="{DynamicResource PrimaryForeground}"
                                                            VerticalAlignment="Center"/>
                                     <TextBlock Text="{DynamicResource ViewProfileText}"
                                              Margin="12,0,0,0"
-                                             VerticalAlignment="Center"/>
+                                             VerticalAlignment="Center" Foreground="{DynamicResource PrimaryForeground}"/>
                                 </StackPanel>
                             </Button>
 
@@ -103,11 +103,11 @@
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="ThemeOutline"  
                                                            Width="20" Height="20"
-                                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                          Foreground="{DynamicResource PrimaryForeground}"
                                                            VerticalAlignment="Center"/>
                                     <TextBlock Text="{DynamicResource ChangeThemeText}" 
                                              Margin="12,0,0,0"
-                                             VerticalAlignment="Center"/>
+                                             VerticalAlignment="Center" Foreground="{DynamicResource PrimaryForeground}"/>
                                 </StackPanel>
                             </Button>
                             <Button Style="{StaticResource ProfileMenuItem}" 
@@ -116,11 +116,11 @@
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Language"  
                                                            Width="20" Height="20"
-                                                           Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                          Foreground="{DynamicResource PrimaryForeground}"
                                                            VerticalAlignment="Center"/>
                                     <TextBlock Text="{Binding SelectedLanguage}" 
                                              Margin="12,0,0,0"
-                                             VerticalAlignment="Center"/>
+                                             VerticalAlignment="Center" Foreground="{DynamicResource PrimaryForeground}"/>
                                 </StackPanel>
                             </Button>
 
@@ -130,11 +130,12 @@
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Logout" 
                            Width="20" Height="20"
-                           Foreground="#D32F2F"
+                           Foreground="{DynamicResource MedicationIcon}"
                            VerticalAlignment="Center"/>
                                     <TextBlock Text="{DynamicResource LogoutText}" 
              Margin="12,0,0,0"
-             Foreground="#D32F2F"
+                                        Foreground="{DynamicResource MedicationIcon}"
+
              VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>

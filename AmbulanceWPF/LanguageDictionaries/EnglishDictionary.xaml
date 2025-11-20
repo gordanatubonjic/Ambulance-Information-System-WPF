@@ -93,6 +93,7 @@
     <sys:String x:Key="ExaminationsText">Examinations</sys:String>
     <sys:String x:Key="ReferalsText">Referals</sys:String>
     <sys:String x:Key="DiagnosissText">Diagnosis'</sys:String>
+    <sys:String x:Key="PatientExamHeader">PATIENT EXAMINATION FORM'</sys:String>
 
 
     <sys:String x:Key="GenderText">Patient Gender</sys:String>

@@ -174,7 +174,6 @@ namespace AmbulanceWPF.ViewModels
                 IsValid = false;
                 return;
             }
-
             // Name and LastName: First uppercase, rest lowercase
             Regex nameRegex = new Regex(@"^[A-Z][a-z]+$");
             bool isValidName = nameRegex.IsMatch(Name);
@@ -182,7 +181,7 @@ namespace AmbulanceWPF.ViewModels
 
             // Username: only lowercase letters and/or dots
             Regex usernameRegex = new Regex(@"^[a-z.]+$");
-            bool isValidUsername = Username.Length >= 6 && usernameRegex.IsMatch(Username) && !_context.Employees.Any(e=>e.Username == Username);
+            bool isValidUsername = Username.Length >= 6 && usernameRegex.IsMatch(Username) && (!_context.Employees.Any(e=>e.Username == Username) || Username==_currentEmployee.Username);
 
             // Password: lowercase, uppercase, numbers, and special characters !, #, $
             Regex passwordRegex = new Regex(@"([a-z]|[A-Z]|[0-9]|[!#$])+");

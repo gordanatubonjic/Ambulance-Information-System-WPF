@@ -5,7 +5,7 @@
         xmlns:viewmodels="clr-namespace:AmbulanceWPF.ViewModels"    
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
 
-        Title="Examination View" Height="2000"   
+        Title="Examination View" Height="1000"   
          Width="1000"
         WindowStartupLocation="CenterOwner">
 
@@ -15,8 +15,8 @@
             <!-- Header -->
             <Border Background="{DynamicResource PrimaryHueDarkBrush}" CornerRadius="8" Margin="0,0,0,24" Padding="16">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="Stethoscope" Foreground="White" Width="32" Height="32" Margin="0,0,12,0"/>
-                    <TextBlock Text="PATIENT EXAMINATION FORM" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                    <materialDesign:PackIcon Kind="Stethoscope" Foreground="Black" Width="32" Height="32" Margin="0,0,12,0"/>
+                    <TextBlock Text="{DynamicResource PatientExamHeader}" Foreground="Black" FontSize="20" FontWeight="Bold"/>
                 </StackPanel>
             </Border>
 
@@ -101,13 +101,13 @@ Margin="0,12,0,0"/>
                     <TextBlock Text="{DynamicResource DiagnosisText}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
                     <DataGrid ItemsSource="{Binding Diagnosis}" AutoGenerateColumns="False" CanUserAddRows="False" Height="150" Margin="0,0,0,12">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource DiseaseText}" Binding="{Binding Disease.DiseaseCode}" Width="*" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="{DynamicResource DiseaseText}" Binding="{Binding DiseaseCode}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="{DynamicResource DoctorOpinionText}" Binding="{Binding DoctorOpinion}" Width="*" IsReadOnly="True"/>
                             <DataGridTextColumn Header="{DynamicResource DateText}" Binding="{Binding Date}" Width="*" IsReadOnly="True" />
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="{DynamicResource RemoveText}" Command="{Binding DataContext.RemoveDiagnosisCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                                        <Button Content="{DynamicResource RemoveText}" Command="{Binding RemoveDiagnosisCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{StaticResource MaterialDesignFlatButton}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -129,7 +129,7 @@ Margin="0,12,0,0"/>
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="{DynamicResource RemoveText}" Command="{Binding DataContext.RemoveReferralCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                                        <Button Content="{DynamicResource RemoveText}" Command="{Binding RemoveReferralCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{StaticResource MaterialDesignFlatButton}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

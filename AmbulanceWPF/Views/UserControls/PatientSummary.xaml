@@ -13,7 +13,7 @@
 
         <materialDesign:Card Margin="0,0,0,0" 
             materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}"
-                    Cursor="Hand">
+                    Cursor="Hand" Background="{DynamicResource Card}">
             <materialDesign:Card.Style>
             <Style TargetType="materialDesign:Card"/>
 
@@ -38,24 +38,24 @@
                     <TextBlock Text="{Binding FullName}"
                      FontWeight="Medium" 
                      FontSize="16"
-                     Foreground="{DynamicResource MaterialDesignBody}"/>
+                     Foreground="{DynamicResource PrimaryForeground}"/>
                     <TextBlock Text="{Binding JMB}" 
                      FontSize="14"
-                     Foreground="{DynamicResource MaterialDesignBodyLight}"
+                     Foreground="{DynamicResource PrimaryForeground}"
                      Margin="8,0,0,0"/>
                 </StackPanel>
 
                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="0,4,0,8">
-                    <materialDesign:PackIcon Kind="Calendar" Width="16" Height="16" 
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                   VerticalAlignment="Center"/>
+                <materialDesign:PackIcon Kind="Calendar" Width="16" Height="16" 
+                    Foreground="{DynamicResource PrimaryForeground}"
+                    VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding DateOfBirth}" 
                      FontSize="12"
-                     Foreground="{DynamicResource MaterialDesignBodyLight}"
+                    Foreground="{DynamicResource PrimaryForeground}"
                      Margin="4,0,16,0"/>
 
 
-                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="0,0,4,0">
+                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource PrimaryForeground}" Margin="0,0,4,0">
                     <materialDesign:PackIcon.Style>
                         <Style TargetType="materialDesign:PackIcon">
                             <Setter Property="Kind" Value="GenderMaleFemale"/>
@@ -71,7 +71,7 @@
                         </Style>
                     </materialDesign:PackIcon.Style>
                 </materialDesign:PackIcon>
-                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource MaterialDesignBodyLight}" Margin="16,0,4,0">
+                <materialDesign:PackIcon Width="16" Height="16" Foreground="{DynamicResource PrimaryForeground}" Margin="16,0,4,0">
                     <materialDesign:PackIcon.Style>
                         <Style TargetType="materialDesign:PackIcon">
                             <Setter Property="Kind" Value="Shield"/>
@@ -94,20 +94,20 @@
                     
 
                     <materialDesign:PackIcon Kind="MapMarker" Width="16" Height="16" 
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                   Foreground="{DynamicResource PrimaryForeground}"
                                    VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding ResidenceLocation.Name}" 
                      FontSize="12"
-                     Foreground="{DynamicResource MaterialDesignBodyLight}"
+                     Foreground="{DynamicResource PrimaryForeground}"
                             Margin="4,0,16,0"  
                            TextTrimming="CharacterEllipsis"/>
                 
                 <materialDesign:PackIcon Kind="FoodAllergy" Width="16" Height="16" 
-                                   Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                   Foreground="{DynamicResource PrimaryForeground}"
                                    VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Allergies}" 
                      FontSize="12"
-                     Foreground="{DynamicResource MaterialDesignBodyLight}"
+                     Foreground="{DynamicResource PrimaryForeground}"
                      Margin="4,0,16,0"/>
 
 

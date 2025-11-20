@@ -37,55 +37,73 @@
 
             <TextBlock Grid.Row="0" 
                        Text="{DynamicResource ProfileSettingsTexts}"
+                       Foreground="{DynamicResource PrimaryForeground}"
                        FontSize="24"
                        FontWeight="Bold"
                        HorizontalAlignment="Center" Height="32" Grid.RowSpan="2" VerticalAlignment="Top"/>
 
             <TextBlock Grid.Row="1" 
                        Text="{DynamicResource FirstNameText}"
+                       Foreground="{DynamicResource PrimaryForeground}"
+
                        FontSize="14"
                        FontWeight="SemiBold"
                        Margin="0,0,0,5"/>
 
             <TextBox Grid.Row="2" 
                      Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Foreground="{DynamicResource SecondaryForeground}"
                      materialDesign:HintAssist.Hint="{DynamicResource FirstNameFillerText}"
                      Margin="0,0,0,15"/>
 
             <TextBlock Grid.Row="3" 
                        Text="{DynamicResource LastNameText}"
+                                              Foreground="{DynamicResource PrimaryForeground}"
+
                        FontSize="14"
                        FontWeight="SemiBold"
                        Margin="0,0,0,5"/>
 
             <TextBox Grid.Row="4" 
                      Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Foreground="{DynamicResource SecondaryForeground}"
+
                      materialDesign:HintAssist.Hint="{DynamicResource LastNameFillerText}"
                      Margin="0,0,0,15"/>
 
             <TextBlock Grid.Row="5" 
                        Text="{DynamicResource Username}"
+                       Foreground="{DynamicResource PrimaryForeground}"
+
                        FontSize="14"
                        FontWeight="SemiBold"
                        Margin="0,0,0,5"/>
 
             <TextBox Grid.Row="6" 
                      Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Foreground="{DynamicResource SecondaryForeground}"
+
                      materialDesign:HintAssist.Hint="{DynamicResource UsernameFillerText}"
                      Margin="0,0,0,15"/>
 
             <TextBlock Grid.Row="7" 
                        Text="{DynamicResource Password}"
+                       Foreground="{DynamicResource PrimaryForeground}"
+
                        FontSize="14"
                        FontWeight="SemiBold"
                        Margin="0,0,0,5"/>
 
             <PasswordBox Grid.Row=" 8" x:Name="PasswordBox"
                          materialDesign:HintAssist.Hint="{DynamicResource PasswordFillerText}"
+                         Foreground="{DynamicResource SecondaryForeground}"
+
                          Margin="0,0,0,20"
                          PasswordChanged="PasswordBox_PasswordChanged"/>
             <PasswordBox Grid.Row=" 9" x:Name="PasswordRepeatBox"
                          materialDesign:HintAssist.Hint="{DynamicResource PasswordRepeatFillerText}"
+                                                Foreground="{DynamicResource SecondaryForeground}"
+
                          Margin="0,0,0,20"
                          PasswordChanged="PasswordBox_PasswordRepeatChanged"/>
 
@@ -95,12 +113,18 @@
                         Margin="0,20,0,0">
                 <Button Content="{DynamicResource CancelText}"
                         Style="{StaticResource MaterialDesignFlatButton}"
+                       
+                        Background="{DynamicResource MaterialDesignPrimaryBrush}"
+                        Foreground="{DynamicResource PrimaryForeground}"
+                        BorderBrush="{DynamicResource ButtonBorderBrush}"
                         Margin="0,0,10,0"
                         Command="{Binding CancelCommand}"/>
 
-                <Button Content="Save Changes"
+                <Button Content="{DynamicResource SaveText}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        Background="{DynamicResource MaterialDesignPrimaryBrush}"
+                         Background="{DynamicResource ButtonBackgroundHover}"
+                        Foreground="{DynamicResource PrimaryForeground}"
+                        BorderBrush="{DynamicResource ButtonBorderBrush}"
                         Command="{Binding SaveCommand}"
                         IsEnabled="{Binding IsValid}"/>
             </StackPanel>

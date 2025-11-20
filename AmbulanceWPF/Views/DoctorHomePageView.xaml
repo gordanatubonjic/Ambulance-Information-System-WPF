@@ -9,8 +9,8 @@
         mc:Ignorable="d"
         Title="Employee Home Page" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource MaterialDesignPaper}">
-    <Grid>
+        >
+    <Grid Background="{DynamicResource  PrimaryBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -28,15 +28,17 @@
                 DoctorName="{Binding DoctorName}"
                 DoctorInitials="{Binding DoctorInitials}"
                 DoctorEmail="{Binding DoctorEmail}"
-                DoctorRole="{Binding DoctorRole}"/>
+                DoctorRole="{Binding DoctorRole}"
+                Background="{DynamicResource PrimaryBackground}"/>
 
         <materialDesign:Card Grid.Row="1" Grid.Column="0" 
                            Margin="16" 
                            VerticalAlignment="Stretch"
-                           Background="{DynamicResource MaterialDesignCardBackground}">
-            <StackPanel Background="{DynamicResource Backdrop}"  Margin="16">
+                           Background="{DynamicResource Card}">
+            <StackPanel   Margin="16">
                 <TextBlock Text="{DynamicResource NavigationText}" 
                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                           Foreground="{DynamicResource  PrimaryForeground}"
                           Margin="0,0,0,20"/>
 
 
@@ -45,12 +47,14 @@
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
+                        Foreground="{DynamicResource  PrimaryForeground}"
                         Command="{Binding NavigateToPatientsCommand}"/>
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
                         Content="{DynamicResource MyInterventionsText}"
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
+                        Foreground="{DynamicResource  PrimaryForeground}"
                         Command="{Binding NavigateToInterventionsCommand}"/>
 
 
@@ -59,12 +63,14 @@
                         HorizontalContentAlignment="Left"
                         Margin="0,0,0,10"
                         FontSize="14"
+                        Foreground="{DynamicResource  PrimaryForeground}"
                         Command="{Binding NavigateToProfileCommand}"/>
             </StackPanel>
         </materialDesign:Card>
 
                  <ContentControl Grid.Row="1" Grid.Column="1" 
                        Content="{Binding CurrentContentView}"
-                       Margin="16"/>
+                       Margin="16" 
+                 />
     </Grid>
 </Window>

@@ -64,11 +64,7 @@ namespace AmbulanceWPF.ViewModels
             get => _examination;
             set { _examination = value; OnPropertyChanged(nameof(Examination)); }
         }
-        public int ExaminationId
-        {
-            get => _examination.ExaminationId;
-            set { _examination.ExaminationId = value; OnPropertyChanged(nameof(Examination)); }
-        }
+        
         public string PatientFirstName
         {
             get => _patientFirstName;
@@ -144,7 +140,16 @@ namespace AmbulanceWPF.ViewModels
         public int DiseaseCode
         {get;set;
         }
-
+        private int _examinationId =0;
+        public int ExaminationId
+        {
+            get => _examinationId;
+            set
+            {
+                _examinationId = value;
+                OnPropertyChanged(nameof(ExaminationId));
+            }
+        }
         public string ReferralSpecialists
         {
             get => _referralSpecialists;
@@ -202,9 +207,9 @@ namespace AmbulanceWPF.ViewModels
             SaveReferralCommand = new RelayCommand(SaveReferralAsync, CanSave);
 
             SaveCommand = new AsyncRelayCommand(SaveAsync, CanSave);
-            CancelCommand = new RelayCommand(Cancel);
-            CancelDiagnosisCommand = new RelayCommand(CancelDiagnosis);
-            CancelReferralCommand = new RelayCommand(CancelReferral);
+            CancelCommand = new RelayCommand(Cancel, CanSave);
+            CancelDiagnosisCommand = new RelayCommand(CancelDiagnosis, CanSave);
+            CancelReferralCommand = new RelayCommand(CancelReferral, CanSave);
              
         }
         private void InitializePatient(Patient patient)
@@ -243,10 +248,9 @@ namespace AmbulanceWPF.ViewModels
             AddProcurementCommand = new RelayCommand(AddProcurement, CanAddProcurement);
             RemoveProcurementCommand = new RelayCommand<Procurement>(RemoveProcurement);
             SaveDiagnosisCommand = new RelayCommand(SaveDiagnosisAsync);
-            SaveReferralCommand = new RelayCommand(SaveReferralAsync, CanSave
-        );
+            SaveReferralCommand = new RelayCommand(SaveReferralAsync, CanSave);
 
-
+            CancelReferralCommand = new RelayCommand(CancelReferral, CanSave);
             SaveCommand = new AsyncRelayCommand(SaveAsync, CanSave);
             CancelCommand = new RelayCommand(Cancel);
             CancelDiagnosisCommand = new RelayCommand(CancelDiagnosis);
@@ -318,7 +322,7 @@ namespace AmbulanceWPF.ViewModels
        
         public ICommand SaveDiagnosisCommand { get; }
         private void SaveDiagnosisAsync() {
-            if (DiseaseCode == null || string.IsNullOrEmpty(DiagnosisOpinion) ) return;
+            if ( _examination == null || SelectedPatient == null || string.IsNullOrEmpty(DiagnosisOpinion) ) return;
 
             Diagnosis.Add(new Diagnosis
             {
@@ -326,7 +330,7 @@ namespace AmbulanceWPF.ViewModels
                 DiseaseCode = DiseaseCode,
                 Date = DateTime.Now,
                 DoctorOpinion = DiagnosisOpinion,
-                ExaminationId = _examination.ExaminationId, // Will be set on save
+                ExaminationId = ExaminationId, // Will be set on save
                 DoctorJMB = _doctor.JMB
             });
 
@@ -334,7 +338,7 @@ namespace AmbulanceWPF.ViewModels
             //After saving diagnosis to my collection, close AddDiagnosis window
         }
         private void SaveReferralAsync() {
-            if (string.IsNullOrEmpty(SpecialistsText) ) return;
+            if (string.IsNullOrEmpty(SpecialistsText) || _examination==null || SelectedPatient ==null) return;
 
             Referrals.Add(new Referral
             {
@@ -342,7 +346,7 @@ namespace AmbulanceWPF.ViewModels
                 DiseaseCode = DiseaseCode,
                 Date = DateTime.Now,
                 Specialists = SpecialistsText,
-                ExaminationId = _examination.ExaminationId, // Will be set on save
+                ExaminationId = ExaminationId, // Will be set on save
                 DoctorJMB = _doctor.JMB,
             });
 
@@ -387,6 +391,7 @@ namespace AmbulanceWPF.ViewModels
         private void RemoveDiagnosis(Diagnosis diagnosis)
         {
             Diagnosis.Remove(diagnosis);
+
         }
 
         

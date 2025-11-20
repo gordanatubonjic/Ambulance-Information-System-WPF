@@ -16,8 +16,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <materialDesign:Card Grid.Row="0" Margin="0,0,0,16">
+        <materialDesign:Card Grid.Row="0" Margin="0,0,0,16" Background="{DynamicResource ButtonBackgroundHover}">
             <TextBox x:Name="SearchTextBox"
+                Background="{DynamicResource ButtonBackgroundPressed}"     
                 Margin="16"
                 materialDesign:HintAssist.Hint="{DynamicResource SearchText}"
                 materialDesign:TextFieldAssist.HasLeadingIcon="True"
@@ -33,8 +34,9 @@
                HorizontalAlignment="Center"
                Margin="0,0,0,16">
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
-                Background="Bisque"
-                    Foreground="Azure"
+                Background="{DynamicResource ButtonBackgroundHover}"
+                Foreground="{DynamicResource PrimaryForeground}"
+                BorderBrush="{DynamicResource ButtonBorderBrush}"
                 Width="56" Height="56"
                 Margin="8"
                 ToolTip="{DynamicResource NewExamText}"
@@ -43,15 +45,22 @@
             </Button>
 
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
-                Width="56" Height="56"
+                Background="{DynamicResource ButtonBackgroundHover}"
+                Foreground="{DynamicResource PrimaryForeground}"
+                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    Width="56" Height="56"
                 Margin="8"
                 ToolTip="{DynamicResource NewInterventionText}"
                 Command="{Binding NewInterventionCommand}">
                 <materialDesign:PackIcon Kind="MedicalBag" Width="24" Height="24"/>
+
             </Button>
 
             <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
-                Width="56" Height="56"
+                Background="{DynamicResource ButtonBackgroundHover}"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"
+                 Width="56" Height="56"
                 Margin="8"
                 ToolTip="{DynamicResource MonthlyReportText}"
                 Command="{Binding MonthlyReportCommand}">
@@ -85,7 +94,9 @@
                                 <materialDesign:PackIcon Kind="ArrowRightBox" 
                                         Width="25" 
                                         Height="25"
-                                        Foreground="DarkBlue"
+                                        Background="{DynamicResource ButtonBackgroundHover}"
+                                             Foreground="{DynamicResource PrimaryForeground}"
+                                             BorderBrush="{DynamicResource ButtonBorderBrush}"
                                         />
                             </Button>
                         </Grid>

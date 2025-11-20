@@ -91,6 +91,7 @@
     <sys:String x:Key="ExaminationsText">Pregledi</sys:String>
     <sys:String x:Key="ReferalsText">Uputnice</sys:String>
     <sys:String x:Key="DiagnosissText">Dijagnoze</sys:String>
+    <sys:String x:Key="PatientExamHeader">FORMA PREGLEDA PACIJENATA</sys:String>
 
 
     <sys:String x:Key="GenderText">Pol</sys:String>
