@@ -93,16 +93,24 @@ AmbulanceWPF je desktop aplikacija razvijena u WPF-u (Windows Presentation Found
 - Medicinska istorija sadrži osnovne informacije o pacijentu, poput: imena, prezimena, datuma rodjenja, pola, alergijskim reakcijama, mjesta stanovanja, JMB,  osiguranja, i kratkih sadržaja o svim njegovim pregledima, uputnicama i dijagnozama.
   #### Pregledi
   - Pregledi sadrže informaciju o datumu pregleda, ljekaru koji je obavio pregled, simptomima i tipu pregleda.
-<img width="786" height="593" alt="MedicalRecordExaminations" src="https://github.com/user-attachments/assets/8bec29ad-1577-402a-a52f-01b336a852a0" />
-#### Uputnice
-- Uputnice sadrže informaciju o datumu izdavanja, ljekaru koji ih izdaje, šifru dijagnoze i ljekara specijalizovane medicine
-  
-<img width="786" height="593" alt="MedicalRecordReferrals" src="https://github.com/user-attachments/assets/b48aa58d-6c31-4b21-a696-ec5846f95a68" />
-#### Dijagnoze
-- Dijagnoze sadrže informaciju o datumu izdavanja, ljekaru koji ih izdaje, mišljenje ljekara, i šifru dijagnoze
-<img width="786" height="593" alt="MedicalRecordDiagnosis" src="https://github.com/user-attachments/assets/add0fcb5-0b82-4396-9164-f1d087ec84bb" />
+<img width="786" height="593" alt="MedicalRecordReferrals" src="https://github.com/user-attachments/assets/3a9f5529-6669-4b64-b3b1-36ab21eecb64" />
 
-###
+#### Uputnice
+- Uputnice sadrže informaciju o datumu izdavanja, ljekaru koji ih izdaje, šifru dijagnoze i ljekara specijalizovane medicine.
+  
+  <img width="786" height="593" alt="MedicalRecordReferrals" src="https://github.com/user-attachments/assets/22c91b16-8647-43c5-9269-f880096fcd74" />
+
+#### Dijagnoze
+- Dijagnoze sadrže informaciju o datumu izdavanja, ljekaru koji ih izdaje, mišljenje ljekara, i šifru dijagnoze.
+  
+<img width="786" height="593" alt="MedicalRecordDiagnosis" src="https://github.com/user-attachments/assets/0b0a6b15-53fb-4e51-93bf-a75f9ef2c41c" />
+
+
+### Odjava sa sistema
+- Odjava se dešava klikom na opciju u meniju profila
+
+  <img width="990" height="596" alt="Logout" src="https://github.com/user-attachments/assets/1b954cbf-b93e-43ad-91fe-bc1ff16d9b41" />
+
 
 ## Instalacija
 
