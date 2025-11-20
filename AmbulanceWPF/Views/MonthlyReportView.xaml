@@ -4,11 +4,12 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:AmbulanceWPF.ViewModels"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Monthly Report" Height="450" Width="800">
+        Title="Monthly Report" Height="450" Width="900"
+         Background="{DynamicResource Card}">
     <Window.DataContext>
         <local:MonthlyReportViewModel />
     </Window.DataContext>
-    <Grid Margin="16">
+    <Grid Margin="16" Background="{DynamicResource ButtonBackgroundHover}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -26,32 +27,46 @@
             DisplayDateStart="2020-01-01"
             DisplayDateEnd="{x:Static sys:DateTime.Now}"
             SelectedDateChanged="OnSelectedDateChanged"
+            Background="{DynamicResource Card}"
+            FontSize="14"
+            Foreground="{DynamicResource PrimaryForeground}"
             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
 
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="0,16,0,0">
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="0,16,0,0" Background="{DynamicResource Card}">
             <StackPanel>
                 <ProgressBar IsIndeterminate="True" 
                             Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                 <DataGrid ItemsSource="{Binding Reports}" 
                          AutoGenerateColumns="False" 
-                         IsReadOnly="True">
+                         IsReadOnly="True" Background="{DynamicResource ButtonBackgroundPressed}" Width="752">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="{DynamicResource EmployeeText}" 
                                            Binding="{Binding Employee}" 
+                                            Foreground="{DynamicResource PrimaryForeground}"
                                            Width="*" />
                         <DataGridTextColumn Header="{DynamicResource NumPatientsText}" 
                                            Binding="{Binding NumberOfPatients}" 
+                                           Foreground="{DynamicResource PrimaryForeground}"
                                            Width="Auto" />
                         <DataGridTextColumn Header="{DynamicResource NumExaminationsText}" 
                                            Binding="{Binding NumberOfExaminations}" 
-                                           Width="Auto" />
+                                           Width="Auto" 
+                                           Foreground="{DynamicResource PrimaryForeground}"/>
                         <DataGridTextColumn Header="{DynamicResource NumInterventionsText}"
                                            Binding="{Binding NumberOfInterventions}" 
-                                           Width="Auto" />
+                                           Width="Auto" 
+                                           Foreground="{DynamicResource PrimaryForeground}"/>
                     </DataGrid.Columns>
                 </DataGrid>
+                
             </StackPanel>
         </ScrollViewer>
+        <Button Grid.Row="1" Grid.Column="1"  Background="{DynamicResource ButtonBackgroundHover}"
+    Foreground="{DynamicResource PrimaryForeground}"
+    BorderBrush="{DynamicResource ButtonBorderBrush}"
+    Height="30" Width="180" Margin="150,250,0,0" ToolTip="Close"
+                Content="{DynamicResource CloseText}"
+    Command="{Binding CloseReportCommand}"/>
     </Grid>
 </Window>

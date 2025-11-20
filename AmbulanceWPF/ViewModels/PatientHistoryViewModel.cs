@@ -67,12 +67,14 @@ namespace AmbulanceWPF.ViewModels
         public ICommand AddExaminationCommand { get; private set; }
         public ICommand AddReferralCommand { get; private set; }
         public ICommand AddDiagnosisCommand { get; private set; }
+        public ICommand CloseRecordCommand { get; private set; }
 
         private void InitializeCommands()
         {
             AddExaminationCommand = new AsyncRelayCommand(AddNewExaminationAsync);
             AddReferralCommand = new RelayCommand(AddNewReferral);
             AddDiagnosisCommand = new RelayCommand(AddNewDiagnosis);
+            CloseRecordCommand = new RelayCommand(CloseRecord);
         }
 
         private async void LoadMedicalRecordAsync()
@@ -107,7 +109,17 @@ namespace AmbulanceWPF.ViewModels
         }
 
         
+        private void CloseRecord() {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is PatientHistoryView)
+                {
+                    window.Close();
+                    break;
+                }
+            }
 
+        }
         private async Task AddNewExaminationAsync()
         {
             var view = new ExaminationView(_patient, _currentEmployee)

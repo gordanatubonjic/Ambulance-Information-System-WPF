@@ -4,6 +4,7 @@
 
 
     <SolidColorBrush x:Key="PrimaryBackground" Color="#1A1A1A"/>
+    <SolidColorBrush x:Key="PrimaryLettering" Color="#1A1A1A"/>
     <SolidColorBrush x:Key="Card" Color="#303838"/>
     <SolidColorBrush x:Key="ButtonBackgroundHover" Color="#40534C"/>
     <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#677D6A"/>

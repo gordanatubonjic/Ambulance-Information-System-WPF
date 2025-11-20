@@ -14,7 +14,11 @@ namespace AmbulanceWPF.Views
             // For design-time or default
             DataContext = new PatientHistoryViewModel(patient, user);
         }
-
+        public void CloseWindow()
+        {
+            this.DialogResult = true; // or false
+            this.Close();
+        }
         public PatientHistoryView(PatientHistoryViewModel phvm)
         {
             InitializeComponent();

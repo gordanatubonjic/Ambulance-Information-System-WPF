@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False">
 
-    <Grid Margin="16">
+    <Grid Margin="16" Background="{DynamicResource Card}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -18,18 +18,25 @@
         <ComboBox x:Name="MedicationComboBox"
                   Grid.Row="0"
                   materialDesign:HintAssist.Hint="{DynamicResource SelectMedicationText}"
+                  Foreground="{DynamicResource SecondaryForeground}"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   Margin="0,0,0,16"/>
 
         <TextBox x:Name="DosageTextBox"
                  Grid.Row="1"
                  materialDesign:HintAssist.Hint="{DynamicResource DosageText}"
+                 Foreground="{DynamicResource SecondaryForeground}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Margin="0,0,0,16"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="AddButton" Content="{DynamicResource AddText}" Width="100" Margin="0,0,8,0"/>
-            <Button x:Name="CancelButton" Content="{DynamicResource CancelText}" Style="{StaticResource MaterialDesignFlatButton}" Width="100"/>
+            <Button x:Name="AddButton" Content="{DynamicResource AddText}" Width="100" Margin="0,50,8,0" Background="{DynamicResource ButtonBackgroundHover}"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"/>
+            <Button x:Name="CancelButton" Content="{DynamicResource CancelText}"
+                    Foreground="{DynamicResource PrimaryForeground}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    Style="{StaticResource MaterialDesignFlatButton}" Width="100" Margin="0,50,8,0"/>
         </StackPanel>
     </Grid>
 </Window>

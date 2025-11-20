@@ -2,4 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush Color="Blue" x:Key="Backdrop"/>
 
-</ResourceDictionary>
+
+
+    <SolidColorBrush x:Key="PrimaryBackground" Color="#0B1A2F"/>
+    <SolidColorBrush x:Key="PrimaryLettering" Color="#0B1A2F"/>
+    <SolidColorBrush x:Key="Card" Color="#112240"/>
+    <SolidColorBrush x:Key="ButtonBackgroundHover" Color="#1B3B63"/>
+    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#5E9BFF"/>
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#274D7E"/>
+    <SolidColorBrush x:Key="PrimaryForeground" Color="#E8F1FF"/>
+    <SolidColorBrush x:Key="SecondaryForeground" Color="#F0F7FF"/>
+    <SolidColorBrush x:Key="MedicationIcon" Color="#FF6B6B"/>
+
+</ResourceDictionary> 

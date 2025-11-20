@@ -15,7 +15,7 @@
         ResizeMode="NoResize"
         ShowInTaskbar="False">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="{DynamicResource PrimaryBackground}">
         <StackPanel Margin="24">
 
             <!-- Header -->
@@ -24,14 +24,14 @@
                     Margin="0,0,0,24"
                     Padding="16">
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="ClipboardPlus" Foreground="White" Width="32" Height="32" Margin="0,0,12,0"/>
+                    <materialDesign:PackIcon Kind="ClipboardPlus" Foreground="{DynamicResource PrimaryForeground}" Width="32" Height="32" Margin="0,0,12,0"/>
                     <TextBlock Text="MEDICAL INTERVENTION FORM"
-                               Foreground="White" FontSize="20" FontWeight="Bold"/>
+                               Foreground="{DynamicResource PrimaryForeground}" FontSize="20" FontWeight="Bold"/>
                 </StackPanel>
             </Border>
 
             <!-- Patient Info -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="16">
+            <materialDesign:Card Margin="0,0,0,20" Padding="16" Background="{DynamicResource Card}">
                 <StackPanel>
                     <!-- Name Row -->
                     <Grid>
@@ -43,6 +43,7 @@
                         <TextBox Grid.Column="0"
                      Text="{Binding PatientFirstName, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="{DynamicResource NameText}"
+                      Foreground="{DynamicResource PrimaryForeground}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                         <TextBox Grid.Column="2"
                      Text="{Binding PatientLastName, UpdateSourceTrigger=PropertyChanged}"
@@ -55,13 +56,14 @@
                         SelectedDate="{Binding PatientDateOfBirth}"
                         materialDesign:HintAssist.Hint="{DynamicResource DateOfBirthText}"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                        Margin="0,12,0,0"
+                        Margin="0,12,0,0" Foreground="{DynamicResource PrimaryForeground}"
                         DisplayDateEnd="{x:Static sys:DateTime.Today}"/>
 
                     <!-- JMB -->
                     <TextBox Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="{DynamicResource JMBText}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Foreground="{DynamicResource PrimaryForeground}"
                  Margin="0,12,0,0"/>
 
                     <!-- Location Search -->
@@ -71,6 +73,7 @@
             Text="{Binding PatientLocationName, UpdateSourceTrigger=PropertyChanged}"
             materialDesign:HintAssist.Hint="{DynamicResource LocationText}"
             Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        Foreground="{DynamicResource PrimaryForeground}"
             Margin="0,12,0,0"
             IsEditable="True"
             StaysOpenOnEdit="True">
@@ -85,6 +88,7 @@
                     <TextBox Text="{Binding Allergies, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="{DynamicResource AllergiesText}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Foreground="{DynamicResource PrimaryForeground}"
                  Margin="0,12,0,0"
                  AcceptsReturn="True"
                  Height="50"
@@ -92,15 +96,19 @@
                  TextWrapping="Wrap"/>
                     <Button Content="{DynamicResource FindorCreatePatientText}"
                     Command="{Binding FindOrCreatePatientCommand}"
+                            Background="{DynamicResource ButtonBackgroundHover}"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"
                     HorizontalAlignment="Left"
                     Margin="0,12,0,0"/>
                 </StackPanel>
             </materialDesign:Card>
-            <materialDesign:Card Margin="0,0,0,20" Padding="16">
+            <materialDesign:Card Margin="0,0,0,20" Padding="16" Background="{DynamicResource Card}">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource AssessmentDescriptionText}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <TextBlock Text="{DynamicResource AssessmentDescriptionText}" Foreground="{DynamicResource PrimaryForeground}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
                     <TextBox Text="{Binding InterventionDescription, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.Hint="{DynamicResource SelfAssesment}"
+                             Foreground="{DynamicResource PrimaryForeground}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              AcceptsReturn="True"
                              Height="80"
@@ -108,18 +116,19 @@
                 </StackPanel>
             </materialDesign:Card>
 
-            <materialDesign:Card Margin="0,0,0,20" Padding="16">
+            <materialDesign:Card Margin="0,0,0,20" Padding="16" Background="{DynamicResource Card}">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource MedicalTeamText}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <TextBlock Text="{DynamicResource MedicalTeamText}" Foreground="{DynamicResource PrimaryForeground}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
 
                     <DataGrid ItemsSource="{Binding TeamMembers}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
+                              Foreground="{DynamicResource PrimaryForeground}"
                               Height="140"
                               Margin="0,0,0,12">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource NameText}" Binding="{Binding Employee.FullName}" Width="*"/>
-                            <DataGridTextColumn Header="{DynamicResource RoleText}" Binding="{Binding Role}" Width="*"/>
+                            <DataGridTextColumn Header="{DynamicResource NameText}" Foreground="{DynamicResource PrimaryForeground}" Binding="{Binding Employee.FullName}" Width="*"/>
+                            <DataGridTextColumn Header="{DynamicResource RoleText}" Foreground="{DynamicResource PrimaryForeground}" Binding="{Binding Role}" Width="*"/>
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -143,35 +152,43 @@
                                   ItemsSource="{Binding AvailableEmployees}"
                                   SelectedItem="{Binding SelectedEmployee}"
                                   DisplayMemberPath="Name"
+                                  Foreground="{DynamicResource PrimaryForeground}"
                                   materialDesign:HintAssist.Hint="{DynamicResource SelectEmployeeText}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                         <ComboBox Grid.Column="2"
                                   ItemsSource="{Binding Roles}"
                                   SelectedItem="{Binding SelectedRole}"
+                                  Foreground="{DynamicResource PrimaryForeground}"
                                   materialDesign:HintAssist.Hint="{DynamicResource RoleText}"
                                   Style="{StaticResource MaterialDesignFloatingHintComboBox}"/>
                     </Grid>
 
                     <Button Content="{DynamicResource SelectEmployeeText}"
                             Command="{Binding AddTeamMemberCommand}"
+                            Background="{DynamicResource ButtonBackgroundHover}"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"
                             HorizontalAlignment="Right"
                             Margin="0,12,0,0"/>
                 </StackPanel>
             </materialDesign:Card>
 
             <!-- Medications -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="16">
+            <materialDesign:Card Margin="0,0,0,20" Padding="16" Background="{DynamicResource Card}">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource AdministeredMedicationsText}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <TextBlock Text="{DynamicResource AdministeredMedicationsText}" 
+                               Foreground="{DynamicResource PrimaryForeground}"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
 
                     <DataGrid ItemsSource="{Binding AdministeredMedications}"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
+                              Foreground="{DynamicResource PrimaryForeground}"
                               Height="140"
                               Margin="0,0,0,12">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{DynamicResource MedicationText}" Binding="{Binding Medication.Name}" Width="*"/>
-                            <DataGridTextColumn Header="{DynamicResource DosageText}" Binding="{Binding Dosage}" Width="*"/>
+                            <DataGridTextColumn Header="{DynamicResource MedicationText}" Foreground="{DynamicResource PrimaryForeground}" Binding="{Binding Medication.Name}" Width="*"/>
+                            <DataGridTextColumn Header="{DynamicResource DosageText}" Foreground="{DynamicResource PrimaryForeground}" Binding="{Binding Dosage}" Width="*"/>
                             <DataGridTemplateColumn Width="Auto">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -187,17 +204,21 @@
 
                     <Button Content="{DynamicResource AddMedicationText}"
                             Command="{Binding AddMedicationCommand}"
-                            HorizontalAlignment="Right"/>
+                            HorizontalAlignment="Right"
+                            Background="{DynamicResource ButtonBackgroundHover}"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"/>
                 </StackPanel>
             </materialDesign:Card>
 
             <!-- Procedures -->
-            <materialDesign:Card Margin="0,0,0,20" Padding="16">
+            <materialDesign:Card Margin="0,0,0,20" Padding="16" Background="{DynamicResource Card}">
                 <StackPanel>
-                    <TextBlock Text="{DynamicResource ProceduresText}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
+                    <TextBlock Text="{DynamicResource ProceduresText}" Foreground="{DynamicResource PrimaryForeground}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,12"/>
                     <TextBox Text="{Binding ProceduresDescription, UpdateSourceTrigger=PropertyChanged}"
                              materialDesign:HintAssist.Hint="{DynamicResource ProceduresDescriptionText}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                              Foreground="{DynamicResource PrimaryForeground}" 
                              AcceptsReturn="True"
                              Height="100"
                              VerticalScrollBarVisibility="Auto"/>
@@ -208,9 +229,14 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
                 <Button Content="{DynamicResource SaveText}"
                         Command="{Binding SaveCommand}"
+                        Background="{DynamicResource ButtonBackgroundHover}"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"
                         Width="160" Height="50" FontSize="16" FontWeight="Bold"/>
                 <Button Content="{DynamicResource CancelText}"
-                        Command="{Binding CancelCommand}"
+                        Command="{Binding CancelCommand}" FontSize="16"
+                 Foreground="{DynamicResource PrimaryForeground}"
+                 BorderBrush="{DynamicResource ButtonBorderBrush}"
                         Margin="12,0,0,0"
                         Style="{StaticResource MaterialDesignFlatButton}"
                         Width="120"/>

@@ -8,6 +8,7 @@
     <SolidColorBrush x:Key="ButtonBackgroundHover" Color="#D9CFC7"/>
     <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#EFE9E3"/>
     <SolidColorBrush x:Key="PrimaryBackground" Color="#F9F8F6"/>
+    <SolidColorBrush x:Key="PrimaryLettering" Color="#1A1A1A"/>
 
     <SolidColorBrush x:Key="Card" Color="#F0F0F0"/>
     <SolidColorBrush x:Key="MedicationIcon" Color="#ff0000"/>

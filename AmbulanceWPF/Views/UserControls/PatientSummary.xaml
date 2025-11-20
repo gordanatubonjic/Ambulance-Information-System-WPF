@@ -13,7 +13,7 @@
 
         <materialDesign:Card Margin="0,0,0,0" 
             materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}"
-                    Cursor="Hand" Background="{DynamicResource Card}">
+                    Cursor="Hand" Background="{DynamicResource ButtonBackgroundPressed}">
             <materialDesign:Card.Style>
             <Style TargetType="materialDesign:Card"/>
 
@@ -38,10 +38,10 @@
                     <TextBlock Text="{Binding FullName}"
                      FontWeight="Medium" 
                      FontSize="16"
-                     Foreground="{DynamicResource PrimaryForeground}"/>
+                     Foreground="{DynamicResource PrimaryLettering}"/>
                     <TextBlock Text="{Binding JMB}" 
                      FontSize="14"
-                     Foreground="{DynamicResource PrimaryForeground}"
+                     Foreground="{DynamicResource PrimaryLettering}"
                      Margin="8,0,0,0"/>
                 </StackPanel>
 

@@ -3,32 +3,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Add Diagnosis" Height="500" Width="400"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+         Background="{DynamicResource Card}">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
 
-    <Grid Margin="20">
+    <Grid Margin="20" Background="{DynamicResource Card}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="119*"/>
+            <RowDefinition Height="249*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Header -->
         <TextBlock Grid.Row="0" Text="{DynamicResource AddDiagnosisText}" 
                    FontSize="18" FontWeight="Bold" 
-                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                   HorizontalAlignment="Center" Margin="0,0,0,20"
+        Foreground="{DynamicResource SecondaryForeground}"
+                   />
+
 
         <!-- Form -->
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Grid.RowSpan="2">
             <!-- Patient JMB -->
             <TextBox Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}"
                      materialDesign:HintAssist.Hint="{DynamicResource JMBText}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Margin="0,0,0,10"                     IsReadOnly="True"
-
+                     Foreground="{DynamicResource PrimaryForeground}"
                      Height="30"/>
 
             <!-- Disease -->
@@ -36,6 +41,9 @@
                       DisplayMemberPath="DiseaseName"
                       SelectedValuePath="DiseaseCode"
                       SelectedValue="{Binding DiseaseCode}"
+                      Foreground="{DynamicResource PrimaryForeground}"
+                      Background="{DynamicResource Card}"
+
                       materialDesign:HintAssist.Hint="{DynamicResource DiseaseText}"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       Margin="0,0,0,10"/>
@@ -45,6 +53,8 @@
                      materialDesign:HintAssist.Hint="{DynamicResource DoctorOpinionText}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      Margin="0,0,0,10"
+                     Foreground="{DynamicResource PrimaryForeground}"
+
                      AcceptsReturn="True"
                      Height="60"
                      VerticalScrollBarVisibility="Auto"
@@ -55,6 +65,7 @@
                      materialDesign:HintAssist.Hint="{DynamicResource ExaminationIDText}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           IsReadOnly="True"
+                     Foreground="{DynamicResource PrimaryForeground}"
 
                      Margin="0,0,0,10"/>
 
@@ -63,18 +74,27 @@
                      materialDesign:HintAssist.Hint="{DynamicResource DoctorJMBText}"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      IsReadOnly="True"
+                     Foreground="{DynamicResource PrimaryForeground}"
+
                      Margin="0,0,0,20"/>
         </StackPanel>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" >
             <Button Content="{DynamicResource CancelText}" 
                     Command="{Binding CancelDiagnosisCommand}"
                     Style="{StaticResource MaterialDesignOutlinedButton}"
+                    
+                    Foreground="{DynamicResource PrimaryForeground}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
                     Margin="0,0,10,0"/>
-            <Button Content="{DynamicResource SaveText}" 
+            <Button Content="{DynamicResource SubmitText}" 
+                    Background="{DynamicResource ButtonBackgroundHover}"
+                    Foreground="{DynamicResource PrimaryForeground}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
                     Command="{Binding SaveDiagnosisCommand}"
-                    Style="{StaticResource MaterialDesignRaisedButton}"/>
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    />
         </StackPanel>
     </Grid>
 </Window>

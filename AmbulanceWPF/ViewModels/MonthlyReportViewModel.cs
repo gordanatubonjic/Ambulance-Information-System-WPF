@@ -1,5 +1,6 @@
 ﻿using AmbulanceWPF.Data;
 using AmbulanceWPF.Models;
+using AmbulanceWPF.Views;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.ObjectModel;
@@ -38,16 +39,29 @@ namespace AmbulanceWPF.ViewModels
         }
 
         public ICommand LoadReportsCommand { get; }
+        public ICommand CloseReportCommand { get; }
 
         public MonthlyReportViewModel()
         {
             Reports = new ObservableCollection<MonthlyReport>();
             LoadReportsCommand = new AsyncRelayCommand(LoadReportsAsync);
+            CloseReportCommand = new RelayCommand(CloseReport);
         }
         private async void OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             await LoadReportsAsync();
         }
+        private void CloseReport()
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window is MonthlyReportView)
+                {
+                    window.Close();
+                    break;
+                }
+            }
+        } 
         private async Task LoadReportsAsync()
         {
             if (!SelectedMonth.HasValue) return;

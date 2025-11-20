@@ -8,24 +8,42 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
-    <Grid Margin="20">
-        <materialDesign:Card Padding="20" Margin="0">
+       
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="{DynamicResource Card}"
+        >
+    
+        <Grid Margin="20">
+        <materialDesign:Card Padding="20" Margin="0" Background="{DynamicResource Card}">
             <StackPanel Orientation="Vertical" Margin="0">
-                <TextBlock Text="{DynamicResource ReferalFormText}" FontSize="20" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
+                <TextBlock Text="{DynamicResource ReferalFormText}"
+                           Foreground="{DynamicResource PrimaryForeground}"
+                           FontSize="20" FontWeight="Bold" Margin="0 0 0 20" HorizontalAlignment="Center"/>
 
-                 <TextBlock Text="{DynamicResource PatientInfoText}" FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
+                 <TextBlock Text="{DynamicResource PatientInfoText}"
+                           Foreground="{DynamicResource PrimaryForeground}"
+                            FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
 
-                <TextBox IsReadOnly="True" Text="{Binding PatientFirstName, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource FirstNameText}" Margin="0 0 0 10"/>
-                <TextBox IsReadOnly="True" Text="{Binding PatientLastName, UpdateSourceTrigger=PropertyChanged}"  materialDesign:HintAssist.Hint="{DynamicResource LastNameText}" Margin="0 0 0 10"/>
-                <TextBox IsReadOnly="True" Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource JMBText}" Margin="0 0 0 10" PreviewTextInput="NumberValidationTextBox"/>
-                <TextBox IsReadOnly="True" Text="{Binding PatientDateOfBirth, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource DateOfBirthText}" Margin="0 0 0 20"/>
+                <TextBox IsReadOnly="True" Text="{Binding PatientFirstName, UpdateSourceTrigger=PropertyChanged}"  
+                          Foreground="{DynamicResource PrimaryForeground}"
+                            materialDesign:HintAssist.Hint="{DynamicResource FirstNameText}" Margin="0 0 0 10"/>
+                <TextBox IsReadOnly="True" Text="{Binding PatientLastName, UpdateSourceTrigger=PropertyChanged}"  
+                          Foreground="{DynamicResource PrimaryForeground}"
+                         materialDesign:HintAssist.Hint="{DynamicResource LastNameText}" Margin="0 0 0 10"/>
+                <TextBox IsReadOnly="True" Text="{Binding PatientJMB, UpdateSourceTrigger=PropertyChanged}"
+                          Foreground="{DynamicResource PrimaryForeground}"
+                         materialDesign:HintAssist.Hint="{DynamicResource JMBText}" Margin="0 0 0 10" PreviewTextInput="NumberValidationTextBox"/>
+                <TextBox IsReadOnly="True" Text="{Binding PatientDateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                          Foreground="{DynamicResource PrimaryForeground}"
+                         materialDesign:HintAssist.Hint="{DynamicResource DateOfBirthText}" Margin="0 0 0 20"/>
                 
-                <TextBlock Text="{DynamicResource ReferalDetailsHeaderText}" FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
+                <TextBlock Text="{DynamicResource ReferalDetailsHeaderText}" 
+                            Foreground="{DynamicResource PrimaryForeground}"
+                           FontSize="16" FontWeight="SemiBold" Margin="0 0 0 10"/>
 
                 <ComboBox SelectedValue="{Binding SpecialistsText}"
                       SelectedValuePath="Content"
+                           Foreground="{DynamicResource PrimaryForeground}"
                       materialDesign:HintAssist.Hint="{DynamicResource SpecialistsText}" 
                       Margin="0 0 0 10">
                     <ComboBoxItem Content="Cardiology"/>
@@ -35,18 +53,30 @@
                     <ComboBoxItem Content="Oncology"/>
                     <ComboBoxItem Content="Other"/>
                 </ComboBox>
-                <TextBox materialDesign:HintAssist.Hint="{DynamicResource ReferalReasonText}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="50" Margin="0, 0, 0, 5"/>
+                <TextBox materialDesign:HintAssist.Hint="{DynamicResource ReferalReasonText}" 
+                          Foreground="{DynamicResource PrimaryForeground}"
+                         AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="50" Margin="0, 0, 0, 5"/>
                 <ComboBox ItemsSource="{Binding Diseases}"
                       DisplayMemberPath="DiseaseName"
                       SelectedValuePath="DiseaseCode"
                       SelectedValue="{Binding DiseaseCode}"
                       materialDesign:HintAssist.Hint="{DynamicResource DiseaseText}"
+                           Foreground="{DynamicResource PrimaryForeground}"
                       Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                       Margin="0,0,0,10"/>
-                <TextBox Text="{Binding Doctor.JMB, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{DynamicResource ReferingDoctorText}" Margin="0 0 0 20"/>
+                <TextBox Text="{Binding Doctor.JMB, UpdateSourceTrigger=PropertyChanged}" 
+                          Foreground="{DynamicResource PrimaryForeground}"
+                         materialDesign:HintAssist.Hint="{DynamicResource ReferingDoctorText}" Margin="0 0 0 20"/>
                      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Command="{Binding SaveReferralCommand}" Content="{DynamicResource SubmitText}" Style="{StaticResource MaterialDesignRaisedButton}" Margin="0 0 10 0"/>
-                    <Button Command="{Binding CancelReferralCommand}" Content="{DynamicResource CancelText}" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+                    <Button Command="{Binding SaveReferralCommand}" Content="{DynamicResource SubmitText}"
+                             Background="{DynamicResource ButtonBackgroundHover}"
+                             Foreground="{DynamicResource PrimaryForeground}"
+                                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                            Style="{StaticResource MaterialDesignRaisedButton}" Margin="0 0 10 0"/>
+                    <Button Command="{Binding CancelReferralCommand}"
+                            Foreground="{DynamicResource PrimaryForeground}"
+                            BorderBrush="{DynamicResource ButtonBorderBrush}"
+                            Content="{DynamicResource CancelText}" Style="{StaticResource MaterialDesignOutlinedButton}"/>
                 </StackPanel>
             </StackPanel>
         </materialDesign:Card>

@@ -30,6 +30,11 @@ namespace AmbulanceWPF.Views
                     vm.LoadReportsCommand.Execute(null);
                 }
             }
+        public void CloseWindow()
+        {
+            this.DialogResult = true; // or false
+            this.Close();
         }
+    }
     
 }

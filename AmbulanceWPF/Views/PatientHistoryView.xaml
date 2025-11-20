@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="PatientHistoryView" Height="600" Width="800">
-    <Grid>
+    <Grid Background="{DynamicResource PrimaryBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="78"/>
             <RowDefinition Height="1*"/>
@@ -20,8 +20,8 @@
             Orientation="Horizontal"
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
-                <materialDesign:PackIcon Kind="Ambulance" Width="32" Height="32" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center"/>
-                <TextBlock Text="{DynamicResource AppHeaderText}" FontSize="20" FontWeight="Medium" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                <materialDesign:PackIcon Foreground="{DynamicResource PrimaryForeground}" Kind="Ambulance" Width="32" Height="32" VerticalAlignment="Center"/>
+                <TextBlock Foreground="{DynamicResource PrimaryForeground}"  Text="{DynamicResource AppHeaderText}" FontSize="20" FontWeight="Medium"  VerticalAlignment="Center" Margin="12,0,0,0"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
@@ -32,13 +32,13 @@
             <materialDesign:PackIcon Grid.Column="0" Kind="Account" Foreground="{DynamicResource MaterialDesignBody}" HorizontalAlignment="Center" Height="119" VerticalAlignment="Center" Width="160" />
             <userControls:PatientSummary Grid.Column="1" DataContext="{Binding Patient}" />
         </Grid>
-        <TabControl Grid.Row="2" Margin="16,8,16,8">
-            <TabItem Header="{DynamicResource ExaminationsText}">
+        <TabControl Grid.Row="2" Margin="16,8,16,8" Background="{DynamicResource ButtonBackgroundHover}" > 
+            <TabItem Header="{DynamicResource ExaminationsText}" Background="{DynamicResource ButtonBackgroundHover}" Foreground="{DynamicResource PrimaryForeground}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding History.Examinations}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <materialDesign:Card Margin="0,0,0,12"
+                                <materialDesign:Card Background="{DynamicResource ButtonBackgroundPressed}" Margin="0,0,0,12"
                                            materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
                                     <Grid Margin="16">
                                         <Grid.RowDefinitions>
@@ -97,12 +97,12 @@
                     </ItemsControl>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{DynamicResource ReferalsText}">
+            <TabItem Header="{DynamicResource ReferalsText}" Background="{DynamicResource ButtonBackgroundHover}" Foreground="{DynamicResource PrimaryForeground}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding History.Referrals}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <materialDesign:Card Margin="0,0,0,12"
+                                <materialDesign:Card Margin="0,0,0,12"  Background="{DynamicResource ButtonBackgroundPressed}"
                                            materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
                                     <Grid Margin="16">
                                         <Grid.RowDefinitions>
@@ -166,12 +166,12 @@
                     </ItemsControl>
                 </ScrollViewer>
             </TabItem>
-            <TabItem Header="{DynamicResource DiagnosissText}">
+            <TabItem Header="{DynamicResource DiagnosissText}" Background="{DynamicResource ButtonBackgroundHover}" Foreground="{DynamicResource PrimaryForeground}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding History.Diagnoses}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <materialDesign:Card Margin="0,0,0,12"
+                                <materialDesign:Card Margin="0,0,0,12" Background="{DynamicResource ButtonBackgroundPressed}"
                                            materialDesign:RippleAssist.Feedback="{DynamicResource MaterialDesignBody}">
                                     <Grid Margin="16">
                                         <Grid.RowDefinitions>
@@ -244,13 +244,25 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,16,0">
-            <Button Background="#14990B" Height="30" Width="180" Margin="8,0,0,0" ToolTip="Add New Examination" Command="{Binding AddExaminationCommand}">
+            <Button Background="{DynamicResource ButtonBackgroundHover}"
+                    Foreground="{DynamicResource PrimaryForeground}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    Height="30" Width="180" Margin="8,0,0,0" ToolTip="Add New Examination" Command="{Binding AddExaminationCommand}">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Stethoscope" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                    <TextBlock Text="Add Examination" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource NewExamText}" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-           
+            <Button Background="{DynamicResource ButtonBackgroundHover}"
+                    Foreground="{DynamicResource PrimaryForeground}"
+                    BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    Height="30" Width="180" Margin="8,0,0,0" ToolTip="Close" 
+                    Command="{Binding CloseRecordCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{DynamicResource CloseText}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
         </StackPanel>
     </Grid>
 </Window>
